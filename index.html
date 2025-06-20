@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Phoenix导航</title>
+    <link rel="icon" href="pic/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/darkmode.css">
+    <link rel="stylesheet" href="css/lightmode.css">
+    <link rel="stylesheet" href="css/simple-mode.css">
+    <link rel="stylesheet" href="css/preferences.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/click-animation.css">
+    <link rel="stylesheet" href="css/bing-wallpaper.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="modern-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <h1>Phoenix</h1>
+                        <span class="logo-subtitle">个性化导航</span>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <div class="search-input-wrapper">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" id="search-input" placeholder="输入关键词搜索...">
+                            <button class="search-submit">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="search-engines">
+                            <button data-engine="baidu" class="search-engine-btn active">百度</button>
+                            <button data-engine="google" class="search-engine-btn">Google</button>
+                            <button data-engine="bing" class="search-engine-btn">必应</button>
+                            <button data-engine="sogou" class="search-engine-btn">神马</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="preferences-btn" class="icon-btn" title="个性化设置">
+                        <i class="bi bi-palette-fill"></i>
+                    </button>
+                    
+                    <button id="simple-mode-toggle" class="icon-btn" title="切换简约模式">
+                        <i class="bi bi-app"></i>
+                    </button>
+                    <button id="settings-btn" class="icon-btn" title="添加新分类">
+                        <i class="bi bi-gear-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main id="bookmarks-container">
+            <!-- 分类和书签将通过JS动态生成 -->
+        </main>
+
+        <div id="add-category-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="bi bi-folder-plus"></i> 添加分类</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="category-name"><i class="bi bi-tag"></i> 分类名称</label>
+                        <input type="text" id="category-name" required placeholder="输入分类名称">
+                    </div>
+                    <button id="save-category" class="btn-primary"><i class="bi bi-check-lg"></i> 保存</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-bookmark-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="bi bi-link-45deg"></i> 添加网站</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="bookmark-name"><i class="bi bi-type"></i> 网站名称</label>
+                        <input type="text" id="bookmark-name" required placeholder="输入网站名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookmark-url"><i class="bi bi-link"></i> 网站地址</label>
+                        <input type="url" id="bookmark-url" required placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookmark-category"><i class="bi bi-folder"></i> 所属分类</label>
+                        <select id="bookmark-category"></select>
+                    </div>
+                    <button id="save-bookmark" class="btn-primary"><i class="bi bi-check-lg"></i> 保存</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个性化设置模态框 -->
+        <div id="preferences-modal" class="modal">
+            <div class="modal-content preferences-modal-content">
+                <div class="modal-header">
+                    <h3><i class="bi bi-palette"></i> 个性化设置</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="preferences-tabs">
+                        <button class="tab-btn active" data-tab="appearance">外观</button>
+                        <button class="tab-btn" data-tab="layout">布局</button>
+                        <button class="tab-btn" data-tab="background">壁纸</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="appearance-tab">
+                        <div class="form-group">
+                            <label><i class="bi bi-palette2"></i> 主题模式</label>
+                            <div class="theme-selector">
+                                <button class="theme-option" data-theme="light">
+                                    <div class="theme-preview light-preview"></div>
+                                    <span>明亮</span>
+                                </button>
+                                <button class="theme-option" data-theme="dark">
+                                    <div class="theme-preview dark-preview"></div>
+                                    <span>暗黑</span>
+                                </button>
+                                <button class="theme-option" data-theme="auto">
+                                    <div class="theme-preview auto-preview"></div>
+                                    <span>自动</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="bi bi-palette"></i> 强调色</label>
+                            <div class="color-picker-container">
+                                <input type="color" id="accent-color" value="#4a6cf7">
+                                <span class="color-value">#4a6cf7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="bi bi-card-heading"></i> 卡片样式</label>
+                            <div class="card-style-selector">
+                                <button class="card-style-option" data-style="default">
+                                    <div class="card-preview default-card"></div>
+                                    <span>默认</span>
+                                </button>
+                                <button class="card-style-option" data-style="rounded">
+                                    <div class="card-preview rounded-card"></div>
+                                    <span>圆角</span>
+                                </button>
+                                <button class="card-style-option" data-style="flat">
+                                    <div class="card-preview flat-card"></div>
+                                    <span>扁平</span>
+                                </button>
+                                <button class="card-style-option" data-style="bordered">
+                                    <div class="card-preview bordered-card"></div>
+                                    <span>边框</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="bi bi-toggles"></i> 动画效果</label>
+                            <label class="switch">
+                                <input type="checkbox" id="animation-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="layout-tab">
+                        <div class="form-group">
+                            <label><i class="bi bi-grid"></i> 布局方式</label>
+                            <div class="layout-selector">
+                                <button class="layout-option" data-layout="grid">
+                                    <div class="layout-preview grid-preview">
+                                        <div class="grid-item"></div>
+                                        <div class="grid-item"></div>
+                                        <div class="grid-item"></div>
+                                        <div class="grid-item"></div>
+                                    </div>
+                                    <span>网格</span>
+                                </button>
+                                <button class="layout-option" data-layout="list">
+                                    <div class="layout-preview list-preview">
+                                        <div class="list-item"></div>
+                                        <div class="list-item"></div>
+                                        <div class="list-item"></div>
+                                    </div>
+                                    <span>列表</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="tile-layout-group">
+                            <label><i class="bi bi-grid-3x3"></i> 每行磁贴数量</label>
+                            <div class="tile-layout-selector">
+                                <button class="tile-layout-option" data-tilelayout="2">
+                                    <div class="tile-preview">
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div></div>
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div></div>
+                                    </div>
+                                    <span>2个</span>
+                                </button>
+                                <button class="tile-layout-option" data-tilelayout="3">
+                                    <div class="tile-preview">
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                    </div>
+                                    <span>3个</span>
+                                </button>
+                                <button class="tile-layout-option" data-tilelayout="4">
+                                    <div class="tile-preview">
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                    </div>
+                                    <span>4个</span>
+                                </button>
+                                <button class="tile-layout-option" data-tilelayout="5">
+                                    <div class="tile-preview">
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
+                                    </div>
+                                    <span>5个</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>             
+                    
+                    <!-- 添加背景选项卡内容 -->
+                    <div class="tab-content" id="background-tab">
+                        <div class="form-group">
+                            <label><i class="bi bi-image"></i> 背景类型</label>
+                            <div class="bg-type-selector">
+                                <button class="bg-type-option active" data-bgtype="default">
+                                    <div class="bg-preview default-bg"></div>
+                                    <span>默认</span>
+                                </button>
+                                <button class="bg-type-option" data-bgtype="color">
+                                    <div class="bg-preview color-bg"></div>
+                                    <span>纯色</span>
+                                </button>
+                                <button class="bg-type-option" data-bgtype="image">
+                                    <div class="bg-preview image-bg"></div>
+                                    <span>图片</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-settings" id="color-bg-settings" style="display:none;">
+                            <div class="form-group">
+                                <label><i class="bi bi-palette"></i> 背景颜色</label>
+                                <div class="color-picker-container">
+                                    <input type="color" id="bg-color" value="#ffffff">
+                                    <span class="color-value">#ffffff</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-settings" id="image-bg-settings">
+                            <!-- 注意：原来的图片URL、上传和预览内容已被必应壁纸功能替代 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/storage.js"></script>
+    <script src="js/themeManager.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/ripple-effect.js"></script>
+    <script src="js/simple-mode.js"></script>
+    <script src="js/preferences-utils.js"></script>
+    <script src="js/preferences.js"></script>
+    <script src="js/bing-wallpaper.js"></script>
+    <script src="js/app.js"></script>
+    
+</body>
+</html>

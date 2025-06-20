@@ -1,0 +1,153 @@
+/* 简约模式样式 */
+.simple-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--bg-color, #ffffff);
+    transition: all 0.3s ease;
+}
+
+.simple-mode .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+/* 隐藏常规模式下的元素 */
+.simple-mode .modern-header .logo-container,
+.simple-mode .modern-header .controls,
+.simple-mode #bookmarks-container {
+    display: none;
+}
+
+/* 简约模式下的搜索框样式 */
+.simple-mode .search-container {
+    width: 100%;
+    max-width: 550px;
+    margin-bottom: 2rem;
+}
+
+.simple-mode .search-wrapper {
+    width: 100%;
+}
+
+/* 隐藏搜索框图标 */
+.simple-mode .search-icon {
+    display: none;
+}
+
+.simple-mode .search-input-wrapper {
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background-color: var(--card-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.simple-mode .search-input-wrapper:focus-within {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.simple-mode #search-input {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+}
+
+/* 调整搜索框内边距，弥补图标隐藏后的空间 */
+.simple-mode #search-input {
+    padding-left: 1.5rem;
+}
+
+.simple-mode .search-submit {
+    padding: 1rem;
+}
+
+/* 简约模式下的时钟样式 */
+.simple-mode-clock {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Noto Sans SC', sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.simple-mode-date {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 简约模式切换按钮 */
+.simple-mode-exit {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--primary-color, #4a6cf7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.simple-mode-exit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* 深色模式适配 */
+.dark-theme .simple-mode {
+    background-color: var(--bg-color, #121212);
+}
+
+.dark-theme .simple-mode-clock {
+    color: #ffffff;
+}
+
+.dark-theme .simple-mode-date {
+    color: #ffffff;
+}
+
+.dark-theme .simple-mode .search-input-wrapper {
+    background-color: var(--card-bg, #1e1e1e);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.simple-mode .search-container,
+.simple-mode-clock,
+.simple-mode-date {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.simple-mode-clock {
+    animation-delay: 0.2s;
+}
+
+.simple-mode .search-container {
+    animation-delay: 0.4s;
+} 
