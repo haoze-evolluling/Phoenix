@@ -54,6 +54,12 @@
                 performSearch();
             }
         });
+        
+        // 搜索提交按钮点击事件
+        const searchSubmitButton = document.querySelector('.search-submit');
+        if (searchSubmitButton) {
+            searchSubmitButton.addEventListener('click', performSearch);
+        }
     };
     
     // 设置当前搜索引擎
