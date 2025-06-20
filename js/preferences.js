@@ -583,6 +583,32 @@ const Preferences = (function() {
             // 应用强调色
             if (currentPreferences.accentColor) {
                 root.style.setProperty('--accent-color', currentPreferences.accentColor);
+                
+                // 将十六进制颜色转换为RGB格式并应用到--accent-rgb变量
+                const hexToRgb = (hex) => {
+                    // 移除可能的#前缀
+                    hex = hex.replace(/^#/, '');
+                    
+                    // 解析RGB值
+                    let r, g, b;
+                    if (hex.length === 3) {
+                        // 简写形式 #RGB
+                        r = parseInt(hex.charAt(0) + hex.charAt(0), 16);
+                        g = parseInt(hex.charAt(1) + hex.charAt(1), 16);
+                        b = parseInt(hex.charAt(2) + hex.charAt(2), 16);
+                    } else {
+                        // 完整形式 #RRGGBB
+                        r = parseInt(hex.substring(0, 2), 16);
+                        g = parseInt(hex.substring(2, 4), 16);
+                        b = parseInt(hex.substring(4, 6), 16);
+                    }
+                    
+                    return `${r}, ${g}, ${b}`;
+                };
+                
+                // 应用RGB值到CSS变量
+                const rgbValue = hexToRgb(currentPreferences.accentColor);
+                root.style.setProperty('--accent-rgb', rgbValue);
             }
             
             // 应用卡片样式

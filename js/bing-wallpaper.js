@@ -261,8 +261,47 @@ const BingWallpaper = (function() {
         try {
             console.log(`应用壁纸: ${selectedWallpaper.title}`);
             
-            // 方法1: 使用Preferences模块和Storage模块
-            if (typeof Storage !== 'undefined' && typeof Preferences !== 'undefined') {
+            // 生成带有时间戳的URL以强制绕过缓存
+            const timestamp = new Date().getTime();
+            const cachedUrl = selectedWallpaper.url.includes('?') 
+                ? `${selectedWallpaper.url}&_t=${timestamp}` 
+                : `${selectedWallpaper.url}?_t=${timestamp}`;
+            
+            // 先清除现有背景样式
+            document.body.style.backgroundImage = 'none';
+            document.body.classList.remove('bg-default', 'bg-color', 'bg-image');
+            
+            // 设置临时背景颜色，以便在加载过程中有一个过渡色
+            document.body.style.backgroundColor = 'rgb(57, 197, 187)';
+            
+            // 强制DOM重排/重绘
+            void document.body.offsetHeight;
+            
+            // 添加新的背景类
+            document.body.classList.add('bg-image');
+            
+            // 立即设置背景图像
+            document.body.style.backgroundImage = `url(${cachedUrl})`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundAttachment = 'fixed';
+            
+            // 使用预加载技术确保图片加载完成
+            const img = new Image();
+            img.onload = function() {
+                // 图片加载完成后，再次确认背景设置
+                document.body.style.backgroundImage = `url(${cachedUrl})`;
+                
+                // 再次触发DOM重排/重绘
+                void document.body.offsetHeight;
+                
+                console.log('壁纸图片已完全加载并应用');
+            };
+            img.src = cachedUrl;
+            
+            // 保存到Storage以便页面刷新后保持设置
+            if (typeof Storage !== 'undefined') {
                 try {
                     const currentPreferences = Storage.getPreferences();
                     if (!currentPreferences.background) {
@@ -272,46 +311,14 @@ const BingWallpaper = (function() {
                     currentPreferences.background.type = 'image';
                     currentPreferences.background.value = selectedWallpaper.url;
                     
-                    // 保存到Storage并应用
+                    // 只保存设置，不依赖Preferences.applyPreferencesToPage()
                     Storage.updatePreferences(currentPreferences);
-                    Preferences.applyPreferencesToPage();
-                    
-                    showToast('壁纸已应用', 'success');
-                    return;
-                } catch (moduleError) {
-                    console.error('使用偏好设置模块应用壁纸失败:', moduleError);
-                    // 继续尝试备选方案
+                } catch (storageError) {
+                    console.error('保存壁纸设置失败:', storageError);
                 }
             }
             
-            // 方法2: 直接使用DOM操作设置背景
-            document.body.style.backgroundColor = 'rgb(57, 197, 187)'; // 设置基础背景色
-            
-            // 创建一个新的图片对象来预加载
-            const img = new Image();
-            img.onload = function() {
-                // 图片加载完成后再设置背景图
-                document.body.style.backgroundImage = `url(${selectedWallpaper.url})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundRepeat = 'no-repeat';
-                document.body.style.backgroundAttachment = 'fixed';
-                
-                // 移除其他背景类型，添加图片背景类
-                document.body.classList.remove('bg-default', 'bg-color');
-                document.body.classList.add('bg-image');
-                
-                showToast('壁纸已应用', 'success');
-            };
-            img.onerror = function() {
-                // 图片加载失败
-                document.body.style.backgroundImage = 'none';
-                console.error('背景图片加载失败:', selectedWallpaper.url);
-                showToast('壁纸应用失败', 'error');
-            };
-            // 开始加载图片
-            img.src = selectedWallpaper.url;
-            
+            showToast('壁纸已应用', 'success');
         } catch (error) {
             console.error('应用壁纸失败:', error);
             showToast('壁纸应用失败', 'error');
