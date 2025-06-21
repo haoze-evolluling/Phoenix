@@ -4,6 +4,33 @@ const SimpleMode = (function() {
     let isSimpleMode = true;
     localStorage.setItem('simple_mode', 'true');
     
+    // 检测设备类型
+    const isDesktopDevice = function() {
+        // 获取用户代理字符串
+        const userAgent = navigator.userAgent.toLowerCase();
+        
+        // 明确检测移动设备和平板设备
+        const isIPhone = /iphone/i.test(userAgent);
+        const isIPad = /ipad/i.test(userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // 支持iPad OS 13+检测
+        const isAndroidPhone = /android.*mobile/i.test(userAgent);
+        const isAndroidTablet = /android/i.test(userAgent) && !/mobile/i.test(userAgent);
+        const isWindowsTablet = /windows/i.test(userAgent) && /touch/i.test(userAgent);
+        
+        // 如果是上述任何移动设备，返回false表示不是桌面设备
+        if (isIPhone || isIPad || isAndroidPhone || isAndroidTablet || isWindowsTablet) {
+            return false;
+        }
+        
+        // 其他常见移动设备检测
+        if (/webos|ipod|blackberry|iemobile|opera mini|mobi/i.test(userAgent)) {
+            return false;
+        }
+        
+        // 如果通过了上述所有检测，认为是桌面设备
+        return true;
+    };
+    
     // 初始化函数
     const initialize = function() {
         // 获取简约模式按钮元素
@@ -14,6 +41,11 @@ const SimpleMode = (function() {
             simpleModeBtn.addEventListener('click', toggleSimpleMode);
             // 更新按钮图标和提示
             updateButtonState(simpleModeBtn);
+            
+            // 非桌面端设备隐藏退出简约模式按钮
+            if (!isDesktopDevice()) {
+                simpleModeBtn.style.display = 'none';
+            }
         }
         
         // 检查是否应该默认启用简约模式
@@ -35,6 +67,12 @@ const SimpleMode = (function() {
     
     // 切换简约模式
     const toggleSimpleMode = function() {
+        // 如果是简约模式并且不是桌面设备，则不允许退出
+        if (isSimpleMode && !isDesktopDevice()) {
+            console.log('非桌面端不允许退出简约模式');
+            return;
+        }
+        
         if (isSimpleMode) {
             disableSimpleMode();
         } else {
@@ -53,8 +91,10 @@ const SimpleMode = (function() {
         // 开始时钟更新
         startClock();
         
-        // 添加退出按钮
-        createExitButton();
+        // 添加退出按钮（仅桌面端显示）
+        if (isDesktopDevice()) {
+            createExitButton();
+        }
         
         // 更新状态
         isSimpleMode = true;
@@ -69,6 +109,12 @@ const SimpleMode = (function() {
     
     // 禁用简约模式
     const disableSimpleMode = function() {
+        // 非桌面端不允许退出简约模式
+        if (!isDesktopDevice()) {
+            console.log('非桌面端不允许退出简约模式');
+            return;
+        }
+        
         // 移除简约模式类
         document.body.classList.remove('simple-mode');
         
