@@ -261,18 +261,6 @@ body:not(.no-animations) * {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* 响应式设计动画调整 */
-@media (max-width: 768px) {
-    .category.fade-in-animation .bookmark-item {
-        animation-delay: 0.1s !important;
-    }
-    
-    .wave {
-        background-size: 40px 40px;
-        opacity: 0.2;
-    }
-}
-
 /* 全屏模式特殊处理 */
 :-webkit-full-screen .wavy-background,
 :-moz-full-screen .wavy-background,

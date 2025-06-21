@@ -2,21 +2,6 @@
  * 云际导航主应用程序
  */
 (function() {
-    // 动态导入touch-manager模块
-    let touchManager = null;
-    
-    // 尝试导入touch-manager模块
-    const loadTouchManager = async () => {
-        try {
-            touchManager = await import('./touch-manager.js');
-            console.log('Touch manager loaded successfully');
-            return true;
-        } catch (error) {
-            console.error('Failed to load touch manager:', error);
-            return false;
-        }
-    };
-    
     // 当DOM加载完成后初始化应用
     document.addEventListener('DOMContentLoaded', async () => {
         // 设置默认启用简约模式（如果用户之前没有设置过）
@@ -136,18 +121,6 @@
                 searchInput.select();
             }
         }, 100); // 短暂延迟确保页面已完全加载
-
-        // 初始化触摸优化
-        const touchManagerLoaded = await loadTouchManager();
-        if (touchManagerLoaded && touchManager) {
-            // 初始化触摸优化
-            touchManager.initTouchOptimizations();
-            
-            // 添加设备特定类到body
-            const deviceType = touchManager.detectDeviceType();
-            document.body.classList.add(`device-${deviceType}`);
-            console.log(`设备类型: ${deviceType}, 触摸优化已启用`);
-        }
     });
     
     // 设置键盘快捷键

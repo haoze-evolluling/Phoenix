@@ -957,9 +957,9 @@ a.bookmark-name:hover {
 
 /* 针对不同设备的修复 */
 @supports (-webkit-touch-callout: none) {
-  /* iOS设备特定修复 */
+  /* 桌面端特定修复 */
   .bookmarks-list {
-    -webkit-overflow-scrolling: touch;
+    overflow: auto;
   }
 }
 
@@ -1188,105 +1188,21 @@ progress::-webkit-progress-value {
     transform: scale(0.95);
 }
 
-/* Device-specific optimizations */
-.touch-device {
-    /* General touch device optimizations */
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-touch-callout: none;
-    touch-action: manipulation;
+/* 桌面端优化 */
+@media (min-width: 1025px) {
+    #bookmarks-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
 
-.device-android {
-    /* Android-specific optimizations */
-    -webkit-overflow-scrolling: auto;
-}
-
-.device-ios {
-    /* iOS-specific optimizations */
-    -webkit-overflow-scrolling: touch;
-}
-
-.device-ipad {
-    /* iPad-specific optimizations */
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Optimize touch targets for mobile devices */
-.touch-device button,
-.touch-device a,
-.touch-device input[type="button"],
-.touch-device input[type="submit"],
-.touch-device input[type="reset"],
-.touch-device select {
-    min-height: 44px;
-    min-width: 44px;
-}
-
-/* Optimize form elements for touch */
-.touch-device input[type="text"],
-.touch-device input[type="search"],
-.touch-device input[type="email"],
-.touch-device input[type="url"],
-.touch-device input[type="tel"],
-.touch-device input[type="number"],
-.touch-device textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
-}
-
-/* Add larger hit areas for touch devices */
-.touch-device .icon-btn {
-    padding: 10px;
-}
-
-/* Pencil-specific styles for iPad */
-.pencil-active {
-    /* Special styles when Apple Pencil is being used */
-    cursor: crosshair;
-}
-
-/* Split view optimizations for iPad */
-.ipad-split-view {
-    /* Optimize layout for iPad split view */
-    max-width: 100%;
-}
-
-/* Landscape optimizations for iPad */
-.ipad-landscape .container {
-    /* Adjust layout for landscape orientation */
-    max-width: 90%;
-}
-
-/* 添加触摸反馈样式 */
-.touch-active {
-    opacity: 0.8;
-    transform: scale(0.98);
-    transition: transform 0.1s ease, opacity 0.1s ease;
-}
-
-/* 确保iPad上的磁贴正常工作 */
 .bookmark-card {
     position: relative;
     z-index: 1;
-}
-
-/* 修复iPad竖屏搜索框样式 */
-@media (max-width: 1024px) and (orientation: portrait) {
-    .device-ipad .search-container {
-        position: relative;
-        z-index: 10;
-    }
-    
-    .device-ipad .search-input-wrapper {
-        width: 100%;
-    }
-}
-
-/* 增强iPad点击区域 */
-.device-ipad a, 
-.device-ipad button, 
-.device-ipad [role="button"],
-.device-ipad .bookmark-card {
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
 } 

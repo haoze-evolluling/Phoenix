@@ -1,6 +1,6 @@
 /**
  * 点击波纹效果
- * 支持鼠标点击和触摸屏幕
+ * 支持鼠标点击
  */
 document.addEventListener('DOMContentLoaded', function() {
     // 需要添加波纹效果的元素选择器
@@ -58,11 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 清除现有的事件监听器
                 element.removeEventListener('mousedown', createRippleEffect);
-                element.removeEventListener('touchstart', handleTouchStart);
                 
                 // 重新添加事件监听器
                 element.addEventListener('mousedown', createRippleEffect);
-                element.addEventListener('touchstart', handleTouchStart, { passive: true });
                 
                 // 标记为已添加波纹效果
                 element.setAttribute('data-ripple', 'special');
@@ -99,18 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 鼠标按下事件
             element.addEventListener('mousedown', createRippleEffect);
-            
-            // 触摸开始事件
-            element.addEventListener('touchstart', handleTouchStart, { passive: true });
         });
-    }
-    
-    // 处理触摸事件
-    function handleTouchStart(e) {
-        const touch = e.touches[0];
-        e.clientX = touch.clientX;
-        e.clientY = touch.clientY;
-        createRippleEffect.call(this, e);
     }
     
     // 创建波纹效果的函数

@@ -206,12 +206,38 @@
         
         return toast;
     }
+
+    // 为选项添加点击效果
+    function addClickEffectToOptions(selector) {
+        const items = document.querySelectorAll(selector);
+        items.forEach(item => {
+            // 移除可能已存在的事件监听器
+            const newItem = item.cloneNode(true);
+            item.parentNode.replaceChild(newItem, item);
+            
+            // 添加鼠标按下效果
+            newItem.addEventListener('mousedown', function() {
+                this.classList.add('option-active');
+            });
+            
+            // 添加鼠标抬起效果
+            newItem.addEventListener('mouseup', function() {
+                this.classList.remove('option-active');
+            });
+            
+            // 鼠标离开时也移除效果
+            newItem.addEventListener('mouseleave', function() {
+                this.classList.remove('option-active');
+            });
+        });
+    }
     
     // 导出到全局
     global.PreferencesUtils = {
         applyTileTransitions,
         applyTileLayoutChange,
         injectPreferencesStyles,
-        createToast
+        createToast,
+        addClickEffectToOptions
     };
 })(window);
