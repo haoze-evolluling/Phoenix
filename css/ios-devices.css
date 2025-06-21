@@ -201,22 +201,53 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
-/* iPad竖屏模式 */
+/* iPad竖屏模式 - 修复布局问题 */
 .ipad-portrait .header-content {
     /* 竖屏模式下调整头部布局 */
     flex-direction: column;
     padding: 15px 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.ipad-portrait .logo-container {
+    margin-bottom: 10px;
 }
 
 .ipad-portrait .search-container {
     /* 竖屏模式下搜索框宽度 */
-    max-width: 80%;
+    width: 90%;
+    max-width: 500px;
     margin: 15px auto;
+    position: relative;
+    z-index: 5;
+}
+
+.ipad-portrait .search-input-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.ipad-portrait .search-engines {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .ipad-portrait .bookmarks-grid {
     /* 竖屏模式下调整网格布局 */
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+}
+
+/* 修复点击事件问题 */
+.ipad-portrait .bookmark-card {
+    touch-action: manipulation;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
 }
 
 /* iPad分屏模式 */
@@ -248,62 +279,69 @@
     height: 100px;
 }
 
-/* 支持Apple Pencil */
+/* 修复Apple Pencil活动时的样式 */
 .pencil-active .bookmark-card {
-    /* Apple Pencil激活时的特殊样式 */
-    transition: transform 0.1s ease;
+    /* 增强Apple Pencil交互时的视觉反馈 */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .pencil-active .bookmark-card:hover {
-    /* Apple Pencil悬停效果 */
-    transform: scale(1.02);
+    /* 鼠标悬停效果 */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 适配iOS暗黑模式 */
+/* 深色模式适配 */
 @media (prefers-color-scheme: dark) {
     .device-ios .search-input-wrapper,
     .device-ipad .search-input-wrapper {
-        background-color: rgba(60, 60, 60, 0.3);
+        background: rgba(60, 60, 60, 0.7);
     }
     
     .device-ios ::-webkit-scrollbar-thumb,
     .device-ipad ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(200, 200, 200, 0.3);
     }
 }
 
-/* 适配iPhone不同机型 */
+/* 小屏幕iPhone响应式调整 */
 @media screen and (max-width: 375px) {
-    /* 较小的iPhone (SE, 8等) */
+    
     .device-ios .bookmarks-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        /* 小屏幕调整网格布局 */
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 12px;
     }
     
     .device-ios .bookmark-card {
-        height: 70px;
+        /* 小屏幕调整卡片大小 */
+        height: 65px;
     }
 }
 
+/* 大屏幕iPhone响应式调整 */
 @media screen and (min-width: 414px) {
-    /* 较大的iPhone (Plus, Pro Max等) */
+    
     .device-ios .bookmarks-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        /* 大屏幕调整网格布局 */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 }
 
-/* 适配iPad不同机型 */
+/* 中型iPad响应式调整 */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-    /* 标准iPad */
+    
     .device-ipad .bookmarks-grid {
-        grid-template-columns: repeat(4, 1fr);
+        /* 中型iPad调整网格布局 */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
 }
 
+/* 大型iPad响应式调整 */
 @media screen and (min-width: 1024px) {
-    /* iPad Pro */
+    
     .device-ipad .bookmarks-grid {
-        grid-template-columns: repeat(5, 1fr);
+        /* 大型iPad调整网格布局 */
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     }
 } 

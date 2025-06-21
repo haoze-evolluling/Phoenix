@@ -1254,4 +1254,39 @@ progress::-webkit-progress-value {
 .ipad-landscape .container {
     /* Adjust layout for landscape orientation */
     max-width: 90%;
+}
+
+/* 添加触摸反馈样式 */
+.touch-active {
+    opacity: 0.8;
+    transform: scale(0.98);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* 确保iPad上的磁贴正常工作 */
+.bookmark-card {
+    position: relative;
+    z-index: 1;
+}
+
+/* 修复iPad竖屏搜索框样式 */
+@media (max-width: 1024px) and (orientation: portrait) {
+    .device-ipad .search-container {
+        position: relative;
+        z-index: 10;
+    }
+    
+    .device-ipad .search-input-wrapper {
+        width: 100%;
+    }
+}
+
+/* 增强iPad点击区域 */
+.device-ipad a, 
+.device-ipad button, 
+.device-ipad [role="button"],
+.device-ipad .bookmark-card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 } 

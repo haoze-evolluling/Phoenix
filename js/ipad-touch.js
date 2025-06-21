@@ -54,6 +54,60 @@ const initIPadTouchOptimization = () => {
             document.body.classList.remove('pencil-active');
         }
     });
+
+    // 修复磁贴点击问题
+    const fixIPadTouchInteractions = () => {
+        // 监听DOM变化，确保新添加的元素也能正确响应触控
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.addedNodes.length) {
+                    // 为新添加的可点击元素增强触控响应
+                    enhanceTouchTargets();
+                }
+            }
+        });
+
+        // 开始观察DOM变化
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        // 增强触控响应
+        function enhanceTouchTargets() {
+            const bookmarkCards = document.querySelectorAll('.bookmark-card');
+            bookmarkCards.forEach(card => {
+                // 去除原有的点击事件监听器，防止重复绑定
+                const newCard = card.cloneNode(true);
+                card.parentNode.replaceChild(newCard, card);
+                
+                // 添加触控专用事件处理
+                newCard.addEventListener('touchstart', function(e) {
+                    // 添加视觉反馈
+                    this.classList.add('touch-active');
+                    // 阻止默认行为防止iOS特殊处理导致的点击问题
+                    e.preventDefault();
+                }, {passive: false});
+                
+                newCard.addEventListener('touchend', function(e) {
+                    // 移除视觉反馈
+                    this.classList.remove('touch-active');
+                    
+                    // 获取原始点击目标的href
+                    const linkElement = this.querySelector('a');
+                    if (linkElement && linkElement.href) {
+                        // 直接触发跳转
+                        window.location.href = linkElement.href;
+                    }
+                    
+                    e.preventDefault();
+                }, {passive: false});
+            });
+        }
+
+        // 初始化触控增强
+        enhanceTouchTargets();
+    };
     
     // Optimize touch targets for iPad
     const optimizeIPadTouchTargets = () => {
@@ -138,9 +192,13 @@ const initIPadTouchOptimization = () => {
     
     // Run optimizations after DOM is fully loaded
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', optimizeIPadTouchTargets);
+        document.addEventListener('DOMContentLoaded', () => {
+            optimizeIPadTouchTargets();
+            fixIPadTouchInteractions(); // 添加修复磁贴点击函数
+        });
     } else {
         optimizeIPadTouchTargets();
+        fixIPadTouchInteractions(); // 添加修复磁贴点击函数
     }
 };
 
