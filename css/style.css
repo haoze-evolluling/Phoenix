@@ -1186,4 +1186,72 @@ progress::-webkit-progress-value {
 
 .floating-btn:active {
     transform: scale(0.95);
+}
+
+/* Device-specific optimizations */
+.touch-device {
+    /* General touch device optimizations */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+}
+
+.device-android {
+    /* Android-specific optimizations */
+    -webkit-overflow-scrolling: auto;
+}
+
+.device-ios {
+    /* iOS-specific optimizations */
+    -webkit-overflow-scrolling: touch;
+}
+
+.device-ipad {
+    /* iPad-specific optimizations */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Optimize touch targets for mobile devices */
+.touch-device button,
+.touch-device a,
+.touch-device input[type="button"],
+.touch-device input[type="submit"],
+.touch-device input[type="reset"],
+.touch-device select {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Optimize form elements for touch */
+.touch-device input[type="text"],
+.touch-device input[type="search"],
+.touch-device input[type="email"],
+.touch-device input[type="url"],
+.touch-device input[type="tel"],
+.touch-device input[type="number"],
+.touch-device textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+/* Add larger hit areas for touch devices */
+.touch-device .icon-btn {
+    padding: 10px;
+}
+
+/* Pencil-specific styles for iPad */
+.pencil-active {
+    /* Special styles when Apple Pencil is being used */
+    cursor: crosshair;
+}
+
+/* Split view optimizations for iPad */
+.ipad-split-view {
+    /* Optimize layout for iPad split view */
+    max-width: 100%;
+}
+
+/* Landscape optimizations for iPad */
+.ipad-landscape .container {
+    /* Adjust layout for landscape orientation */
+    max-width: 90%;
 } 
