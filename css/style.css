@@ -82,6 +82,22 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.25) !important;
 }
 
+/* 搜索输入框焦点样式 - 修复圆角轮廓问题 */
+#search-input:focus {
+    outline: none;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.search-input-wrapper:focus-within {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+    transform: translateY(-2px);
+    outline: 2px solid rgba(var(--accent-rgb), 0.5);
+    outline-offset: 2px;
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+}
+
 body {
     font-family: 'Noto Sans SC', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
     color: var(--text-color);
@@ -188,8 +204,7 @@ body {
     transition: all var(--transition-speed) ease;
 }
 
-.search-input-wrapper:hover,
-.search-input-wrapper:focus-within {
+.search-input-wrapper:hover {
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
     transform: translateY(-2px);
@@ -985,9 +1000,7 @@ a.bookmark-name:hover {
     vertical-align: middle;
 }
 
-.search-input-wrapper:focus-within {
-    border: 1px solid rgba(var(--accent-rgb), 0.3);
-}
+
 
 /* 添加加载动画效果 */
 @keyframes pulse {
