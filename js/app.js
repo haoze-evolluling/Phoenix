@@ -61,43 +61,7 @@
             console.error('找不到Preferences模块');
         }
         
-        // 初始化必应壁纸功能
-        if (typeof BingWallpaper !== 'undefined') {
-            try {
-                setTimeout(() => {
-                    // 检查相关依赖模块
-                    const storageReady = typeof Storage !== 'undefined';
-                    const preferencesReady = typeof Preferences !== 'undefined';
-                    
-                    if (!storageReady || !preferencesReady) {
-                        console.warn('必应壁纸依赖模块未就绪，可能影响功能:', 
-                            (!storageReady ? 'Storage模块缺失 ' : '') + 
-                            (!preferencesReady ? 'Preferences模块缺失' : ''));
-                    }
-                    
-                    // 检查DOM元素是否已准备好
-                    if (document.getElementById('image-bg-settings')) {
-                        console.log('开始初始化必应壁纸功能');
-                        BingWallpaper.initialize();
-                    } else {
-                        console.warn('必应壁纸初始化延迟：等待DOM元素');
-                        // 再次延迟尝试
-                        setTimeout(() => {
-                            if (document.getElementById('image-bg-settings')) {
-                                console.log('再次尝试初始化必应壁纸功能');
-                                BingWallpaper.initialize();
-                            } else {
-                                console.error('必应壁纸初始化失败：无法找到必要DOM元素');
-                            }
-                        }, 1000);
-                    }
-                }, 800); // 延长延迟时间，确保其他模块已完全加载
-            } catch (error) {
-                console.error('初始化必应壁纸功能失败:', error);
-            }
-        } else {
-            console.error('找不到BingWallpaper模块');
-        }
+
 
         // 设置键盘快捷键
         setupKeyboardShortcuts();

@@ -16,7 +16,7 @@ Phoenix是一个现代化的前端导航页面网站，使用纯HTML、CSS和Jav
 - **动画效果**：可开启/关闭界面动画
 - **布局选择**：支持网格和列表两种布局方式
 - **磁贴数量**：可自定义每行显示的书签磁贴数量（2-5个）
-- **背景设置**：支持默认背景、纯色背景和必应壁纸
+- **背景设置**：支持默认背景和纯色背景
 
 ## 4. 用户体验优化
 - **点击动画**：页面元素点击时有水波纹动画效果
@@ -42,7 +42,7 @@ Phoenix是一个现代化的前端导航页面网站，使用纯HTML、CSS和Jav
 - **preferences.js**：处理个性化设置功能
 - **simple-mode.js**：实现简约模式功能
 - **storage.js**：处理本地数据存储
-- **bing-wallpaper.js**：提供必应每日壁纸功能
+
 - **animations.js**：管理界面动画效果
 - **ripple-effect.js**：实现水波纹点击效果
 - **preferences-utils.js**：提供偏好设置相关工具函数
@@ -57,12 +57,10 @@ Phoenix/
 │   ├── lightmode.css      # 浅色主题
 │   ├── preferences.css    # 偏好设置样式
 │   ├── simple-mode.css    # 简约模式样式
-│   ├── style.css          # 基础样式
-│   └── bing-wallpaper.css # 必应壁纸样式
+│   └── style.css          # 基础样式
 ├── js/             # JavaScript文件
 │   ├── animations.js       # 动画逻辑
 │   ├── app.js             # 主应用入口
-│   ├── bing-wallpaper.js  # 必应壁纸功能
 │   ├── preferences.js     # 偏好设置功能
 │   ├── preferences-utils.js # 偏好设置工具函数
 │   ├── ripple-effect.js   # 水波纹效果

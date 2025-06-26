@@ -458,7 +458,27 @@ const Preferences = (function() {
                 if (!currentPreferences.background) {
                     currentPreferences.background = {};
                 }
+                
                 currentPreferences.background.type = bgType;
+                previewChanges();
+                
+                // 背景颜色选择器
+                if (bgColorPicker && bgColorValue) {
+                    bgColorPicker.addEventListener('input', () => {
+                        const color = bgColorPicker.value;
+                        bgColorValue.textContent = color;
+                        
+                        if (!currentPreferences.background) {
+                            currentPreferences.background = {};
+                        }
+                        currentPreferences.background.type = 'color';
+                        currentPreferences.background.value = color;
+                        
+                        previewChanges();
+                    });
+                }
+                
+
                 
                 // 应用预览
                 previewChanges();
@@ -678,28 +698,19 @@ const Preferences = (function() {
                         break;
                         
                     case 'image':
-                        if (bgValue) {
-                            // 先设置背景颜色为初音未来的蓝色，避免闪现默认图片
-                            document.body.style.backgroundColor = 'rgb(57, 197, 187)';
-                            // 创建一个新的图片对象来预加载
-                            const img = new Image();
-                            img.onload = function() {
-                                // 图片加载完成后再设置背景图
-                                document.body.style.backgroundImage = `url(${bgValue})`;
-                                document.body.style.backgroundSize = 'cover';
-                                document.body.style.backgroundPosition = 'center';
-                                document.body.style.backgroundRepeat = 'no-repeat';
-                                document.body.style.backgroundAttachment = 'fixed';
-                            };
-                            img.onerror = function() {
-                                // 图片加载失败时保持初音未来的蓝色背景
-                                document.body.style.backgroundImage = 'none';
-                                console.error('背景图片加载失败:', bgValue);
-                            };
-                            // 开始加载图片
-                            img.src = bgValue;
-                            // 清除之前的背景图，避免闪现
-                            document.body.style.backgroundImage = 'none';
+                        // 图片URL功能已移除，使用默认背景
+                        document.body.style.background = '';
+                        document.body.style.backgroundColor = 'rgb(57, 197, 187)'; // 初音未来的蓝色
+                        document.body.style.backgroundImage = `url(pic/sky01.png)`;
+                        document.body.style.backgroundSize = 'cover';
+                        document.body.style.backgroundPosition = 'center';
+                        document.body.style.backgroundRepeat = 'no-repeat';
+                        document.body.style.backgroundAttachment = 'fixed';
+                        
+                        // 更新当前配置为默认背景
+                        if (currentPreferences.background) {
+                            currentPreferences.background.type = 'default';
+                            delete currentPreferences.background.value;
                         }
                         break;
                 }
