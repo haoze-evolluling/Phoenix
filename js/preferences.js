@@ -409,33 +409,16 @@ const Preferences = (function() {
                 option.classList.add('active');
                 currentPreferences.tileLayout = tileLayout;
                 
-                // 立即应用新的磁贴布局并添加过渡效果
-                const bookmarksContainer = document.getElementById('bookmarks-container');
-                if (bookmarksContainer && document.body.classList.contains('layout-grid')) {
-                    let columns;
-                    // 根据不同的屏幕尺寸设置不同的列数
-                    if (window.innerWidth >= 1025) {
-                        columns = tileLayout;
-                    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                        columns = Math.min(2, tileLayout);
-                    } else {
-                        columns = 1;
+                // 使用TileManager应用新的磁贴布局（如果可用）
+                if (window.TileManager && typeof window.TileManager.applyTileLayout === 'function') {
+                    window.TileManager.applyTileLayout();
+                } else {
+                    // 降级处理，直接应用布局
+                    document.documentElement.style.setProperty('--tiles-per-row', tileLayout);
+                    const bookmarksContainer = document.getElementById('bookmarks-container');
+                    if (bookmarksContainer && document.body.classList.contains('layout-grid')) {
+                        bookmarksContainer.style.gridTemplateColumns = `repeat(${tileLayout}, 1fr)`;
                     }
-                    
-                    // 先让所有磁贴有一个明显的变化
-                    const bookmarkItems = bookmarksContainer.querySelectorAll('.bookmark-item');
-                    bookmarkItems.forEach(item => {
-                        item.style.opacity = '0.8';
-                        item.style.transform = 'scale(0.95)';
-                    });
-                    
-                    // 强制重绘
-                    void bookmarksContainer.offsetWidth;
-                    
-                    // 应用布局变化动画
-                    setTimeout(() => {
-                        applyTileLayoutChange(bookmarksContainer, columns);
-                    }, 50);
                 }
                 
                 previewChanges();
@@ -665,22 +648,12 @@ const Preferences = (function() {
             
             // 应用磁贴布局设置
             if (currentPreferences.tileLayout) {
-                document.documentElement.style.setProperty('--tiles-per-row', currentPreferences.tileLayout);
-                const bookmarksContainer = document.getElementById('bookmarks-container');
-                if (bookmarksContainer && document.body.classList.contains('layout-grid')) {
-                    // 使用工具模块的动画函数
-                    if (window.PreferencesUtils) {
-                        PreferencesUtils.applyTileTransitions(bookmarksContainer);
-                        let columns;
-                        if (window.innerWidth >= 1025) {
-                            columns = currentPreferences.tileLayout;
-                        } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                            columns = Math.min(2, currentPreferences.tileLayout);
-                        } else {
-                            columns = 1;
-                        }
-                        PreferencesUtils.applyTileLayoutChange(bookmarksContainer, columns);
-                    }
+                // 使用TileManager来管理磁贴布局（如果可用）
+                if (window.TileManager && typeof window.TileManager.applyTileLayout === 'function') {
+                    window.TileManager.applyTileLayout();
+                } else {
+                    // 降级处理，直接设置CSS变量
+                    document.documentElement.style.setProperty('--tiles-per-row', currentPreferences.tileLayout);
                 }
             }
             
@@ -740,6 +713,8 @@ const Preferences = (function() {
         updateThemeState,
         applyPreferencesToUI: applyPreferencesToUI,
         applyPreferencesToPage: applyPreferencesToPage,
-        previewChanges: previewChanges
+        previewChanges: previewChanges,
+        getCurrentPreferences: function() { return currentPreferences; },
+        savePreferences: savePreferences
     };
 })();

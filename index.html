@@ -206,6 +206,13 @@
                         <div class="form-group" id="tile-layout-group">
                             <label><i class="bi bi-grid-3x3"></i> 每行磁贴数量</label>
                             <div class="tile-layout-selector">
+                                <button class="tile-layout-option" data-tilelayout="1">
+                                    <div class="tile-preview">
+                                        <div class="tile-row"><div class="tile-item"></div></div>
+                                        <div class="tile-row"><div class="tile-item"></div></div>
+                                    </div>
+                                    <span>1个</span>
+                                </button>
                                 <button class="tile-layout-option" data-tilelayout="2">
                                     <div class="tile-preview">
                                         <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div></div>
@@ -213,38 +220,12 @@
                                     </div>
                                     <span>2个</span>
                                 </button>
-                                <button class="tile-layout-option" data-tilelayout="3">
-                                    <div class="tile-preview">
-                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
-                                        <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
-                                    </div>
-                                    <span>3个</span>
-                                </button>
                                 <button class="tile-layout-option" data-tilelayout="4">
                                     <div class="tile-preview">
                                         <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
                                         <div class="tile-row"><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div><div class="tile-item"></div></div>
                                     </div>
                                     <span>4个</span>
-                                </button>
-                                <button class="tile-layout-option" data-tilelayout="5">
-                                    <div class="tile-preview">
-                                        <div class="tile-row">
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                        </div>
-                        <div class="tile-row">
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                            <div class="tile-item"></div>
-                        </div>
-                                    </div>
-                                    <span>5个</span>
                                 </button>
                             </div>
                         </div>
@@ -297,6 +278,7 @@
     <script src="js/simple-mode.js"></script>
     <!-- 设置功能 -->
     <script src="js/preferences-utils.js"></script>
+    <script src="js/tileManager.js"></script>
     <script src="js/preferences.js"></script>
     <!-- 主应用入口 -->
     <script src="js/app.js"></script>

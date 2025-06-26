@@ -18,7 +18,7 @@ const Storage = (function() {
         cardStyle: 'default',          // 卡片样式: 'default', 'rounded', 'flat', 'bordered'
         animation: true,               // 是否启用动画
         layout: 'grid',                // 布局方式: 'grid' 或 'list'
-        tileLayout: '4',               // 每行磁贴数量 (作为字符串，与data-tilelayout保持一致)
+        tileLayout: '4',               // 每行磁贴数量 (由TileManager自动根据设备类型设置)
         blur: 0                        // 背景模糊值(px)
     };
     

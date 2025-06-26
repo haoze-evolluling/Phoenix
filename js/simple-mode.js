@@ -48,10 +48,8 @@ const SimpleMode = (function() {
         // 开始时钟更新
         startClock();
         
-        // 添加退出按钮（仅桌面端显示）
-        if (isDesktopDevice()) {
-            createExitButton();
-        }
+        // 添加退出按钮（所有设备都显示）
+        createExitButton();
         
         // 更新状态
         isSimpleMode = true;
@@ -64,6 +62,35 @@ const SimpleMode = (function() {
         }
     };
     
+    // 禁用简约模式
+    const disableSimpleMode = function() {
+        // 移除简约模式类
+        document.body.classList.remove('simple-mode');
+        
+        // 移除时钟元素
+        removeClockElements();
+        
+        // 移除退出按钮
+        removeExitButton();
+        
+        // 更新状态
+        isSimpleMode = false;
+        localStorage.setItem('simple_mode', 'false');
+        
+        // 更新按钮状态
+        const simpleModeBtn = document.getElementById('simple-mode-toggle');
+        if (simpleModeBtn) {
+            updateButtonState(simpleModeBtn);
+        }
+    };
+    
+    // 检测是否为桌面设备
+    const isDesktopDevice = function() {
+        // 检查是否为移动设备
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // 返回非移动设备（即桌面设备）
+        return !isMobile;
+    };
     
     // 创建时钟元素
     const createClockElements = function() {
