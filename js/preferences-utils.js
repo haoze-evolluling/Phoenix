@@ -1,6 +1,10 @@
 // 动画和工具函数模块
 (function(global) {
-    // 应用磁贴过渡效果
+    /**
+ * 应用磁贴过渡动画效果
+ * @param {HTMLElement} container - 书签容器元素
+ * 为书签项应用平滑的过渡动画和触摸反馈
+ */
     function applyTileTransitions(container) {
         if (!container) return;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,7 +29,12 @@
         });
     }
 
-    // 应用磁贴布局变化动画
+    /**
+ * 应用磁贴布局变化动画
+ * @param {HTMLElement} container - 书签容器元素
+ * @param {number} newLayout - 新的布局列数
+ * 根据新布局重新排列书签项并应用平滑过渡动画
+ */动画
     function applyTileLayoutChange(container, newLayout) {
         if (!container) return;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -99,7 +108,11 @@
         }
     }
 
-    // 注入动画相关样式
+    /**
+ * 注入偏好设置相关样式
+ * 动态创建并注入CSS样式到文档头部
+ * 包含动画过渡、悬停效果和Toast提示样式
+ */
     function injectPreferencesStyles() {
         if (document.getElementById('preferences-utils-style')) return;
         const styleElement = document.createElement('style');

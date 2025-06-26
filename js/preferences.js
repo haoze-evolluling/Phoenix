@@ -9,7 +9,12 @@ const Preferences = (function() {
     const tabContents = document.querySelectorAll('.tab-content');
     const closeModalBtn = preferencesModal ? preferencesModal.querySelector('.close-modal') : null;
     
-    // 打开模态框函数
+    /**
+ * 打开偏好设置模态框
+ * @param {HTMLElement} modal - 要打开的模态框元素
+ * 显示模态框并添加淡入动画效果
+ * 设置body的modal-open类防止背景滚动
+ */
     const openModal = (modal) => {
         if (!modal) return;
         modal.style.display = 'flex';
@@ -19,7 +24,12 @@ const Preferences = (function() {
         }, 10);
     };
     
-    // 关闭模态框函数
+    /**
+ * 关闭偏好设置模态框
+ * @param {HTMLElement} modal - 要关闭的模态框元素
+ * 隐藏模态框并移除body的modal-open类
+ * 等待过渡动画完成后完全隐藏模态框
+ */
     const closeModal = (modal) => {
         if (!modal) return;
         modal.classList.remove('active');
@@ -42,7 +52,12 @@ const Preferences = (function() {
         };
     };
     
-    // 保存设置函数
+    /**
+ * 保存用户偏好设置
+ * 将当前设置保存到本地存储
+ * 同步更新ThemeManager和页面样式
+ * 显示保存成功的Toast提示
+ */
     const savePreferences = () => {
         try {
             // 保存当前设置到Storage

@@ -1,6 +1,10 @@
 /**
  * 云际导航主应用程序
  */
+/**
+ * 云际导航主应用入口
+ * 负责协调各模块初始化和应用生命周期管理
+ */
 (function() {
     // 当DOM加载完成后初始化应用
     document.addEventListener('DOMContentLoaded', async () => {
@@ -9,7 +13,9 @@
             localStorage.setItem('simple_mode', 'true');
         }
         
-        // 初始化主题管理器(优先初始化)
+        // 初始化主题管理器
+        // 负责应用的深色/浅色主题切换和颜色管理
+        // 提供主题切换和主题状态查询功能
         if (typeof ThemeManager !== 'undefined') {
             try {
                 ThemeManager.initialize();
@@ -29,6 +35,8 @@
         }
         
         // 初始化简约模式（优先于其他功能）
+        // 负责切换应用的简约视图和标准视图
+        // 根据用户设置决定是否启用简约界面
         if (typeof SimpleMode !== 'undefined') {
             try {
                 SimpleMode.initialize();
@@ -63,7 +71,16 @@
         
 
 
-        // 设置键盘快捷键
+        /**
+ * 设置应用程序键盘快捷键
+ * 支持以下快捷键组合:
+ * - Alt+S: 打开设置面板
+ * - Alt+P: 打开个性化设置
+ * - Alt+/ : 聚焦搜索框
+ * - Alt+D: 切换深色模式
+ * - Alt+M: 切换简约模式
+ * - Esc: 关闭当前模态框
+ */
         setupKeyboardShortcuts();
         
         // 初始化图标处理
@@ -134,4 +151,4 @@
             }
         });
     };
-})(); 
+})();

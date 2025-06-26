@@ -71,7 +71,9 @@ function isFullscreenMode() {
 }
 
 /**
- * 处理全屏模式变化
+ * 处理全屏模式变化事件
+ * 当进入全屏模式时移除波浪背景并确保书签可见
+ * 退出全屏模式时若动画启用则重新初始化波浪背景
  */
 function handleFullscreenChange() {
     if (isFullscreenMode()) {
@@ -110,7 +112,9 @@ function showAllBookmarks() {
 }
 
 /**
- * 初始化悬停效果
+ * 初始化元素悬停动画效果
+ * 为书签卡片添加悬停时的位移和阴影变化
+ * 为按钮添加脉冲动画效果
  */
 function initializeHoverEffects() {
     // 为书签卡片添加悬停效果
@@ -141,7 +145,9 @@ function initializeHoverEffects() {
 }
 
 /**
- * 初始化滚动动画
+ * 初始化滚动时的渐入动画
+ * 使用Intersection Observer检测分类元素进入视口
+ * 为进入视口的分类添加渐入动画
  */
 function initializeScrollAnimations() {
     // 为类别容器添加渐入效果
@@ -223,7 +229,9 @@ function initializeFloatingElements() {
 }
 
 /**
- * 初始化波浪背景效果
+ * 初始化波浪背景动画效果
+ * 创建多个重叠波浪元素并应用动画效果
+ * 根据当前主题调整波浪颜色和透明度
  */
 function initializeWavyBackground() {
     // 检查是否已存在波浪背景，如果存在则先移除
@@ -259,7 +267,9 @@ function initializeWavyBackground() {
 }
 
 /**
- * 动画波浪背景
+ * 动画波浪背景效果
+ * 为波浪元素应用动画效果
+ * 设置随机的动画持续时间和延迟以创建自然波动效果
  */
 function animateWaves() {
     const waves = document.querySelectorAll('.wave');
@@ -274,7 +284,9 @@ function animateWaves() {
 }
 
 /**
- * 启用所有动画
+ * 启用所有动画效果
+ * 移除禁止动画的CSS类并重新初始化所有动画
+ * 适用于用户启用动画设置时
  */
 function enableAnimations() {
     document.body.classList.remove('no-animations');
@@ -282,7 +294,9 @@ function enableAnimations() {
 }
 
 /**
- * 禁用所有动画
+ * 禁用所有动画效果
+ * 添加禁止动画的CSS类并移除波浪背景
+ * 重置所有元素的动画状态
  */
 function disableAnimations() {
     document.body.classList.add('no-animations');
@@ -302,6 +316,8 @@ function disableAnimations() {
 
 /**
  * 重置所有动画状态
+ * 清除元素的变换效果和阴影
+ * 移除所有动画相关的CSS类
  */
 function resetAnimationStates() {
     // 重置书签卡片样式
@@ -362,4 +378,4 @@ function adjustAnimationsForTheme(theme) {
             path.setAttribute('fill', '#000000');
         });
     }
-} 
+}
