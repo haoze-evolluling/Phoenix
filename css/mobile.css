@@ -1,0 +1,299 @@
+/* 移动端样式优化 
+ * 该文件基于style.css调整，专为移动设备优化
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+}
+
+:root {
+    --primary-color: #4285f4;
+    --primary-hover: #3b78e7;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --text-muted: #999999;
+    --bg-translucent: rgba(255, 255, 255, 0.7);
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-accent: rgba(66, 133, 244, 0.3);
+    --transition-fast: 0.3s ease;
+    --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --border-radius-lg: 20px; /* 移动端略小的圆角 */
+    --border-radius-md: 16px;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* 解决移动端高度问题 */
+    background-image: url('../background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    /* 优化触摸体验 */
+    touch-action: manipulation;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)); /* 稍微强化移动端上的渐变 */
+    pointer-events: none;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 16px; /* 移动端增加边距 */
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%; /* 移动端占满宽度 */
+    padding: 0 15px;
+    transform: translateY(-15%); /* 移动端位置调整 */
+}
+
+/* 信息展示层（顶部） */
+.info-section {
+    position: relative;
+    text-align: center;
+    user-select: none;
+    z-index: 10;
+    margin-bottom: 30px; /* 减小移动端上的间距 */
+}
+
+.date {
+    color: var(--text-light);
+    font-weight: 300;
+    font-size: 1rem; /* 移动端字体调小 */
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.5px; /* 减小字间距 */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.time {
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 2.6rem; /* 移动端更小的字体 */
+    letter-spacing: 1px; /* 减小字间距 */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 交互层（中央搜索区） */
+.search-section {
+    width: 100%;
+    max-width: 100%; /* 移动端占满宽度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.search-box {
+    width: 100%;
+    height: 50px; /* 移动端更小的搜索框 */
+    background-color: var(--bg-translucent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-box input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0 16px;
+    font-size: 1rem; /* 移动端更小的字体 */
+    color: var(--text-dark);
+    caret-color: var(--primary-color);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+    font-size: 0.95rem; /* 移动端更小的提示文字 */
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.search-btn {
+    width: 38px; /* 移动端更小的按钮 */
+    height: 38px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all var(--transition-bounce);
+    box-shadow: 0 2px 5px var(--shadow-accent);
+    will-change: transform, background-color, box-shadow;
+}
+
+.search-btn svg {
+    width: 18px; /* 移动端更小的图标 */
+    height: 18px;
+    color: white;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.search-btn:active {
+    transform: scale(0.95); /* 移动端使用active而非hover */
+    background-color: var(--primary-hover);
+}
+
+/* 搜索引擎切换栏 */
+.search-engines {
+    display: flex;
+    gap: 8px; /* 移动端更小的间距 */
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 4px; /* 移动端增加一点顶部间距 */
+}
+
+.engine-btn {
+    padding: 7px 15px; /* 移动端更小的按钮 */
+    border-radius: var(--border-radius-md);
+    border: none;
+    background-color: var(--text-light);
+    color: var(--text-dark);
+    font-size: 0.85rem; /* 移动端更小的字体 */
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 4px var(--shadow-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* 增强可点击区域 */
+    min-height: 36px;
+    min-width: 60px;
+}
+
+.engine-btn.active {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.engine-btn:active:not(.active) {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px); /* 移动端更小的位移效果 */
+}
+
+/* 移动端专属：底部安全区域（适配全面屏） */
+.safe-area-bottom {
+    height: env(safe-area-inset-bottom, 0);
+    width: 100%;
+}
+
+/* 暗黑模式支持 */
+@media (prefers-color-scheme: dark) {
+    .search-box {
+        background-color: rgba(30, 30, 30, 0.7);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .search-box input {
+        color: var(--text-light);
+    }
+    
+    .search-box input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .engine-btn:not(.active) {
+        background-color: rgba(50, 50, 50, 0.9);
+        color: var(--text-light);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* 针对不同移动设备尺寸的优化 */
+/* 超小屏幕设备（iPhone SE等） */
+@media (max-width: 360px) {
+    .time {
+        font-size: 2.2rem;
+    }
+    
+    .date {
+        font-size: 0.9rem;
+    }
+    
+    .engine-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        min-width: 55px;
+    }
+    
+    .search-box {
+        height: 45px;
+    }
+}
+
+/* 横屏模式优化 */
+@media (orientation: landscape) and (max-height: 450px) {
+    .content-wrapper {
+        transform: translateY(-5%);
+    }
+    
+    .time {
+        font-size: 2rem;
+    }
+    
+    .date {
+        font-size: 0.85rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .info-section {
+        margin-bottom: 15px;
+    }
+    
+    .search-section {
+        padding: 0 5px;
+    }
+}
+
+/* 适配iPhone刘海屏 */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .container {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+} 
