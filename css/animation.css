@@ -1,0 +1,167 @@
+/* 淡入动画 */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 上浮动画 */
+@keyframes floatUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 缩放动画 */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 呼吸灯效果 */
+@keyframes breathe {
+    0% {
+        box-shadow: 0 0 10px rgba(66, 133, 244, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(66, 133, 244, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(66, 133, 244, 0.2);
+    }
+}
+
+/* 轻微浮动效果 */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 应用动画到元素 - 加速动画效果 */
+.info-section {
+    animation: floatUp 0.6s ease-out forwards;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.date {
+    animation: fadeIn 0.7s ease-out 0.1s forwards;
+    opacity: 0;
+    will-change: opacity;
+}
+
+.time {
+    animation: fadeIn 0.7s ease-out 0.2s forwards;
+    opacity: 0;
+    will-change: opacity;
+}
+
+/* 交互层动画 */
+.search-section {
+    animation: floatUp 0.6s ease-out 0.3s forwards;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.search-box {
+    animation: fadeIn 0.7s ease-out 0.4s forwards;
+    opacity: 0;
+    will-change: opacity;
+}
+
+.search-box.focused {
+    box-shadow: 0 5px 25px rgba(66, 133, 244, 0.3);
+}
+
+.search-engines {
+    animation: fadeIn 0.7s ease-out 0.5s forwards;
+    opacity: 0;
+    will-change: opacity;
+}
+
+/* 搜索框消失动画 */
+.search-box.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-engines.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 搜索按钮悬停效果 */
+.search-btn {
+    /* 移除transition属性，已在style.css中定义 */
+}
+
+.search-btn:hover {
+    /* 移除box-shadow属性，已在style.css中定义 */
+}
+
+/* 搜索按钮点击效果 */
+.search-btn-active {
+    transform: scale(0.85) !important; /* 点击时缩小 */
+    background-color: var(--primary-hover) !important;
+    box-shadow: 0 0 8px rgba(66, 133, 244, 0.3) !important;
+}
+
+/* 搜索引擎按钮切换动画 */
+.engine-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.engine-btn.active {
+    background-color: #4285f4;
+    color: white;
+    box-shadow: 0 3px 10px rgba(66, 133, 244, 0.3);
+}
+
+.engine-btn:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 容器轻微浮动效果 */
+.container {
+    animation: none;
+} 
