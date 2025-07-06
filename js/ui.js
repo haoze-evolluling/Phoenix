@@ -26,15 +26,17 @@ function initUI() {
         }
     });
 
-    // 初始时，如果搜索框有焦点，添加模糊效果
-    if (document.activeElement === searchInput) {
-        body.classList.add('blur');
-    }
-
-    // 页面加载动画效果
-    body.style.opacity = '0';
+    // 初始时，页面加载完成后平滑显示
     setTimeout(() => {
+        // 先显示页面内容
         body.style.opacity = '1';
         body.style.transition = 'opacity 0.8s ease';
+        
+        // 短暂延迟后，如果搜索框有焦点，添加模糊效果（确保有过渡动画）
+        setTimeout(() => {
+            if (document.activeElement === searchInput) {
+                body.classList.add('blur');
+            }
+        }, 200); // 200ms的延迟确保页面先显示再应用模糊效果
     }, 100);
 } 

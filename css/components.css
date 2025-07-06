@@ -75,6 +75,7 @@
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
     opacity: 0.7;
+    position: relative;
 }
 
 .engine img {
@@ -91,6 +92,22 @@
 .engine.active {
     opacity: 1;
     transform: scale(1.15);
+    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.6);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+/* 搜索引擎选中光效动画 */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(30, 144, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(30, 144, 255, 0);
+    }
 }
 
 /* 底部信息样式 */

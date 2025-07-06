@@ -2,14 +2,14 @@
  * Phoenix 主页 - 主JavaScript文件
  */
 
-// 页面加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-    // 初始化时钟
+// 确保页面完全加载后再执行所有初始化
+window.addEventListener('load', function() {
+    // 先初始化UI效果
+    initUI();
+    
+    // 再初始化时钟
     initClock();
     
-    // 初始化搜索功能
+    // 最后初始化搜索功能（这会自动聚焦搜索框）
     initSearch();
-    
-    // 初始化UI效果
-    initUI();
 }); 

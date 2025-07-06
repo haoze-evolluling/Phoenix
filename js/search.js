@@ -6,20 +6,27 @@
 const searchEngines = {
     google: {
         url: 'https://www.google.com/search?q=',
-        name: '谷歌'
+        name: 'Google'
     },
     bing: {
         url: 'https://www.bing.com/search?q=',
-        name: '必应'
+        name: 'Bing'
     },
     baidu: {
         url: 'https://www.baidu.com/s?wd=',
-        name: '百度'
+        name: 'Baidu'
     }
 };
 
 // 当前选中的搜索引擎
 let currentEngine = localStorage.getItem('preferredSearchEngine') || 'google';
+
+// 更新搜索框提示文字
+function updateSearchPlaceholder() {
+    const searchInput = document.getElementById('search-input');
+    const engineName = searchEngines[currentEngine].name;
+    searchInput.placeholder = `${engineName} 搜索`;
+}
 
 // 初始化搜索引擎选择器
 function initSearchEngines() {
@@ -27,6 +34,9 @@ function initSearchEngines() {
     
     // 初始化默认引擎
     document.querySelector(`[data-engine="${currentEngine}"]`).classList.add('active');
+    
+    // 更新搜索框提示文字
+    updateSearchPlaceholder();
     
     // 为每个搜索引擎图标添加点击事件
     engines.forEach(engine => {
@@ -40,6 +50,9 @@ function initSearchEngines() {
             // 更新当前引擎并保存到本地存储
             currentEngine = this.getAttribute('data-engine');
             localStorage.setItem('preferredSearchEngine', currentEngine);
+            
+            // 更新搜索框提示文字
+            updateSearchPlaceholder();
         });
     });
 }
