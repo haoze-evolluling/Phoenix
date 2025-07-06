@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix - 简约搜索主页</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 数字时钟 -->
+        <div class="clock" id="clock"></div>
+        
+        <!-- 中心搜索框 -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索..." autofocus>
+                <button id="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 搜索引擎选择菜单 -->
+            <div class="search-engines">
+                <div class="engine" data-engine="google">
+                    <img src="search_engine_icon/google_icon-icons.com_62736.png" alt="Google">
+                </div>
+                <div class="engine" data-engine="bing">
+                    <img src="search_engine_icon/bing_icon-icons.com_62711.png" alt="Bing">
+                </div>
+                <div class="engine" data-engine="baidu">
+                    <img src="search_engine_icon/baidu_icon_130983.png" alt="Baidu">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部信息 -->
+    <footer>
+        <p class="quote">「 须知少时凌云志，曾许人间第一流 」</p>
+    </footer>
+
+    <!-- 传统的JS文件引入方式 -->
+    <script src="js/clock.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
