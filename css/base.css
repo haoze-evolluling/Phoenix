@@ -33,11 +33,22 @@ body::before {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(0px); /* 默认不模糊 */
     z-index: -1;
-    transition: backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 添加过渡准备状态 */
+body.transition-ready::before {
+    /* 只是准备过渡效果，不改变视觉外观 */
+    will-change: backdrop-filter;
+}
+
+/* 添加非常轻微的初始模糊作为中间状态 */
+body.initial-blur::before {
+    backdrop-filter: blur(1px); /* 非常轻微的模糊作为过渡 */
 }
 
 body.blur::before {
-    backdrop-filter: blur(5px); /* 添加blur类时应用模糊 */
+    backdrop-filter: blur(5px); /* 添加blur类时应用完全模糊 */
 }
 
 .container {
