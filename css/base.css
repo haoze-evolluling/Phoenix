@@ -19,7 +19,7 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease;
     opacity: 0; /* 初始不可见，等JS加载完成后再显示 */
 }
 
@@ -33,18 +33,20 @@ body::before {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(0px); /* 默认不模糊 */
     z-index: -1;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: backdrop-filter; /* 始终启用硬件加速 */
+    transition: backdrop-filter 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-/* 添加过渡准备状态 */
+/* 添加过渡准备状态 - 现在始终启用硬件加速 */
 body.transition-ready::before {
-    /* 只是准备过渡效果，不改变视觉外观 */
-    will-change: backdrop-filter;
+    /* 确保在所有浏览器中都启用硬件加速 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 /* 添加非常轻微的初始模糊作为中间状态 */
 body.initial-blur::before {
-    backdrop-filter: blur(1px); /* 非常轻微的模糊作为过渡 */
+    backdrop-filter: blur(2px); /* 轻微的模糊作为过渡 */
 }
 
 body.blur::before {

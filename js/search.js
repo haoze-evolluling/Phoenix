@@ -68,6 +68,14 @@ function performSearch() {
     }
 }
 
+// 延迟聚焦搜索框
+function delayedFocusSearchInput(delay) {
+    setTimeout(() => {
+        const searchInput = document.getElementById('search-input');
+        searchInput.focus();
+    }, delay);
+}
+
 // 初始化搜索功能
 function initSearch() {
     // 绑定搜索按钮点击事件
@@ -83,6 +91,5 @@ function initSearch() {
     // 初始化搜索引擎选择
     initSearchEngines();
     
-    // 自动聚焦搜索框
-    document.getElementById('search-input').focus();
+    // 不再自动聚焦搜索框，将由main.js控制延迟聚焦
 } 

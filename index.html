@@ -10,7 +10,12 @@
         /* 确保在页面加载过程中过渡效果已经准备好 */
         body::before {
             will-change: backdrop-filter;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            perspective: 1000;
+            -webkit-perspective: 1000;
         }
     </style>
 </head>
@@ -22,7 +27,7 @@
         <!-- 中心搜索框 -->
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="搜索..." autofocus>
+                <input type="text" id="search-input" placeholder="搜索...">
                 <button id="search-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -48,7 +53,7 @@
     
     <!-- 底部信息 -->
     <footer>
-        <p class="quote">「 须知少时凌云志，曾许人间第一流 」</p>
+        <p class="quote">「 愿为逝者哀哭，泣下如雨，充盈渡川，如潮涌至，领你归乡。 」</p>
     </footer>
 
     <!-- 传统的JS文件引入方式 -->
