@@ -28,6 +28,21 @@ function updateSearchPlaceholder() {
     searchInput.placeholder = `${engineName} 搜索`;
 }
 
+// 添加点击缩放效果
+function addClickScaleEffect(element) {
+    element.addEventListener('mousedown', function() {
+        this.classList.add('click-scale');
+    });
+    
+    element.addEventListener('mouseup', function() {
+        this.classList.remove('click-scale');
+    });
+    
+    element.addEventListener('mouseleave', function() {
+        this.classList.remove('click-scale');
+    });
+}
+
 // 初始化搜索引擎选择器
 function initSearchEngines() {
     const engines = document.querySelectorAll('.engine');
@@ -40,6 +55,9 @@ function initSearchEngines() {
     
     // 为每个搜索引擎图标添加点击事件
     engines.forEach(engine => {
+        // 添加点击缩放效果
+        addClickScaleEffect(engine);
+        
         engine.addEventListener('click', function() {
             // 移除所有active类
             engines.forEach(e => e.classList.remove('active'));
