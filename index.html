@@ -3,65 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix - 简约搜索主页</title>
-    <link rel="icon" href="webicon.png" type="webicon">
-    <link rel="stylesheet" href="css/main.css">
-    <style>
-        /* 确保在页面加载过程中过渡效果已经准备好 */
-        body::before {
-            will-change: backdrop-filter;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            perspective: 1000;
-            -webkit-perspective: 1000;
-        }
-    </style>
+    <title>新标签页</title>
+    <link rel="icon" href="web_icon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <!-- 数字时钟 -->
-        <div class="clock" id="clock"></div>
-        
-        <!-- 中心搜索框 -->
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="搜索...">
-                <button id="search-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
+        <!-- 时间显示区域 -->
+        <div class="time-section">
+            <div class="time-display" id="timeDisplay">
+                <div class="time" id="currentTime">00:00:00</div>
+                <div class="date" id="currentDate">2024年1月1日 星期一</div>
             </div>
-            
-            <!-- 搜索引擎选择菜单 -->
-            <div class="search-engines">
-                <div class="engine" data-engine="google">
-                    <img src="search_engine_icon/google_icon.png" alt="Google">
-                </div>                
+        </div>
 
-                <div class="engine" data-engine="bing">
-                    <img src="search_engine_icon/bing_icon.png" alt="Bing">
+        <!-- 搜索区域 -->
+        <div class="search-section">
+            <div class="search-container">
+                <!-- 搜索引擎选择器 -->
+                <div class="search-engine-selector">
+                    <button class="engine-btn active" data-engine="baidu">百度</button>
+                    <button class="engine-btn" data-engine="google">谷歌</button>
+                    <button class="engine-btn" data-engine="bing">必应</button>
                 </div>
-                <div class="engine" data-engine="baidu">
-                    <img src="search_engine_icon/baidu_logo.png" alt="Baidu">
+
+                <!-- 搜索框 -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="请输入搜索关键词..." autocomplete="off">
+                    <button class="search-btn" id="searchBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
                 </div>
-                
+            </div>
+        </div>
+
+        <!-- 快捷链接区域（可选） -->
+        <div class="shortcuts-section">
+            <div class="shortcuts-container">
+                <a href="https://github.com" class="shortcut-item" target="_blank">
+                    <span class="shortcut-icon">📚</span>
+                    <span class="shortcut-text">GitHub</span>
+                </a>
+                <a href="https://copilot.microsoft.com/" class="shortcut-item" target="_blank">
+                    <span class="shortcut-icon">💡</span>
+                    <span class="shortcut-text">copilot</span>
+                </a>
+                <a href="https://www.kkj.cn/" class="shortcut-item" target="_blank">
+                    <span class="shortcut-icon">📖</span>
+                    <span class="shortcut-text">快科技</span>
+                </a>
+                <a href="https://www.youtube.com" class="shortcut-item" target="_blank">
+                    <span class="shortcut-icon">🎥</span>
+                    <span class="shortcut-text">YouTube</span>
+                </a>
             </div>
         </div>
     </div>
-    
-    <!-- 底部信息 -->
-    <footer>
-        <p class="quote">「 须知少时凌云志，曾许人间第一流。 」</p>
-    </footer>
 
-    <!-- 传统的JS文件引入方式 -->
-    <script src="js/ui.js"></script>
-    <script src="js/clock.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/main.js"></script>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
