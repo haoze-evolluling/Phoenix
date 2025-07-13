@@ -43,22 +43,44 @@
         <!-- 快捷链接区域（可选） -->
         <div class="shortcuts-section">
             <div class="shortcuts-container">
-                <a href="https://github.com" class="shortcut-item" target="_blank">
-                    <span class="shortcut-icon">📚</span>
-                    <span class="shortcut-text">GitHub</span>
-                </a>
-                <a href="https://copilot.microsoft.com/" class="shortcut-item" target="_blank">
-                    <span class="shortcut-icon">💡</span>
-                    <span class="shortcut-text">copilot</span>
-                </a>
-                <a href="https://www.kkj.cn/" class="shortcut-item" target="_blank">
-                    <span class="shortcut-icon">📖</span>
-                    <span class="shortcut-text">快科技</span>
-                </a>
-                <a href="https://www.youtube.com" class="shortcut-item" target="_blank">
-                    <span class="shortcut-icon">🎥</span>
-                    <span class="shortcut-text">YouTube</span>
-                </a>
+                <!-- 快捷链接将由JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div id="contextMenu" class="context-menu">
+        <div class="context-menu-item" id="editShortcut">
+            <span class="context-menu-icon">✏️</span>
+            <span class="context-menu-text">编辑</span>
+        </div>
+    </div>
+
+    <!-- 编辑弹窗 -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑快捷链接</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editName">网站名称：</label>
+                    <input type="text" id="editName" placeholder="请输入网站名称">
+                </div>
+                <div class="form-group">
+                    <label for="editUrl">网站链接：</label>
+                    <input type="url" id="editUrl" placeholder="请输入网站链接">
+                    <div class="url-preview" id="urlPreview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="editIcon">图标：</label>
+                    <input type="text" id="editIcon" placeholder="请输入emoji图标">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="cancelEdit">取消</button>
+                <button class="btn btn-save" id="saveEdit">保存</button>
             </div>
         </div>
     </div>

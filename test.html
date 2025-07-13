@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>新标签页功能测试</h1>
+    
+    <div class="test-section">
+        <h2>测试说明</h2>
+        <p>请按照以下步骤测试右键编辑功能：</p>
+        <ol>
+            <li>打开 <a href="index.html" target="_blank">index.html</a></li>
+            <li>在任意快捷链接磁贴上右键点击</li>
+            <li>选择"编辑"选项</li>
+            <li>在弹出的窗口中修改网站名称、链接和图标</li>
+            <li>点击"保存"按钮</li>
+            <li>验证磁贴是否更新为新的内容</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>功能特性</h2>
+        <ul>
+            <li>✅ 右键菜单显示</li>
+            <li>✅ 编辑弹窗</li>
+            <li>✅ 表单验证</li>
+            <li>✅ URL自动补全（自动添加https://）</li>
+            <li>✅ URL预览</li>
+            <li>✅ 本地存储保存</li>
+            <li>✅ 响应式设计</li>
+            <li>✅ 键盘快捷键支持（ESC关闭，Enter保存）</li>
+            <li>✅ 点击反馈和动画效果</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>测试用例</h2>
+        <div class="test-result success">
+            <strong>正常编辑：</strong> 修改名称为"测试网站"，URL为"example.com"，图标为"🌐"
+        </div>
+        <div class="test-result success">
+            <strong>URL自动补全：</strong> 输入"google.com"应该自动变为"https://google.com"
+        </div>
+        <div class="test-result error">
+            <strong>错误处理：</strong> 输入无效URL如"invalid-url"应该显示错误提示
+        </div>
+    </div>
+
+    <script>
+        // 简单的测试脚本
+        console.log('测试页面已加载');
+        
+        // 检查localStorage是否工作
+        try {
+            localStorage.setItem('test', 'value');
+            localStorage.removeItem('test');
+            console.log('✅ localStorage 工作正常');
+        } catch (e) {
+            console.error('❌ localStorage 不可用:', e);
+        }
+        
+        // 检查URL构造函数
+        try {
+            new URL('https://example.com');
+            console.log('✅ URL 构造函数工作正常');
+        } catch (e) {
+            console.error('❌ URL 构造函数不可用:', e);
+        }
+    </script>
+</body>
+</html>

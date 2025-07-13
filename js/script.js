@@ -148,24 +148,7 @@ function init() {
         searchInput.parentElement.style.transform = 'scale(1)';
     });
 
-    // 为快捷链接添加点击反馈
-    const shortcutItems = document.querySelectorAll('.shortcut-item');
-    shortcutItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            item.classList.add('clicked');
-            ClickFeedback.vibrate([30]);
-            ClickFeedback.playSound('click');
-
-            setTimeout(() => {
-                item.classList.remove('clicked');
-            }, 300);
-        });
-
-        // 鼠标悬停效果增强
-        item.addEventListener('mouseenter', () => {
-            ClickFeedback.vibrate([5]);
-        });
-    });
+    // 快捷链接的点击反馈现在由ShortcutManager处理
 
     // 为时间显示添加点击反馈
     const timeDisplay = document.querySelector('.time-display');
@@ -393,12 +376,310 @@ const ClickFeedback = {
     }
 };
 
+// 快捷链接管理
+const ShortcutManager = {
+    // 默认快捷链接数据
+    defaultShortcuts: [
+        { icon: '📚', text: 'GitHub', url: 'https://github.com' },
+        { icon: '💡', text: 'copilot', url: 'https://copilot.microsoft.com/' },
+        { icon: '📖', text: '快科技', url: 'https://www.kkj.cn/' },
+        { icon: '🎥', text: 'YouTube', url: 'https://www.youtube.com' }
+    ],
+
+    // 当前编辑的快捷链接元素
+    currentEditingElement: null,
+
+    // 初始化快捷链接管理
+    init() {
+        console.log('ShortcutManager 初始化开始');
+        this.loadShortcuts();
+        this.bindContextMenu();
+        this.bindModalEvents();
+        console.log('ShortcutManager 初始化完成');
+    },
+
+    // 加载快捷链接
+    loadShortcuts() {
+        const shortcuts = utils.loadPreference('shortcuts', this.defaultShortcuts);
+        this.renderShortcuts(shortcuts);
+    },
+
+    // 渲染快捷链接
+    renderShortcuts(shortcuts) {
+        const container = document.querySelector('.shortcuts-container');
+        container.innerHTML = '';
+
+        shortcuts.forEach((shortcut, index) => {
+            const shortcutElement = document.createElement('a');
+            shortcutElement.href = shortcut.url;
+            shortcutElement.target = '_blank';
+            shortcutElement.className = 'shortcut-item';
+            shortcutElement.dataset.index = index;
+
+            shortcutElement.innerHTML = `
+                <span class="shortcut-icon">${shortcut.icon}</span>
+                <span class="shortcut-text">${shortcut.text}</span>
+            `;
+
+            // 添加点击事件
+            shortcutElement.addEventListener('click', (e) => {
+                shortcutElement.classList.add('clicked');
+                ClickFeedback.vibrate([30]);
+                ClickFeedback.playSound('click');
+
+                setTimeout(() => {
+                    shortcutElement.classList.remove('clicked');
+                }, 300);
+            });
+
+            // 鼠标悬停效果
+            shortcutElement.addEventListener('mouseenter', () => {
+                ClickFeedback.vibrate([5]);
+            });
+
+            container.appendChild(shortcutElement);
+        });
+
+        // 重新绑定右键菜单
+        this.bindContextMenu();
+    },
+
+    // 绑定右键菜单
+    bindContextMenu() {
+        const shortcutItems = document.querySelectorAll('.shortcut-item');
+        const contextMenu = document.getElementById('contextMenu');
+
+        shortcutItems.forEach(item => {
+            item.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                console.log('右键点击快捷链接:', item);
+                this.currentEditingElement = item;
+                this.showContextMenu(e.clientX, e.clientY);
+            });
+        });
+
+        // 点击其他地方隐藏菜单
+        document.addEventListener('click', () => {
+            this.hideContextMenu();
+        });
+
+        // 编辑按钮点击事件
+        document.getElementById('editShortcut').addEventListener('click', () => {
+            this.showEditModal();
+            this.hideContextMenu();
+        });
+    },
+
+    // 显示右键菜单
+    showContextMenu(x, y) {
+        const contextMenu = document.getElementById('contextMenu');
+        contextMenu.style.display = 'block';
+        contextMenu.style.left = x + 'px';
+        contextMenu.style.top = y + 'px';
+
+        // 确保菜单不会超出屏幕
+        const rect = contextMenu.getBoundingClientRect();
+        if (rect.right > window.innerWidth) {
+            contextMenu.style.left = (x - rect.width) + 'px';
+        }
+        if (rect.bottom > window.innerHeight) {
+            contextMenu.style.top = (y - rect.height) + 'px';
+        }
+    },
+
+    // 隐藏右键菜单
+    hideContextMenu() {
+        document.getElementById('contextMenu').style.display = 'none';
+    },
+
+    // 显示编辑弹窗
+    showEditModal() {
+        if (!this.currentEditingElement) return;
+
+        const modal = document.getElementById('editModal');
+        const index = parseInt(this.currentEditingElement.dataset.index);
+        const shortcuts = utils.loadPreference('shortcuts', this.defaultShortcuts);
+        const shortcut = shortcuts[index];
+
+        // 填充表单
+        document.getElementById('editName').value = shortcut.text;
+        document.getElementById('editUrl').value = shortcut.url;
+        document.getElementById('editIcon').value = shortcut.icon;
+
+        modal.classList.add('show');
+
+        // 聚焦到名称输入框
+        setTimeout(() => {
+            document.getElementById('editName').focus();
+        }, 100);
+
+        // 绑定URL预览
+        this.bindUrlPreview();
+    },
+
+    // 隐藏编辑弹窗
+    hideEditModal() {
+        document.getElementById('editModal').classList.remove('show');
+        this.currentEditingElement = null;
+    },
+
+    // 绑定弹窗事件
+    bindModalEvents() {
+        const modal = document.getElementById('editModal');
+        const closeBtn = document.getElementById('modalClose');
+        const cancelBtn = document.getElementById('cancelEdit');
+        const saveBtn = document.getElementById('saveEdit');
+
+        // 关闭按钮
+        closeBtn.addEventListener('click', () => {
+            this.hideEditModal();
+        });
+
+        // 取消按钮
+        cancelBtn.addEventListener('click', () => {
+            this.hideEditModal();
+        });
+
+        // 保存按钮
+        saveBtn.addEventListener('click', () => {
+            this.saveShortcut();
+        });
+
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.hideEditModal();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                this.hideEditModal();
+            }
+        });
+
+        // 回车键保存
+        const inputs = modal.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    this.saveShortcut();
+                }
+            });
+        });
+    },
+
+    // 保存快捷链接
+    saveShortcut() {
+        const name = document.getElementById('editName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const icon = document.getElementById('editIcon').value.trim();
+
+        // 验证输入
+        if (!name) {
+            ClickFeedback.addErrorFeedback(document.getElementById('editName'));
+            ClickFeedback.vibrate([100, 50, 100]);
+            document.getElementById('editName').focus();
+            return;
+        }
+
+        if (!url) {
+            ClickFeedback.addErrorFeedback(document.getElementById('editUrl'));
+            ClickFeedback.vibrate([100, 50, 100]);
+            document.getElementById('editUrl').focus();
+            return;
+        }
+
+        // 验证URL格式
+        let validUrl = url;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            validUrl = 'https://' + url;
+        }
+
+        try {
+            new URL(validUrl);
+        } catch {
+            ClickFeedback.addErrorFeedback(document.getElementById('editUrl'));
+            ClickFeedback.vibrate([100, 50, 100]);
+            document.getElementById('editUrl').focus();
+            return;
+        }
+
+        if (!icon) {
+            ClickFeedback.addErrorFeedback(document.getElementById('editIcon'));
+            ClickFeedback.vibrate([100, 50, 100]);
+            document.getElementById('editIcon').focus();
+            return;
+        }
+
+        // 更新数据
+        const shortcuts = utils.loadPreference('shortcuts', this.defaultShortcuts);
+        const index = parseInt(this.currentEditingElement.dataset.index);
+
+        shortcuts[index] = {
+            text: name,
+            url: validUrl,
+            icon: icon
+        };
+
+        // 保存到本地存储
+        utils.savePreference('shortcuts', shortcuts);
+
+        // 重新渲染
+        this.renderShortcuts(shortcuts);
+
+        // 成功反馈
+        ClickFeedback.addSuccessFeedback(document.querySelector('.shortcuts-container'));
+        ClickFeedback.vibrate([50, 30, 50]);
+        ClickFeedback.playSound('success');
+
+        // 关闭弹窗
+        this.hideEditModal();
+    },
+
+    // 绑定URL预览功能
+    bindUrlPreview() {
+        const urlInput = document.getElementById('editUrl');
+        const urlPreview = document.getElementById('urlPreview');
+
+        urlInput.addEventListener('input', () => {
+            const url = urlInput.value.trim();
+            if (!url) {
+                urlPreview.textContent = '';
+                urlPreview.className = 'url-preview';
+                urlInput.classList.remove('error');
+                return;
+            }
+
+            let validUrl = url;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                validUrl = 'https://' + url;
+            }
+
+            try {
+                const urlObj = new URL(validUrl);
+                urlPreview.textContent = `预览: ${urlObj.href}`;
+                urlPreview.className = 'url-preview valid';
+                urlInput.classList.remove('error');
+            } catch {
+                urlPreview.textContent = '无效的URL格式';
+                urlPreview.className = 'url-preview invalid';
+                urlInput.classList.add('error');
+            }
+        });
+    }
+};
+
 // 加载用户偏好的搜索引擎
 document.addEventListener('DOMContentLoaded', () => {
     const savedEngine = utils.loadPreference('searchEngine', 'baidu');
     if (searchEngines[savedEngine]) {
         currentEngine = savedEngine;
     }
+
+    // 初始化快捷链接管理
+    ShortcutManager.init();
 });
 
 // 保存搜索引擎偏好（更新版本，包含点击反馈）
