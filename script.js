@@ -13,10 +13,6 @@ class SearchCenter {
             bing: {
                 name: 'Bing',
                 url: 'https://www.bing.com/search?q='
-            },
-            duckduckgo: {
-                name: 'DuckDuckGo',
-                url: 'https://duckduckgo.com/?q='
             }
         };
         
@@ -413,7 +409,7 @@ class SearchCenter {
             }
 
             // Ctrl/Cmd + 数字键切换搜索引擎
-            if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '4') {
+            if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '3') {
                 e.preventDefault();
                 const engines = Object.keys(this.searchEngines);
                 const index = parseInt(e.key) - 1;

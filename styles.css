@@ -94,21 +94,31 @@ body {
     flex-wrap: wrap;
 }
 
+.engine-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .engine-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius-sm);
     color: white;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 0;
 }
 
 .engine-btn:hover {
