@@ -185,26 +185,7 @@ class SearchCenter {
     }
 
     setupQuickActions() {
-        const quickButtons = document.querySelectorAll('.quick-btn');
-        
-        quickButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const suggestion = button.dataset.suggestion;
-                const searchInput = document.getElementById('searchInput');
-                
-                if (searchInput) {
-                    searchInput.value = suggestion;
-                    searchInput.focus();
-                    
-                    // 触发搜索
-                    const searchUrl = this.searchEngines[this.currentEngine].url + encodeURIComponent(suggestion);
-                    setTimeout(() => {
-                        window.open(searchUrl, '_blank');
-                        searchInput.value = '';
-                    }, 300);
-                }
-            });
-        });
+        // 快速操作按钮已移除
     }
 
     setupKeyboardShortcuts() {
