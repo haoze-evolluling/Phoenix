@@ -280,12 +280,14 @@ class SearchCenter {
 
         const content = modal.querySelector('.modal-content');
         content.style.cssText = `
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 2rem;
             max-width: 400px;
             width: 90%;
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         `;
 
         // 添加事件监听
@@ -404,7 +406,27 @@ style.textContent = `
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
-        color: var(--text-secondary);
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .settings-modal .close-btn:hover {
+        color: white;
+    }
+    
+    .settings-modal .save-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .settings-modal .save-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.3);
     }
     
     .settings-modal .setting-group {
@@ -415,7 +437,30 @@ style.textContent = `
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .settings-modal h3 {
+        color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .settings-modal select {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        padding: 0.5rem;
         color: var(--text-primary);
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+    }
+    
+    .settings-modal select option {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--text-primary);
+    }
+    
+    .settings-modal input[type="checkbox"] {
+        margin-right: 0.5rem;
     }
     
     .settings-modal select {
