@@ -48,14 +48,14 @@ body {
 }
 
 .time {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
     line-height: 1;
     margin-bottom: 0.25rem;
 }
 
 .date {
-    font-size: 1rem;
+    font-size: 1.25rem;
     opacity: 0.8;
     font-weight: 400;
 }
@@ -108,11 +108,18 @@ body {
     cursor: pointer;
     transition: var(--transition);
     backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .engine-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.engine-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .engine-btn.active {
@@ -138,19 +145,30 @@ body {
     padding: 1.5rem 2rem;
     padding-right: 4rem;
     font-size: 1.125rem;
-    border: none;
-    border-radius: var(--border-radius);
-    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
     outline: none;
+    color: white;
 }
 
 .search-input:focus {
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), var(--shadow-xl);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
+}
+
+.search-input:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .search-input::placeholder {
@@ -162,19 +180,27 @@ body {
     right: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--primary-color);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    border: none;
-    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1.5rem;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
     transition: var(--transition);
     font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-button:hover {
-    background: var(--secondary-color);
-    transform: translateY(-50%) scale(1.05);
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-button:active {
+    transform: translateY(-50%) translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-suggestions {
