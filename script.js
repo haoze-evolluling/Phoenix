@@ -375,10 +375,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < 6; i++) {
             const element = document.createElement('div');
             element.className = 'floating-element';
+            const size = Math.random() * 100 + 50;
             element.style.cssText = `
                 position: fixed;
-                width: ${Math.random() * 100 + 50}px;
-                height: ${Math.random() * 100 + 50}px;
+                width: ${size}px;
+                height: ${size}px;
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 50%;
                 top: ${Math.random() * 100}%;
