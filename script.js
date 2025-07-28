@@ -185,7 +185,219 @@ class SearchCenter {
     }
 
     setupQuickActions() {
-        // 快速操作按钮已移除
+        this.quickLinks = this.loadQuickLinks();
+        this.renderQuickLinks();
+        this.setupContextMenu();
+    }
+
+    loadQuickLinks() {
+        const defaultLinks = [
+            { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
+            { name: 'B站', url: 'https://www.bilibili.com', icon: 'fas fa-play-circle' },
+            { name: '知乎', url: 'https://www.zhihu.com', icon: 'fas fa-question-circle' },
+            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' }
+        ];
+        
+        const saved = localStorage.getItem('quickLinks');
+        return saved ? JSON.parse(saved) : defaultLinks;
+    }
+
+    saveQuickLinks() {
+        localStorage.setItem('quickLinks', JSON.stringify(this.quickLinks));
+    }
+
+    renderQuickLinks() {
+        const container = document.getElementById('quickLinks');
+        if (!container) return;
+
+        const items = container.querySelectorAll('.quick-link-item');
+        items.forEach((item, index) => {
+            const link = this.quickLinks[index];
+            const button = item.querySelector('.quick-link-btn');
+            
+            if (button && link) {
+                button.innerHTML = `
+                    <i class="${link.icon}"></i>
+                    <span>${link.name}</span>
+                `;
+                button.title = link.name;
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    window.open(link.url, '_blank');
+                };
+            }
+        });
+    }
+
+    setupContextMenu() {
+        const container = document.getElementById('quickLinks');
+        if (!container) return;
+
+        // 禁用默认右键菜单
+        container.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            
+            const item = e.target.closest('.quick-link-item');
+            if (item) {
+                const index = parseInt(item.dataset.index);
+                this.showContextMenu(e, index);
+            }
+        });
+
+        // 点击其他地方关闭右键菜单
+        document.addEventListener('click', () => {
+            this.hideContextMenu();
+        });
+
+        // 关闭模态框
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.hideEditModal();
+                this.hideContextMenu();
+            }
+        });
+    }
+
+    showContextMenu(event, index) {
+        this.hideContextMenu();
+        
+        const menu = document.createElement('div');
+        menu.className = 'context-menu';
+        menu.innerHTML = `
+            <button class="context-menu-item" data-action="edit" data-index="${index}">
+                <i class="fas fa-edit"></i> 编辑
+            </button>
+            <button class="context-menu-item" data-action="reset" data-index="${index}">
+                <i class="fas fa-undo"></i> 重置为默认
+            </button>
+        `;
+
+        menu.style.left = event.pageX + 'px';
+        menu.style.top = event.pageY + 'px';
+
+        document.body.appendChild(menu);
+
+        // 添加菜单项事件
+        menu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const action = e.target.dataset.action;
+            const index = parseInt(e.target.dataset.index);
+            
+            if (action === 'edit') {
+                this.showEditModal(index);
+            } else if (action === 'reset') {
+                this.resetQuickLink(index);
+            }
+            
+            this.hideContextMenu();
+        });
+
+        this.currentContextMenu = menu;
+    }
+
+    hideContextMenu() {
+        if (this.currentContextMenu) {
+            this.currentContextMenu.remove();
+            this.currentContextMenu = null;
+        }
+    }
+
+    showEditModal(index) {
+        this.hideContextMenu();
+        
+        const link = this.quickLinks[index];
+        const modal = document.createElement('div');
+        modal.className = 'edit-modal';
+        modal.innerHTML = `
+            <div class="edit-modal-content">
+                <h3>编辑快捷链接</h3>
+                <div class="form-group">
+                    <label>名称</label>
+                    <input type="text" id="editName" value="${link.name}" placeholder="网站名称">
+                </div>
+                <div class="form-group">
+                    <label>网址</label>
+                    <input type="url" id="editUrl" value="${link.url}" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>图标类名</label>
+                    <input type="text" id="editIcon" value="${link.icon}" placeholder="例如: fab fa-github">
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">
+                        使用 Font Awesome 图标类名，如：fab fa-github, fas fa-home
+                    </small>
+                </div>
+                <div class="edit-modal-buttons">
+                    <button class="cancel-btn" id="cancelEditBtn">取消</button>
+                    <button class="save-btn" id="saveEditBtn">保存</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        this.currentEditModal = modal;
+
+        // 添加事件监听器
+        modal.querySelector('#cancelEditBtn').addEventListener('click', () => {
+            this.hideEditModal();
+        });
+
+        modal.querySelector('#saveEditBtn').addEventListener('click', () => {
+            this.saveQuickLinkEdit(index);
+        });
+
+        // 点击模态框外部关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.hideEditModal();
+            }
+        });
+
+        // 聚焦到名称输入框
+        setTimeout(() => {
+            document.getElementById('editName').focus();
+        }, 100);
+    }
+
+    hideEditModal() {
+        if (this.currentEditModal) {
+            this.currentEditModal.remove();
+            this.currentEditModal = null;
+        }
+    }
+
+    saveQuickLinkEdit(index) {
+        const name = document.getElementById('editName').value.trim();
+        const url = document.getElementById('editUrl').value.trim();
+        const icon = document.getElementById('editIcon').value.trim();
+
+        if (!name || !url) {
+            alert('名称和网址不能为空');
+            return;
+        }
+
+        // 验证URL格式
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            alert('请输入正确的网址格式，如 https://example.com');
+            return;
+        }
+
+        this.quickLinks[index] = { name, url, icon };
+        this.saveQuickLinks();
+        this.renderQuickLinks();
+        this.hideEditModal();
+    }
+
+    resetQuickLink(index) {
+        const defaultLinks = [
+            { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
+            { name: 'B站', url: 'https://www.bilibili.com', icon: 'fas fa-play-circle' },
+            { name: '知乎', url: 'https://www.zhihu.com', icon: 'fas fa-question-circle' },
+            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' }
+        ];
+
+        this.quickLinks[index] = defaultLinks[index];
+        this.saveQuickLinks();
+        this.renderQuickLinks();
     }
 
     setupKeyboardShortcuts() {
