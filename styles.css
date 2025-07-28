@@ -215,6 +215,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.1);
@@ -227,8 +228,10 @@ body {
     transition: var(--transition);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-width: 100px;
+    width: 100px;
+    height: 100px;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 .quick-link-btn:hover {
@@ -250,6 +253,8 @@ body {
 .quick-link-btn span {
     font-size: 0.75rem;
     opacity: 0.9;
+    text-align: center;
+    line-height: 1.2;
 }
 
 .context-menu {
@@ -394,7 +399,8 @@ body {
     
     .quick-link-btn {
         padding: 1rem;
-        min-width: 80px;
+        width: 80px;
+        height: 80px;
     }
     
     .quick-link-btn i {
