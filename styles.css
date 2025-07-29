@@ -317,7 +317,7 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 2rem;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow-xl);
     max-width: 400px;
     width: 90%;
@@ -347,21 +347,23 @@ body {
 
 .edit-modal input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.875rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius-sm);
     font-size: 0.875rem;
     transition: var(--transition);
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .edit-modal input:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
 }
 
 .edit-modal input::placeholder {
@@ -377,32 +379,81 @@ body {
 
 .edit-modal button {
     padding: 0.75rem 1.5rem;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius-sm);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .edit-modal .save-btn {
-    background: var(--primary-color);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
 }
 
 .edit-modal .save-btn:hover {
-    background: var(--secondary-color);
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .edit-modal .cancel-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .edit-modal .cancel-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.settings-modal select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.875rem;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-modal select:focus {
+    outline: none;
     border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.settings-modal select option {
+    background: rgba(30, 30, 30, 0.95);
+    color: white;
+}
+
+.settings-modal input[type="checkbox"] {
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+}
+
+.settings-modal .setting-group label {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.settings-modal .setting-group label:hover {
+    color: rgba(255, 255, 255, 1);
 }
 
 @media (max-width: 768px) {
