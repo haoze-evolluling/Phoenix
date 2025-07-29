@@ -460,7 +460,7 @@ class SearchCenter {
                         </select>
                     </div>
                     <div class="setting-group">
-                        <label>
+                        <label class="checkbox-label">
                             <input type="checkbox" id="autoFocus" checked> 页面加载时自动聚焦搜索框
                         </label>
                     </div>
@@ -469,33 +469,6 @@ class SearchCenter {
                     <button class="save-btn">保存设置</button>
                 </div>
             </div>
-        `;
-
-        // 添加样式
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease-out;
-        `;
-
-        const content = modal.querySelector('.modal-content');
-        content.style.cssText = `
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         `;
 
         // 添加事件监听
