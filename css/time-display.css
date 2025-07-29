@@ -1,0 +1,31 @@
+.time-display {
+    text-align: center;
+    color: white;
+    animation: fadeIn 0.6s ease-out;
+    margin-bottom: 2rem;
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+.date {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.8s ease-out;
+}

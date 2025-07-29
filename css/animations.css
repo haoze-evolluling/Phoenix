@@ -1,0 +1,127 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                     0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    to {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.4),
+                     0 0 15px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating-element {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: -1;
+    animation: float 15s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .quick-links {
+        gap: 0.75rem;
+    }
+    
+    .quick-link-btn {
+        padding: 1rem;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .quick-link-btn i {
+        font-size: 1.25rem;
+    }
+    
+    .quick-link-btn span {
+        font-size: 0.7rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .time {
+        font-size: 2rem;
+    }
+    
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .search-input {
+        padding: 1.25rem 1.5rem;
+        padding-right: 3.5rem;
+        font-size: 1rem;
+    }
+    
+    .search-button {
+        padding: 0.75rem 1rem;
+    }
+    
+    .engine-options {
+        gap: 0.5rem;
+    }
+    
+    .engine-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time {
+        font-size: 1.75rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .engine-btn span {
+        display: none;
+    }
+    
+    .engine-btn {
+        padding: 0.75rem;
+    }
+}
