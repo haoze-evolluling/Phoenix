@@ -43,7 +43,7 @@
 
 .search-button {
     position: absolute;
-    right: 0.5rem;
+    right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.2);
