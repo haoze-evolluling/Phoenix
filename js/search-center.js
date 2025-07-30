@@ -334,7 +334,8 @@ class SearchCenter {
 
         // 添加事件监听器
         modal.querySelector('#cancelEditBtn').addEventListener('click', () => {
-            this.hideEditModal();
+            modal.classList.add('closing');
+            setTimeout(() => this.hideEditModal(), 300);
         });
 
         modal.querySelector('#saveEditBtn').addEventListener('click', () => {
@@ -344,7 +345,8 @@ class SearchCenter {
         // 点击模态框外部关闭
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                this.hideEditModal();
+                modal.classList.add('closing');
+                setTimeout(() => this.hideEditModal(), 300);
             }
         });
 
@@ -380,7 +382,8 @@ class SearchCenter {
         this.quickLinks[index] = { name, url, icon };
         this.saveQuickLinks();
         this.renderQuickLinks();
-        this.hideEditModal();
+        this.currentEditModal.classList.add('closing');
+        setTimeout(() => this.hideEditModal(), 300);
     }
 
     resetQuickLink(index) {
@@ -471,10 +474,17 @@ class SearchCenter {
             </div>
         `;
 
+        const closeModal = () => {
+            modal.classList.add('closing');
+            setTimeout(() => {
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
+            }, 300);
+        };
+
         // 添加事件监听
-        modal.querySelector('.close-btn').addEventListener('click', () => {
-            document.body.removeChild(modal);
-        });
+        modal.querySelector('.close-btn').addEventListener('click', closeModal);
 
         modal.querySelector('.save-btn').addEventListener('click', () => {
             const defaultEngine = document.getElementById('defaultEngine').value;
@@ -490,12 +500,12 @@ class SearchCenter {
                 if (engineButton) engineButton.click();
             }
             
-            document.body.removeChild(modal);
+            closeModal();
         });
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                document.body.removeChild(modal);
+                closeModal();
             }
         });
 

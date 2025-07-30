@@ -52,6 +52,15 @@
     max-height: 80vh;
     overflow-y: auto;
     color: white;
+    animation: slideUp 0.3s ease-out;
+}
+
+.edit-modal.closing {
+    animation: fadeIn 0.3s ease-out reverse;
+}
+
+.edit-modal.closing .edit-modal-content {
+    animation: slideUpOut 0.3s ease-out forwards;
 }
 
 .edit-modal h3 {

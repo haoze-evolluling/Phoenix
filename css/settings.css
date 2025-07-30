@@ -28,6 +28,14 @@
     animation: slideUp 0.3s ease-out;
 }
 
+.settings-modal.closing .modal-content {
+    animation: slideUpOut 0.3s ease-out forwards;
+}
+
+.settings-modal.closing {
+    animation: fadeIn 0.3s ease-out reverse;
+}
+
 .settings-modal .modal-header {
     display: flex;
     justify-content: space-between;
