@@ -71,52 +71,7 @@
     }
 }
 
-@keyframes fluidGradient {
-    0% {
-        transform: rotate(0deg) scale(1.2);
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    25% {
-        transform: rotate(90deg) scale(1.4);
-        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-    }
-    50% {
-        transform: rotate(180deg) scale(1.6);
-        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-    }
-    75% {
-        transform: rotate(270deg) scale(1.4);
-        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
-    }
-    100% {
-        transform: rotate(360deg) scale(1.2);
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-}
-
-@keyframes fluidRotate {
-    0% {
-        transform: rotate(0deg) scale(1.5) translateX(0) translateY(0);
-    }
-    33% {
-        transform: rotate(120deg) scale(1.7) translateX(10px) translateY(-15px);
-    }
-    66% {
-        transform: rotate(240deg) scale(1.6) translateX(-8px) translateY(12px);
-    }
-    100% {
-        transform: rotate(360deg) scale(1.5) translateX(0) translateY(0);
-    }
-}
-
-.floating-element {
-    position: fixed;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    z-index: -1;
-    animation: float 15s ease-in-out infinite;
-}
-
+/* 静态背景 */
 .gradient-background {
     position: fixed;
     top: 0;
@@ -124,33 +79,27 @@
     width: 100%;
     height: 100%;
     z-index: -2;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
-    animation: fluidGradient 15s ease-in-out infinite;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .gradient-overlay {
     position: fixed;
-    top: -25%;
-    left: -25%;
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.2) 30%, transparent 70%),
-                radial-gradient(circle at 70% 50%, rgba(118, 75, 162, 0.3) 0%, rgba(102, 126, 234, 0.2) 40%, transparent 70%);
-    animation: fluidRotate 18s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
     z-index: -1;
-    mix-blend-mode: overlay;
+}
+
+/* 已移除所有浮动元素和气泡效果 */
+.floating-element {
+    display: none;
 }
 
 .fluid-blob {
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    opacity: 0.6;
-    z-index: -3;
-    animation: fluidGradient 25s ease-in-out infinite;
-    filter: blur(40px);
+    display: none;
 }
 
 @media (max-width: 768px) {
