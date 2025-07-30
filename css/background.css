@@ -34,23 +34,15 @@
     z-index: 2;
 }
 
-/* 移除旧背景元素的样式 */
-.floating-element,
-.fluid-blob {
-    display: none !important;
-}
-
 /* 响应式背景 */
 @media (max-width: 768px) {
     .background-container {
-        /* 移动设备背景优化 */
         background-attachment: fixed;
     }
 }
 
 @media (max-width: 480px) {
     .background-container {
-        /* 小屏幕背景优化 */
         background-size: cover;
     }
 }

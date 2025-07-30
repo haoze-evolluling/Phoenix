@@ -71,12 +71,6 @@
     }
 }
 
-/* 已移除所有浮动元素和气泡效果 */
-.floating-element,
-.fluid-blob {
-    display: none !important;
-}
-
 @media (max-width: 768px) {
     .quick-links {
         gap: 0.75rem;
@@ -104,10 +98,6 @@
         font-size: 2rem;
     }
     
-    .title {
-        font-size: 2.5rem;
-    }
-    
     .search-input {
         padding: 1.25rem 1.5rem;
         padding-right: 3.5rem;
@@ -131,10 +121,6 @@
 @media (max-width: 480px) {
     .time {
         font-size: 1.75rem;
-    }
-    
-    .title {
-        font-size: 2rem;
     }
     
     .engine-btn span {

@@ -4,8 +4,6 @@ let searchCenter;
 document.addEventListener('DOMContentLoaded', () => {
     searchCenter = new SearchCenter();
     searchCenter.loadSettings();
-    
-    // 初始化完成，不再添加任何动态效果
 });
 
 // 全局工具函数

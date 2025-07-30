@@ -20,12 +20,3 @@
     opacity: 0.8;
     font-weight: 400;
 }
-
-.title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: slideDown 0.8s ease-out;
-}

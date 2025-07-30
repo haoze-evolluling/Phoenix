@@ -4,13 +4,6 @@
 }
 
 .engine-options {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.engine-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
