@@ -27,6 +27,11 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
+.context-menu-item:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.3);
+}
+
 .edit-modal {
     position: fixed;
     top: 0;
@@ -205,6 +210,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.edit-modal .save-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
 .edit-modal .cancel-btn {
     background: rgba(255, 255, 255, 0.1);
     color: white;
@@ -215,4 +225,9 @@
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edit-modal .cancel-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }

@@ -214,6 +214,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.settings-modal .save-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
 .settings-modal .cancel-btn {
     background: rgba(255, 255, 255, 0.1);
     color: white;
@@ -223,6 +228,11 @@
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.settings-modal .cancel-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 设置按钮样式 */
@@ -255,7 +265,7 @@
 }
 
 .settings-btn:active {
-    transform: rotate(90deg) scale(0.95);
+    transform: rotate(90deg) scale(0.85);
 }
 
 /* 动画定义 */
