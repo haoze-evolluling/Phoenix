@@ -71,6 +71,26 @@
     }
 }
 
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -8px, 0);
+    }
+    70% {
+        transform: translate3d(0, -4px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+.time-display.clicked .time,
+.time-display.clicked .date {
+    animation: bounce 0.6s ease-in-out;
+}
+
 @media (max-width: 768px) {
     .quick-links {
         gap: 0.75rem;

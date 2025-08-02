@@ -20,3 +20,16 @@
     opacity: 0.8;
     font-weight: 400;
 }
+
+.time-display {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.time-display:hover {
+    transform: scale(1.02);
+}
+
+.time-display:active {
+    transform: scale(0.98);
+}

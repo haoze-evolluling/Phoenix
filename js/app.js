@@ -4,6 +4,17 @@ let searchCenter;
 document.addEventListener('DOMContentLoaded', () => {
     searchCenter = new SearchCenter();
     searchCenter.loadSettings();
+    
+    // 添加时间显示区域的点击动画
+    const timeDisplay = document.getElementById('timeDisplay');
+    if (timeDisplay) {
+        timeDisplay.addEventListener('click', function() {
+            this.classList.add('clicked');
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 600);
+        });
+    }
 });
 
 // 全局工具函数
