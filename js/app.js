@@ -64,9 +64,18 @@ function showRandomQuote() {
 // 关闭名句小彩蛋
 function closeQuoteModal() {
     const quoteModal = document.getElementById('quoteModal');
-    if (!quoteModal) return;
+    const quoteContent = quoteModal?.querySelector('.quote-modal-content');
+    if (!quoteModal || !quoteContent) return;
     
-    quoteModal.style.display = 'none';
+    // 添加关闭动画
+    quoteContent.style.animation = 'scaleOut 0.3s ease-out forwards';
+    
+    setTimeout(() => {
+        quoteModal.style.display = 'none';
+        // 重置动画
+        quoteContent.style.animation = '';
+    }, 300);
+    
     if (window.quoteAutoCloseTimer) {
         clearTimeout(window.quoteAutoCloseTimer);
     }
