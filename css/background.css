@@ -23,7 +23,8 @@
 
 /* 基础背景层 */
 .background-layer.base {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: rgb(148,208,233);
+    background: linear-gradient(90deg, rgba(148,208,233,1) 0%, rgba(238,174,203,1) 100%);
     z-index: 1;
 }
 
