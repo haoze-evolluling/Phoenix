@@ -191,7 +191,11 @@ class SearchCenter {
             { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
             { name: 'B站', url: 'https://www.bilibili.com', icon: 'fas fa-play-circle' },
             { name: '知乎', url: 'https://www.zhihu.com', icon: 'fas fa-question-circle' },
-            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' }
+            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' },
+            { name: '微信', url: 'https://weixin.qq.com', icon: 'fab fa-weixin' },
+            { name: '微博', url: 'https://weibo.com', icon: 'fab fa-weibo' },
+            { name: '淘宝', url: 'https://www.taobao.com', icon: 'fas fa-shopping-cart' },
+            { name: '百度网盘', url: 'https://pan.baidu.com', icon: 'fas fa-cloud' }
         ];
         
         const saved = localStorage.getItem('quickLinks');
@@ -391,7 +395,11 @@ class SearchCenter {
             { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
             { name: 'B站', url: 'https://www.bilibili.com', icon: 'fas fa-play-circle' },
             { name: '知乎', url: 'https://www.zhihu.com', icon: 'fas fa-question-circle' },
-            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' }
+            { name: 'YouTube', url: 'https://www.youtube.com', icon: 'fab fa-youtube' },
+            { name: '微信', url: 'https://weixin.qq.com', icon: 'fab fa-weixin' },
+            { name: '微博', url: 'https://weibo.com', icon: 'fab fa-weibo' },
+            { name: '淘宝', url: 'https://www.taobao.com', icon: 'fas fa-shopping-cart' },
+            { name: '百度网盘', url: 'https://pan.baidu.com', icon: 'fas fa-cloud' }
         ];
 
         this.quickLinks[index] = defaultLinks[index];
