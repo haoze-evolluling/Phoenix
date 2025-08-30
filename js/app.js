@@ -1,4 +1,3 @@
-// 页面加载完成后初始化
 const famousQuotes = [
     "岁月不居，时节如流",
     "桑榆非晚，柠月如风",
@@ -11,34 +10,22 @@ const famousQuotes = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 初始化时间显示
     setupTime();
-    
-    // 初始化名句模态框功能
-    initQuoteModal();
-    
-    // 初始化快捷链接
     setupQuickLinks();
     
-    // 添加时间显示区域的点击动画和名句功能
     const timeDisplay = document.getElementById('timeDisplay');
     if (timeDisplay) {
         timeDisplay.addEventListener('click', function() {
             this.classList.add('clicked');
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 600);
+            setTimeout(() => this.classList.remove('clicked'), 600);
             showRandomQuote();
         });
     }
 });
 
-// 设置时间显示
 function setupTime() {
     const updateTime = () => {
         const now = new Date();
-        
-        // 更新时间
         const timeString = now.toLocaleTimeString('zh-CN', {
             hour12: false,
             hour: '2-digit',
@@ -46,7 +33,6 @@ function setupTime() {
             second: '2-digit'
         });
         
-        // 更新日期
         const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         const dateString = now.toLocaleDateString('zh-CN', {
             year: 'numeric',
@@ -65,48 +51,32 @@ function setupTime() {
     setInterval(updateTime, 1000);
 }
 
-// 初始化名句小彩蛋
-function initQuoteModal() {
-    // 初始化完成，无需额外设置
-}
-
-// 显示随机名句
 function showRandomQuote() {
     const quoteModal = document.getElementById('quoteModal');
     const quoteText = document.getElementById('quoteText');
     
     if (!quoteModal || !quoteText) return;
     
-    // 如果已经在显示，先清除之前的定时器
     if (quoteModal.style.display === 'flex') {
         clearTimeout(window.quoteAutoCloseTimer);
     }
     
-    // 随机选择名句
     const randomIndex = Math.floor(Math.random() * famousQuotes.length);
-    const selectedQuote = famousQuotes[randomIndex];
-    
-    quoteText.textContent = selectedQuote;
+    quoteText.textContent = famousQuotes[randomIndex];
     quoteModal.style.display = 'flex';
     
-    // 3秒后自动关闭
-    window.quoteAutoCloseTimer = setTimeout(() => {
-        closeQuoteModal();
-    }, 3000);
+    window.quoteAutoCloseTimer = setTimeout(closeQuoteModal, 3000);
 }
 
-// 关闭名句小彩蛋
 function closeQuoteModal() {
     const quoteModal = document.getElementById('quoteModal');
     const quoteContent = quoteModal?.querySelector('.quote-modal-content');
     if (!quoteModal || !quoteContent) return;
     
-    // 添加关闭动画
     quoteContent.style.animation = 'scaleOut 0.3s ease-out forwards';
     
     setTimeout(() => {
         quoteModal.style.display = 'none';
-        // 重置动画
         quoteContent.style.animation = '';
     }, 300);
     

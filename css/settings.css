@@ -79,18 +79,6 @@
 
 .settings-modal .setting-group {
     margin-bottom: 1.5rem;
-}
-
-.settings-modal .setting-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
-    font-size: 0.875rem;
-}
-
-.settings-modal .setting-group {
-    margin-bottom: 1.5rem;
     position: relative;
 }
 
@@ -268,26 +256,7 @@
     transform: rotate(90deg) scale(0.85);
 }
 
-/* 动画定义 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 /* 响应式设计 */
 @media (max-width: 480px) {
