@@ -117,37 +117,10 @@
     .time {
         font-size: 2rem;
     }
-    
-    .search-input {
-        padding: 1.25rem 1.5rem;
-        padding-right: 3.5rem;
-        font-size: 1rem;
-    }
-    
-    .search-button {
-        padding: 0.75rem 1rem;
-    }
-    
-    .engine-options {
-        gap: 0.5rem;
-    }
-    
-    .engine-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-    }
 }
 
 @media (max-width: 480px) {
     .time {
         font-size: 1.75rem;
-    }
-    
-    .engine-btn span {
-        display: none;
-    }
-    
-    .engine-btn {
-        padding: 0.75rem;
     }
 }
