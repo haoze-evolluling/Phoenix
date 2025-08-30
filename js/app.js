@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 初始化快捷链接
     setupQuickLinks();
     
+    // 初始化搜索中心
+    window.searchCenter = new SearchCenter();
+    
     // 添加时间显示区域的点击动画和名句功能
     const timeDisplay = document.getElementById('timeDisplay');
     if (timeDisplay) {
