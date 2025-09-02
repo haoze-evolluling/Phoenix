@@ -272,9 +272,10 @@ body {
     animation: pulse 2s infinite;
 }
 
-.loaded {
+/* 移除自动加载动画以避免冲突 */
+/* .loaded {
     animation: fadeIn 0.8s ease;
-}
+} */
 
 /* 玻璃态增强效果 */
 .glass-morphism {
@@ -326,7 +327,8 @@ body {
         rgba(255, 255, 255, 0.2) 75%, 
         rgba(255, 255, 255, 0.1) 100%);
     background-size: 200% 200%;
-    animation: glassWave 4s ease-in-out infinite;
+    /* 移除自动玻璃波动画以避免冲突 */
+    /* animation: glassWave 4s ease-in-out infinite; */
     border-radius: inherit;
     pointer-events: none;
     opacity: 0;

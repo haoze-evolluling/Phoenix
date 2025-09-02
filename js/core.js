@@ -58,7 +58,8 @@ function initializeInteractiveEffects() {
     cardElements.forEach(element => {
         element.classList.add('hover-lift');
         element.classList.add('glass-morphism');
-        element.classList.add('glass-wave');
+        // 移除glass-wave类以避免自动动画冲突
+        // element.classList.add('glass-wave');
     });
     
     // 初始化玻璃态增强效果
@@ -96,10 +97,10 @@ function addLiquidGlassEffects() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('glass-visible');
-                // 添加延迟动画效果
-                setTimeout(() => {
-                    entry.target.style.animation = 'glassWave 4s ease-in-out infinite';
-                }, Math.random() * 1000);
+                // 移除自动触发的动画效果以避免冲突
+                // setTimeout(() => {
+                //     entry.target.style.animation = 'glassWave 4s ease-in-out infinite';
+                // }, Math.random() * 1000);
             }
         });
     }, {
@@ -207,8 +208,8 @@ window.addEventListener('error', (e) => {
 window.addEventListener('load', () => {
     console.log('页面资源加载完成');
     
-    // 添加加载完成的视觉反馈
-    document.body.classList.add('loaded');
+    // 移除自动加载动画以避免冲突
+    // document.body.classList.add('loaded');
     
     // 重新初始化交互效果以确保动态加载的元素也有效果
     setTimeout(() => {

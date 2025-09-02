@@ -55,16 +55,18 @@
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideIn 0.6s ease forwards;
+    /* 移除自动滑入动画以避免冲突 */
+    /* animation: slideIn 0.6s ease forwards; */
 }
 
-.bookmark-category:nth-child(2) {
+/* 移除动画延迟设置 */
+/* .bookmark-category:nth-child(2) {
     animation-delay: 0.1s;
 }
 
 .bookmark-category:nth-child(3) {
     animation-delay: 0.2s;
-}
+} */
 
 .bookmark-category::before {
     content: '';
@@ -198,10 +200,12 @@
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeIn 0.6s ease forwards;
+    /* 移除自动淡入动画以避免冲突 */
+    /* animation: fadeIn 0.6s ease forwards; */
 }
 
-.tool-card:nth-child(2) {
+/* 移除工具卡片动画延迟设置 */
+/* .tool-card:nth-child(2) {
     animation-delay: 0.1s;
 }
 
@@ -211,7 +215,7 @@
 
 .tool-card:nth-child(4) {
     animation-delay: 0.3s;
-}
+} */
 
 .tool-card::before {
     content: '';
@@ -315,13 +319,15 @@
     position: relative;
     overflow: visible;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideIn 0.6s ease forwards;
+    /* 移除设置组自动滑入动画以避免冲突 */
+    /* animation: slideIn 0.6s ease forwards; */
     z-index: 1;
 }
 
-.setting-group:nth-child(2) {
+/* 移除设置组动画延迟设置 */
+/* .setting-group:nth-child(2) {
     animation-delay: 0.1s;
-}
+} */
 
 .setting-group::before {
     content: '';
