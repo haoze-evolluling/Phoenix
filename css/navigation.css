@@ -7,8 +7,8 @@
     border-radius: 16px;
     padding: 15px 20px;
     margin-bottom: 30px;
-    box-shadow: var(--shadow-glass);
-    border: var(--glass-border);
+    box-shadow: var(--shadow-lg);
+    border: var(--border-light);
     position: relative;
     overflow: hidden;
 }
@@ -39,7 +39,7 @@
     background: transparent;
     border: none;
     border-radius: 12px;
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -91,7 +91,7 @@
     background: var(--bg-glass);
     color: var(--accent-color);
     transform: translateY(-2px) scale(1.02);
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-btn:active {
@@ -100,8 +100,8 @@
 
 .nav-btn.active {
     background: var(--accent-color);
-    color: var(--text-light);
-    box-shadow: var(--shadow-card);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-colored);
     transform: translateY(-1px);
 }
 

@@ -19,8 +19,8 @@
     border-radius: 20px;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
-    box-shadow: var(--shadow-glass);
-    border: var(--glass-border);
+    box-shadow: var(--shadow-xl);
+    border: var(--border-light);
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -41,7 +41,7 @@
 
 .time-display:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-2xl);
 }
 
 .time {
@@ -61,7 +61,7 @@
 
 .date {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     font-weight: 400;
     position: relative;
     z-index: 1;
@@ -79,8 +79,8 @@
     background: var(--bg-card);
     border-radius: 50px;
     padding: 20px 30px;
-    box-shadow: var(--shadow-glass);
-    border: var(--glass-border);
+    box-shadow: var(--shadow-lg);
+    border: var(--border-medium);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     display: flex;
@@ -105,17 +105,18 @@
 
 .search-box:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-xl);
 }
 
 .search-box:focus-within {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-2xl);
     background: var(--bg-glass);
+    border-color: var(--border-accent);
 }
 
 .search-icon {
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     font-size: 18px;
     transition: all 0.3s ease;
     z-index: 1;
@@ -140,7 +141,7 @@
 }
 
 #search-input::placeholder {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     transition: color 0.3s ease;
 }
 
@@ -158,10 +159,10 @@
 .engine-btn {
     width: 40px;
     height: 40px;
-    border: none;
+    border: 1px solid var(--border-light);
     border-radius: 50%;
     background: var(--bg-secondary);
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -194,9 +195,10 @@
 
 .engine-btn:hover {
     background: var(--accent-color);
-    color: var(--text-light);
+    color: var(--text-inverse);
+    border-color: var(--accent-color);
     transform: scale(1.1);
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-md);
 }
 
 .engine-btn:active {
@@ -205,9 +207,10 @@
 
 .engine-btn.active {
     background: var(--accent-color);
-    color: var(--text-light);
+    color: var(--text-inverse);
+    border-color: var(--accent-color);
     transform: scale(1.05);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-colored);
 }
 
 /* 快捷链接 */
@@ -217,8 +220,8 @@
     padding: 30px;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
-    box-shadow: var(--shadow-glass);
-    border: var(--glass-border);
+    box-shadow: var(--shadow-lg);
+    border: var(--border-light);
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -239,7 +242,7 @@
 
 .quick-links:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-xl);
 }
 
 .quick-links h3 {
@@ -271,7 +274,7 @@
     border-radius: 16px;
     text-decoration: none;
     color: var(--text-primary);
-    border: var(--glass-border);
+    border: var(--border-light);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     position: relative;
@@ -314,9 +317,10 @@
 
 .link-card:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-xl);
     background: var(--accent-color);
-    color: var(--text-light);
+    color: var(--text-inverse);
+    border-color: var(--accent-color);
 }
 
 .link-card:active {
@@ -333,14 +337,14 @@
     justify-content: center;
     margin-bottom: 12px;
     font-size: 20px;
-    color: var(--text-light);
+    color: var(--text-inverse);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 1;
 }
 
 .link-card:hover .link-icon {
-    background: var(--text-light);
+    background: var(--bg-surface);
     color: var(--accent-color);
     transform: scale(1.1) rotateY(10deg);
 }
