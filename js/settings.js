@@ -78,10 +78,10 @@ function changeTheme(newTheme) {
 function addThemeTransition(oldTheme, newTheme) {
     const body = document.body;
     
-    // 添加过渡动画
-    body.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    // 添加主题切换类，触发全局过渡动画
+    body.classList.add('theme-switching');
     
-    // 临时添加过渡遮罩
+    // 创建优雅的切换动画遮罩
     const overlay = document.createElement('div');
     overlay.style.cssText = `
         position: fixed;
@@ -89,28 +89,90 @@ function addThemeTransition(oldTheme, newTheme) {
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.1) 100%);
+        background: ${newTheme === 'dark' || (newTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) 
+            ? 'radial-gradient(circle at center, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.3) 100%)' 
+            : 'radial-gradient(circle at center, rgba(219,234,254,0.1) 0%, rgba(243,232,255,0.3) 100%)'};
         z-index: 9999;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
     `;
     
     document.body.appendChild(overlay);
     
     // 显示遮罩
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         overlay.style.opacity = '1';
-    }, 10);
+    });
     
-    // 移除遮罩和过渡
+    // 移除遮罩和切换类
     setTimeout(() => {
         overlay.style.opacity = '0';
         setTimeout(() => {
             overlay.remove();
-            body.style.transition = '';
-        }, 300);
-    }, 250);
+            body.classList.remove('theme-switching');
+        }, 400);
+    }, 300);
+    
+    // 添加波纹扩散效果
+    addThemeRippleEffect(newTheme);
+}
+
+// 添加主题切换波纹效果
+function addThemeRippleEffect(newTheme) {
+    const activeThemeButton = document.querySelector(`.theme-btn[data-theme="${newTheme}"]`);
+    if (!activeThemeButton) return;
+    
+    const rect = activeThemeButton.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        top: ${centerY}px;
+        left: ${centerX}px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: ${newTheme === 'dark' 
+            ? 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 50%, transparent 100%)' 
+            : 'radial-gradient(circle, rgba(30,64,175,0.3) 0%, rgba(30,64,175,0.1) 50%, transparent 100%)'};
+        transform: translate(-50%, -50%) scale(0);
+        z-index: 10000;
+        pointer-events: none;
+        animation: themeRipple 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    `;
+    
+    // 添加波纹动画CSS
+    if (!document.querySelector('#theme-ripple-style')) {
+        const style = document.createElement('style');
+        style.id = 'theme-ripple-style';
+        style.textContent = `
+            @keyframes themeRipple {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                70% {
+                    transform: translate(-50%, -50%) scale(100);
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(150);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(ripple);
+    
+    // 移除波纹元素
+    setTimeout(() => {
+        ripple.remove();
+    }, 800);
 }
 
 // 改变搜索引擎

@@ -40,13 +40,13 @@
     --error-600: #dc2626;
     --error-700: #b91c1c;
     
-    /* 浅色主题配色 */
-    --bg-primary: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #581c87 100%);
-    --bg-secondary: rgba(248, 250, 252, 0.9);
-    --bg-card: rgba(255, 255, 255, 0.8);
-    --bg-glass: rgba(255, 255, 255, 0.6);
+    /* 浅色主题配色 - 浅蓝色和浅粉色渐变 */
+    --bg-primary: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --bg-glass: rgba(255, 255, 255, 0.8);
     --bg-surface: #ffffff;
-    --bg-overlay: rgba(15, 23, 42, 0.1);
+    --bg-overlay: rgba(15, 23, 42, 0.08);
     
     /* 文本颜色 - 确保对比度 ≥ 4.5:1 */
     --text-primary: #0f172a;         /* 对比度: 19.47:1 */
@@ -89,9 +89,9 @@
 [data-theme="dark"] {
     /* 深色主题背景 */
     --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #374151 100%);
-    --bg-secondary: rgba(30, 41, 59, 0.9);
-    --bg-card: rgba(51, 65, 85, 0.8);
-    --bg-glass: rgba(51, 65, 85, 0.6);
+    --bg-secondary: rgba(30, 41, 59, 0.95);
+    --bg-card: rgba(51, 65, 85, 0.9);
+    --bg-glass: rgba(51, 65, 85, 0.8);
     --bg-surface: #1e293b;
     --bg-overlay: rgba(248, 250, 252, 0.1);
     
@@ -130,6 +130,57 @@
     --glass-highlight: linear-gradient(135deg, rgba(148, 163, 184, 0.15) 0%, rgba(148, 163, 184, 0.05) 100%);
 }
 
+/* 自动主题模式 - 跟随系统设置 */
+[data-theme="auto"] {
+    /* 继承浅色主题配色 */
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+        /* 深色主题背景 */
+        --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #374151 100%);
+        --bg-secondary: rgba(30, 41, 59, 0.95);
+        --bg-card: rgba(51, 65, 85, 0.9);
+        --bg-glass: rgba(51, 65, 85, 0.8);
+        --bg-surface: #1e293b;
+        --bg-overlay: rgba(248, 250, 252, 0.1);
+        
+        /* 深色主题文本 */
+        --text-primary: #f8fafc;
+        --text-secondary: #e2e8f0;
+        --text-tertiary: #cbd5e1;
+        --text-inverse: #0f172a;
+        --text-muted: #94a3b8;
+        
+        /* 深色主题边框 */
+        --border-light: rgba(71, 85, 105, 0.6);
+        --border-medium: rgba(100, 116, 139, 0.7);
+        --border-strong: rgba(148, 163, 184, 0.8);
+        --border-accent: rgba(59, 130, 246, 0.4);
+        
+        /* 深色主题阴影 */
+        --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+        --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --shadow-colored: 0 10px 15px -3px rgba(59, 130, 246, 0.2), 0 4px 6px -4px rgba(59, 130, 246, 0.2);
+        
+        /* 深色主题交互状态 */
+        --accent-color: var(--brand-secondary);
+        --hover-color: var(--brand-tertiary);
+        --active-color: #93c5fd;
+        --focus-color: var(--brand-secondary);
+        
+        /* 深色模式玻璃态效果 */
+        --glass-backdrop: blur(24px);
+        --glass-border: 1px solid rgba(148, 163, 184, 0.2);
+        --glass-highlight: linear-gradient(135deg, rgba(148, 163, 184, 0.15) 0%, rgba(148, 163, 184, 0.05) 100%);
+    }
+}
+
 body {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg-primary);
@@ -137,6 +188,26 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
+    /* 主题切换时的平滑过渡 */
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 为所有元素添加主题切换过渡 */
+*, *::before, *::after {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                backdrop-filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 主题切换时禁用普通的hover过渡，避免冲突 */
+.theme-switching *, .theme-switching *::before, .theme-switching *::after {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .container {
@@ -168,9 +239,16 @@ body {
     opacity: 0.8;
 }
 
-/* 动画和过渡效果 */
-* {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* 交互元素的快速过渡效果 */
+.interactive-element,
+.nav-btn,
+.link-card,
+.tool-card,
+.bookmark-item,
+.theme-btn,
+.engine-btn {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 通用点击反馈效果 */
