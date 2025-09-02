@@ -16,6 +16,11 @@ function initializeNavigation() {
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             
+            // 修复点击后焦点问题 - 移除焦点到容器
+            setTimeout(() => {
+                button.blur();
+            }, 50);
+            
             // 切换页面内容
             sections.forEach(section => {
                 section.classList.remove('active');

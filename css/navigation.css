@@ -134,11 +134,26 @@
     transform: translateX(1px);
 }
 
-/* 聚焦状态 */
+/* 聚焦状态 - 修复点击后变白的问题 */
 .nav-btn:focus {
+    outline: none;
+}
+
+.nav-btn:focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
+}
+
+/* 为激活状态的按钮设置正确的焦点样式 */
+.nav-btn.active:focus {
+    background: var(--accent-color);
+    color: var(--text-inverse);
+}
+
+/* 非激活状态按钮的焦点样式 */
+.nav-btn:not(.active):focus {
     background: var(--bg-glass);
+    color: var(--accent-color);
 }
 
 /* 导航按钮加载动画 */
