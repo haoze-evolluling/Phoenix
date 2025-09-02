@@ -376,66 +376,7 @@
     color: var(--accent-color);
 }
 
-.theme-switcher {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
 
-.theme-btn {
-    padding: 8px 16px;
-    border: var(--border-light);
-    border-radius: 8px;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: 14px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-btn::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease;
-    pointer-events: none;
-}
-
-.theme-btn.ripple-effect::after {
-    width: 80px;
-    height: 80px;
-}
-
-.theme-btn:hover {
-    background: var(--bg-glass);
-    border-color: var(--border-accent);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-}
-
-.theme-btn:active {
-    transform: translateY(0) scale(0.98);
-}
-
-.theme-btn.active {
-    background: var(--accent-color);
-    color: var(--text-inverse);
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-colored);
-}
-
-.theme-btn:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-}
 
 .bg-selector,
 .search-engine-selector {

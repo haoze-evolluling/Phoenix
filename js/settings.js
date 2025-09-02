@@ -2,19 +2,7 @@
 
 // 初始化设置功能
 function initializeSettings() {
-    // 主题切换
-    const themeButtons = document.querySelectorAll('.theme-btn');
-    themeButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // 添加点击动画
-            addThemeClickEffect(button);
-            
-            const newTheme = button.dataset.theme;
-            changeTheme(newTheme);
-        });
-    });
+
     
     // 搜索引擎设置
     const searchEngineSelector = document.querySelector('.search-engine-selector');
@@ -54,126 +42,11 @@ function initializeSettings() {
     addResetSettings();
 }
 
-// 改变主题
-function changeTheme(newTheme) {
-    const oldTheme = currentTheme;
-    currentTheme = newTheme;
-    localStorage.setItem('theme', currentTheme);
-    
-    // 添加主题切换过渡效果
-    addThemeTransition(oldTheme, newTheme);
-    
-    initializeTheme();
-    
-    const themeNames = {
-        'light': '浅色',
-        'dark': '深色',
-        'auto': '自动'
-    };
-    
-    showMessage(`已切换到${themeNames[newTheme]}主题`, 'success');
-}
 
-// 添加主题切换过渡效果
-function addThemeTransition(oldTheme, newTheme) {
-    const body = document.body;
-    
-    // 添加主题切换类，触发全局过渡动画
-    body.classList.add('theme-switching');
-    
-    // 创建优雅的切换动画遮罩
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: ${newTheme === 'dark' || (newTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) 
-            ? 'radial-gradient(circle at center, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.3) 100%)' 
-            : 'radial-gradient(circle at center, rgba(219,234,254,0.1) 0%, rgba(243,232,255,0.3) 100%)'};
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        pointer-events: none;
-    `;
-    
-    document.body.appendChild(overlay);
-    
-    // 显示遮罩
-    requestAnimationFrame(() => {
-        overlay.style.opacity = '1';
-    });
-    
-    // 移除遮罩和切换类
-    setTimeout(() => {
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-            overlay.remove();
-            body.classList.remove('theme-switching');
-        }, 400);
-    }, 300);
-    
-    // 添加波纹扩散效果
-    addThemeRippleEffect(newTheme);
-}
 
-// 添加主题切换波纹效果
-function addThemeRippleEffect(newTheme) {
-    const activeThemeButton = document.querySelector(`.theme-btn[data-theme="${newTheme}"]`);
-    if (!activeThemeButton) return;
-    
-    const rect = activeThemeButton.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const ripple = document.createElement('div');
-    ripple.style.cssText = `
-        position: fixed;
-        top: ${centerY}px;
-        left: ${centerX}px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: ${newTheme === 'dark' 
-            ? 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 50%, transparent 100%)' 
-            : 'radial-gradient(circle, rgba(30,64,175,0.3) 0%, rgba(30,64,175,0.1) 50%, transparent 100%)'};
-        transform: translate(-50%, -50%) scale(0);
-        z-index: 10000;
-        pointer-events: none;
-        animation: themeRipple 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    `;
-    
-    // 添加波纹动画CSS
-    if (!document.querySelector('#theme-ripple-style')) {
-        const style = document.createElement('style');
-        style.id = 'theme-ripple-style';
-        style.textContent = `
-            @keyframes themeRipple {
-                0% {
-                    transform: translate(-50%, -50%) scale(0);
-                    opacity: 1;
-                }
-                70% {
-                    transform: translate(-50%, -50%) scale(100);
-                    opacity: 0.6;
-                }
-                100% {
-                    transform: translate(-50%, -50%) scale(150);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    document.body.appendChild(ripple);
-    
-    // 移除波纹元素
-    setTimeout(() => {
-        ripple.remove();
-    }, 800);
-}
+
+
+
 
 // 改变搜索引擎
 function changeSearchEngine(newEngine) {
@@ -199,19 +72,7 @@ function changeShowSeconds(newShowSeconds) {
     showMessage(`${showSeconds ? '显示' : '隐藏'}秒数`, 'info');
 }
 
-// 添加主题按钮点击效果
-function addThemeClickEffect(button) {
-    const originalTransform = button.style.transform;
-    button.style.transform = 'scale(0.95)';
-    
-    // 添加发光效果
-    button.style.boxShadow = `0 0 20px ${getComputedStyle(document.documentElement).getPropertyValue('--accent-color')}`;
-    
-    setTimeout(() => {
-        button.style.transform = originalTransform;
-        button.style.boxShadow = '';
-    }, 200);
-}
+
 
 // 初始化工具卡片
 function initializeToolCards() {
@@ -592,7 +453,6 @@ function addSettingsImportExport() {
 // 导出设置
 function exportSettings() {
     const settings = {
-        theme: currentTheme,
         searchEngine: currentSearchEngine,
         showSeconds: showSeconds,
         searchHistory: getSearchHistory(),
@@ -621,7 +481,6 @@ function importSettings(e) {
                 const settings = JSON.parse(event.target.result);
                 
                 // 应用设置
-                if (settings.theme) changeTheme(settings.theme);
                 if (settings.searchEngine) changeSearchEngine(settings.searchEngine);
                 if (typeof settings.showSeconds === 'boolean') changeShowSeconds(settings.showSeconds);
                 if (settings.searchHistory) localStorage.setItem('searchHistory', JSON.stringify(settings.searchHistory));
@@ -672,7 +531,6 @@ function resetAllSettings() {
 if (typeof window !== 'undefined') {
     window.newTabSettings = {
         initializeSettings,
-        changeTheme,
         changeSearchEngine,
         changeShowSeconds,
         handleToolClick,
