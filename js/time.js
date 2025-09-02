@@ -4,6 +4,7 @@
 function initializeTime() {
     updateTime();
     updateShowSecondsCheckbox();
+    updateTimeFormatSelector();
     
     // 添加时间点击交互
     addTimeInteraction();
@@ -20,7 +21,7 @@ function updateTime() {
         hour: '2-digit',
         minute: '2-digit',
         ...(showSeconds && { second: '2-digit' }),
-        hour12: false
+        hour12: use12HourFormat
     };
     
     const timeString = now.toLocaleTimeString('zh-CN', timeOptions);
@@ -148,26 +149,20 @@ function addTimeInteraction() {
 
 // 切换时间格式
 function toggleTimeFormat() {
-    const timeElement = document.getElementById('current-time');
-    if (!timeElement) return;
+    use12HourFormat = !use12HourFormat;
+    localStorage.setItem('use12HourFormat', use12HourFormat);
+    updateTime();
+    updateTimeFormatSelector();
     
-    const now = new Date();
-    const is12Hour = timeElement.textContent.includes('上午') || timeElement.textContent.includes('下午');
-    
-    const timeOptions = {
-        hour: '2-digit',
-        minute: '2-digit',
-        ...(showSeconds && { second: '2-digit' }),
-        hour12: !is12Hour
-    };
-    
-    const timeString = now.toLocaleTimeString('zh-CN', timeOptions);
-    timeElement.textContent = timeString;
-    
-    // 保存用户偏好
-    localStorage.setItem('use12HourFormat', !is12Hour);
-    
-    showMessage(`已切换到${is12Hour ? '24' : '12'}小时制`, 'info');
+    showMessage(`已切换到${use12HourFormat ? '12' : '24'}小时制`, 'info');
+}
+
+// 更新时间格式选择器状态
+function updateTimeFormatSelector() {
+    const timeFormatSelector = document.querySelector('.time-format-selector');
+    if (timeFormatSelector) {
+        timeFormatSelector.value = use12HourFormat ? '12' : '24';
+    }
 }
 
 // 添加时间点击效果
@@ -360,6 +355,7 @@ if (typeof window !== 'undefined') {
         updateTime,
         startTimeUpdate,
         updateShowSecondsCheckbox,
+        updateTimeFormatSelector,
         toggleTimeFormat,
         addTimeInteraction,
         copyTimeToClipboard,

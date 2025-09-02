@@ -3,6 +3,7 @@
 // 全局变量
 let currentSearchEngine = localStorage.getItem('searchEngine') || 'google';
 let showSeconds = localStorage.getItem('showSeconds') !== 'false';
+let use12HourFormat = localStorage.getItem('use12HourFormat') === 'true';
 
 // 搜索引擎配置
 const searchEngines = {
@@ -21,6 +22,7 @@ function initializeApp() {
     initializeTime();
     initializeNavigation();
     initializeSearch();
+    initializeShortcuts();
     initializeSettings();
     initializeInteractiveEffects();
     startTimeUpdate();

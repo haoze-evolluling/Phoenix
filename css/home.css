@@ -227,6 +227,10 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.quick-links:hover .shortcut-actions {
+    opacity: 1;
+}
+
 .quick-links::before {
     content: '';
     position: absolute;
@@ -360,6 +364,73 @@
 
 .link-card:hover span {
     transform: translateY(-1px);
+}
+
+/* 快捷网站管理操作按钮 */
+.shortcut-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.link-card:hover .shortcut-actions {
+    opacity: 1;
+}
+
+.edit-shortcut,
+.delete-shortcut {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-shortcut:hover {
+    background: var(--info-color, #3b82f6);
+    transform: scale(1.1);
+}
+
+.delete-shortcut:hover {
+    background: var(--error-color);
+    transform: scale(1.1);
+}
+
+/* 添加网站按钮样式 */
+.add-shortcut-btn {
+    cursor: pointer;
+    border: 2px dashed var(--border-light);
+    background: transparent !important;
+}
+
+.add-shortcut-btn:hover {
+    border-color: var(--accent-color);
+    background: var(--accent-color) !important;
+    color: var(--text-inverse);
+}
+
+.add-shortcut-btn .link-icon {
+    background: transparent !important;
+    border: 2px dashed currentColor;
+    color: var(--text-tertiary);
+}
+
+.add-shortcut-btn:hover .link-icon {
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white;
 }
 
 /* 响应式设计 */

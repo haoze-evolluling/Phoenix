@@ -23,6 +23,16 @@ function initializeSettings() {
         });
     }
     
+    // 时间格式设置
+    const timeFormatSelector = document.querySelector('.time-format-selector');
+    if (timeFormatSelector) {
+        timeFormatSelector.value = use12HourFormat ? '12' : '24';
+        timeFormatSelector.addEventListener('change', (e) => {
+            const newFormat = e.target.value === '12';
+            changeTimeFormat(newFormat);
+        });
+    }
+    
     // 背景样式设置
     const bgSelector = document.querySelector('.bg-selector');
     if (bgSelector) {
@@ -70,6 +80,15 @@ function changeShowSeconds(newShowSeconds) {
     updateTime();
     
     showMessage(`${showSeconds ? '显示' : '隐藏'}秒数`, 'info');
+}
+
+// 改变时间格式设置
+function changeTimeFormat(newUse12Hour) {
+    use12HourFormat = newUse12Hour;
+    localStorage.setItem('use12HourFormat', use12HourFormat);
+    updateTime();
+    
+    showMessage(`时间格式已设置为${use12HourFormat ? '12' : '24'}小时制`, 'success');
 }
 
 
@@ -533,6 +552,7 @@ if (typeof window !== 'undefined') {
         initializeSettings,
         changeSearchEngine,
         changeShowSeconds,
+        changeTimeFormat,
         handleToolClick,
         openCalculator,
         openPomodoroTimer,

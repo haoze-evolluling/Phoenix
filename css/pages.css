@@ -379,7 +379,8 @@
 
 
 .bg-selector,
-.search-engine-selector {
+.search-engine-selector,
+.time-format-selector {
     padding: 8px 12px;
     border: var(--border-medium);
     border-radius: 8px;
@@ -393,14 +394,16 @@
 }
 
 .bg-selector:hover,
-.search-engine-selector:hover {
+.search-engine-selector:hover,
+.time-format-selector:hover {
     background: var(--bg-glass);
     border-color: var(--border-accent);
     box-shadow: var(--shadow-sm);
 }
 
 .bg-selector:focus,
-.search-engine-selector:focus {
+.search-engine-selector:focus,
+.time-format-selector:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
     background: var(--bg-glass);
