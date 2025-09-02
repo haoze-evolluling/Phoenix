@@ -440,8 +440,7 @@ input[type="checkbox"]:active {
 
 /* 聚焦状态 */
 #search-input:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+    outline: none;
 }
 
 button:focus {
