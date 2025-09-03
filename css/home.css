@@ -9,19 +9,20 @@
     display: block;
 }
 
-/* 时间显示 */
+/* 时间显示 - 增强毛玻璃效果 */
 .time-display {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: var(--bg-card);
+    background: var(--bg-glass-strong);
     border-radius: 20px;
-    backdrop-filter: var(--glass-backdrop);
-    -webkit-backdrop-filter: var(--glass-backdrop);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
     box-shadow: var(--shadow-xl);
-    border: var(--border-light);
+    border: var(--glass-border-strong);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .time-display::before {
@@ -31,10 +32,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--glass-highlight);
+    background: var(--glass-highlight-strong);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.time-display:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2xl);
+}
+
+.time-display:hover::before {
+    opacity: 0.9;
 }
 
 
@@ -66,17 +77,18 @@
     position: relative;
     max-width: 600px;
     margin: 0 auto;
-    background: var(--bg-card);
+    background: var(--bg-glass);
     border-radius: 50px;
     padding: 20px 30px;
     box-shadow: var(--shadow-lg);
-    border: var(--border-medium);
+    border: var(--glass-border);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     display: flex;
     align-items: center;
     gap: 15px;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-box::before {
@@ -89,12 +101,21 @@
     background: var(--glass-highlight);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
 }
 
 .search-box:focus-within {
-    background: var(--bg-glass);
-    border-color: var(--border-accent);
+    background: var(--bg-glass-strong);
+    border: var(--glass-border-strong);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-1px);
+}
+
+.search-box:focus-within::before {
+    opacity: 0.8;
 }
 
 .search-icon {
@@ -138,9 +159,11 @@
 .engine-btn {
     width: 40px;
     height: 40px;
-    border: 1px solid var(--border-light);
+    border: var(--glass-border-light);
     border-radius: 50%;
-    background: var(--bg-secondary);
+    background: var(--bg-glass-light);
+    backdrop-filter: var(--glass-backdrop-light);
+    -webkit-backdrop-filter: var(--glass-backdrop-light);
     color: var(--text-tertiary);
     cursor: pointer;
     display: flex;
@@ -150,6 +173,21 @@
     font-weight: bold;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engine-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-highlight-light);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -158,6 +196,13 @@
     background: var(--accent-color);
     color: var(--text-inverse);
     border-color: var(--accent-color);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: scale(1.05);
+}
+
+.engine-btn:hover::before {
+    opacity: 0;
 }
 
 .engine-btn.active {
@@ -165,22 +210,27 @@
     color: var(--text-inverse);
     border-color: var(--accent-color);
     box-shadow: var(--shadow-colored);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
-/* 快捷链接 */
+.engine-btn.active::before {
+    opacity: 0;
+}
+
+/* 快捷链接 - 增强毛玻璃效果 */
 .quick-links {
-    background: var(--bg-card);
+    background: var(--bg-glass);
     border-radius: 20px;
     padding: 30px;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     box-shadow: var(--shadow-lg);
-    border: var(--border-light);
+    border: var(--glass-border);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-
 
 .quick-links::before {
     content: '';
@@ -192,7 +242,17 @@
     background: var(--glass-highlight);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.quick-links:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.quick-links:hover::before {
+    opacity: 0.7;
 }
 
 
@@ -222,16 +282,17 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 15px;
-    background: var(--bg-secondary);
+    background: var(--bg-glass-light);
     border-radius: 16px;
     text-decoration: none;
     color: var(--text-primary);
-    border: var(--border-light);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border: var(--glass-border-light);
+    backdrop-filter: var(--glass-backdrop-light);
+    -webkit-backdrop-filter: var(--glass-backdrop-light);
     position: relative;
     overflow: hidden;
     transform-origin: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-card::before {
@@ -241,10 +302,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: var(--glass-highlight-light);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.8;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -254,6 +316,13 @@
     color: var(--text-inverse);
     border-color: var(--accent-color);
     box-shadow: var(--shadow-xl);
+    transform: translateY(-3px) scale(1.02);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.link-card:hover::before {
+    opacity: 0;
 }
 
 .link-icon {
@@ -347,7 +416,7 @@
     color: white;
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 优化毛玻璃效果 */
 @media (max-width: 768px) {
     .time {
         font-size: 2.5rem;
@@ -370,6 +439,19 @@
     .links-grid {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 15px;
+    }
+    
+    /* 移动设备上减少毛玻璃效果强度以提升性能 */
+    .time-display,
+    .search-box,
+    .quick-links {
+        backdrop-filter: var(--glass-backdrop-light);
+        -webkit-backdrop-filter: var(--glass-backdrop-light);
+    }
+    
+    .link-card {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 }
 

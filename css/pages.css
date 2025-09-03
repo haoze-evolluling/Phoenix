@@ -1,6 +1,6 @@
 /* 其他页面样式 - 书签、工具、设置 */
 
-/* 页面标题样式 */
+/* 页面标题样式 - 增强毛玻璃效果 */
 .section h2 {
     text-align: center;
     font-size: 2rem;
@@ -8,14 +8,15 @@
     color: var(--text-primary);
     margin-bottom: 20px;
     padding: 20px;
-    background: var(--bg-card);
+    background: var(--bg-glass-strong);
     border-radius: 16px;
-    backdrop-filter: var(--glass-backdrop);
-    -webkit-backdrop-filter: var(--glass-backdrop);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
     box-shadow: var(--shadow-lg);
-    border: var(--border-light);
+    border: var(--glass-border-strong);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section h2::before {
@@ -25,10 +26,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--glass-highlight);
+    background: var(--glass-highlight-strong);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.section h2:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.section h2:hover::before {
+    opacity: 0.8;
 }
 
 
@@ -41,18 +52,17 @@
 }
 
 .bookmark-category {
-    background: var(--bg-card);
+    background: var(--bg-glass);
     border-radius: 16px;
     padding: 25px;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     box-shadow: var(--shadow-lg);
-    border: var(--border-light);
+    border: var(--glass-border);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-
 
 .bookmark-category::before {
     content: '';
@@ -64,7 +74,17 @@
     background: var(--glass-highlight);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.bookmark-category:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.bookmark-category:hover::before {
+    opacity: 0.7;
 }
 
 
@@ -90,13 +110,16 @@
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    background: var(--bg-secondary);
+    background: var(--bg-glass-light);
     border-radius: 12px;
     text-decoration: none;
     color: var(--text-primary);
-    border: var(--border-light);
+    border: var(--glass-border-light);
+    backdrop-filter: var(--glass-backdrop-light);
+    -webkit-backdrop-filter: var(--glass-backdrop-light);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bookmark-item::before {
@@ -106,10 +129,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: var(--glass-highlight-light);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.8;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -119,6 +143,13 @@
     color: var(--text-inverse);
     border-color: var(--accent-color);
     box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.bookmark-item:hover::before {
+    opacity: 0;
 }
 
 .bookmark-item i {
@@ -143,20 +174,19 @@
 }
 
 .tool-card {
-    background: var(--bg-card);
+    background: var(--bg-glass);
     border-radius: 16px;
     padding: 30px 25px;
     text-align: center;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     box-shadow: var(--shadow-lg);
-    border: var(--border-light);
+    border: var(--glass-border);
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-
 
 .tool-card::before {
     content: '';
@@ -168,7 +198,8 @@
     background: var(--glass-highlight);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -178,6 +209,13 @@
     background: var(--accent-color);
     color: var(--text-inverse);
     border-color: var(--accent-color);
+    transform: translateY(-3px) scale(1.02);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.tool-card:hover::before {
+    opacity: 0;
 }
 
 .tool-card i {
@@ -220,19 +258,18 @@
 }
 
 .setting-group {
-    background: var(--bg-card);
+    background: var(--bg-glass);
     border-radius: 16px;
     padding: 25px;
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     box-shadow: var(--shadow-lg);
-    border: var(--border-light);
+    border: var(--glass-border);
     position: relative;
     overflow: visible;
     z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-
 
 .setting-group::before {
     content: '';
@@ -244,7 +281,17 @@
     background: var(--glass-highlight);
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.setting-group:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.setting-group:hover::before {
+    opacity: 0.7;
 }
 
 
@@ -285,22 +332,28 @@
 .search-engine-selector,
 .time-format-selector {
     padding: 8px 12px;
-    border: var(--border-medium);
+    border: var(--glass-border-light);
     border-radius: 8px;
-    background: var(--bg-secondary);
+    background: var(--bg-glass-light);
+    backdrop-filter: var(--glass-backdrop-light);
+    -webkit-backdrop-filter: var(--glass-backdrop-light);
     color: var(--text-primary);
     font-size: 14px;
     min-width: 120px;
     position: relative;
     z-index: 3;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bg-selector:hover,
 .search-engine-selector:hover,
 .time-format-selector:hover {
     background: var(--bg-glass);
-    border-color: var(--border-accent);
+    border: var(--glass-border);
+    backdrop-filter: var(--glass-backdrop);
+    -webkit-backdrop-filter: var(--glass-backdrop);
     box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
 
 .bg-selector:focus,
@@ -308,7 +361,10 @@
 .time-format-selector:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
-    background: var(--bg-glass);
+    background: var(--bg-glass-strong);
+    border: var(--glass-border-strong);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
 }
 
 input[type="checkbox"] {
@@ -319,7 +375,7 @@ input[type="checkbox"] {
     z-index: 3;
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 优化毛玻璃效果 */
 @media (max-width: 768px) {
     .tools-grid {
         grid-template-columns: 1fr;
@@ -328,6 +384,20 @@ input[type="checkbox"] {
     .setting-item {
         flex-direction: column;
         align-items: flex-start;
+    }
+    
+    /* 移动设备上减少毛玻璃效果强度以提升性能 */
+    .section h2,
+    .bookmark-category,
+    .tool-card,
+    .setting-group {
+        backdrop-filter: var(--glass-backdrop-light);
+        -webkit-backdrop-filter: var(--glass-backdrop-light);
+    }
+    
+    .bookmark-item {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 }
 

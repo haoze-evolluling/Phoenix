@@ -40,11 +40,13 @@
     --error-600: #dc2626;
     --error-700: #b91c1c;
     
-    /* 浅色主题配色 - 浅蓝色和浅粉色渐变 */
+    /* 浅色主题配色 - 增强毛玻璃效果 */
     --bg-primary: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%);
-    --bg-secondary: rgba(255, 255, 255, 0.95);
-    --bg-card: rgba(255, 255, 255, 0.9);
-    --bg-glass: rgba(255, 255, 255, 0.8);
+    --bg-secondary: rgba(255, 255, 255, 0.85);
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --bg-glass: rgba(255, 255, 255, 0.65);
+    --bg-glass-light: rgba(255, 255, 255, 0.45);
+    --bg-glass-strong: rgba(255, 255, 255, 0.85);
     --bg-surface: #ffffff;
     --bg-overlay: rgba(15, 23, 42, 0.08);
     
@@ -80,10 +82,16 @@
     --warning-color: var(--warning-500);
     --error-color: var(--error-500);
     
-    /* 玻璃态效果变量 */
-    --glass-backdrop: blur(24px);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
-    --glass-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+    /* 玻璃态效果变量 - 增强版 */
+    --glass-backdrop: blur(20px) saturate(180%);
+    --glass-backdrop-light: blur(16px) saturate(150%);
+    --glass-backdrop-strong: blur(28px) saturate(200%);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.25);
+    --glass-border-light: 1px solid rgba(255, 255, 255, 0.15);
+    --glass-border-strong: 1px solid rgba(255, 255, 255, 0.35);
+    --glass-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 100%);
+    --glass-highlight-light: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    --glass-highlight-strong: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.08) 100%);
 }
 
 
@@ -110,13 +118,14 @@ body {
     min-height: 100vh;
 }
 
-/* 玻璃态基础样式 */
+/* 玻璃态基础样式 - 增强版 */
 .glass-effect {
     background: var(--bg-glass);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     border: var(--glass-border);
     position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-effect::before {
@@ -130,6 +139,55 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+/* 轻量级毛玻璃效果 */
+.glass-effect-light {
+    background: var(--bg-glass-light);
+    backdrop-filter: var(--glass-backdrop-light);
+    -webkit-backdrop-filter: var(--glass-backdrop-light);
+    border: var(--glass-border-light);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-effect-light::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-highlight-light);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+/* 强化毛玻璃效果 */
+.glass-effect-strong {
+    background: var(--bg-glass-strong);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
+    border: var(--glass-border-strong);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-effect-strong::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-highlight-strong);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -170,7 +228,7 @@ body {
 
 
 
-/* 玻璃态增强效果 */
+/* 玻璃态增强效果 - 更新版 */
 .glass-morphism {
     background: var(--bg-glass);
     backdrop-filter: var(--glass-backdrop);
@@ -178,6 +236,7 @@ body {
     border: var(--glass-border);
     box-shadow: var(--shadow-glass);
     position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-morphism::before {
@@ -191,6 +250,21 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+/* 毛玻璃悬停效果 */
+.glass-morphism:hover {
+    background: var(--bg-glass-strong);
+    backdrop-filter: var(--glass-backdrop-strong);
+    -webkit-backdrop-filter: var(--glass-backdrop-strong);
+    border: var(--glass-border-strong);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+}
+
+.glass-morphism:hover::before {
+    opacity: 1;
 }
 
 
