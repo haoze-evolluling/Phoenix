@@ -152,6 +152,18 @@ function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
+// URL验证函数
+function isValidURL(string) {
+    try {
+        new URL(string.startsWith('http') ? string : 'https://' + string);
+        return true;
+    } catch (_) {
+        // 检查是否像域名
+        const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
+        return domainPattern.test(string) || string.includes('.');
+    }
+}
+
 // 检查元素是否在视口中
 function isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
@@ -425,6 +437,7 @@ if (typeof window !== 'undefined') {
         formatFileSize,
         formatTimeDiff,
         generateUniqueId,
+        isValidURL,
         isElementInViewport,
         scrollToElement,
         getDeviceInfo,

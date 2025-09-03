@@ -13,8 +13,6 @@ function initializeSearch() {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             
-
-            
             currentSearchEngine = button.dataset.engine;
             localStorage.setItem('searchEngine', currentSearchEngine);
             updateSearchEngineButtons();
@@ -30,7 +28,6 @@ function initializeSearch() {
             if (e.key === 'Enter') {
                 const query = searchInput.value.trim();
                 if (query) {
-
                     performSearch(query);
                 }
             }
@@ -64,7 +61,7 @@ function performSearch(query) {
     addToSearchHistory(query);
     
     // 检查是否是URL
-    if (isValidURL(query)) {
+    if (newTabUtils.isValidURL(query)) {
         const url = query.startsWith('http') ? query : 'https://' + query;
         window.open(url, '_blank');
         showMessage(`正在打开：${url}`, 'info');
@@ -82,17 +79,7 @@ function performSearch(query) {
     updateSearchStats(currentSearchEngine);
 }
 
-// 检查是否为有效URL
-function isValidURL(string) {
-    try {
-        new URL(string.startsWith('http') ? string : 'https://' + string);
-        return true;
-    } catch (_) {
-        // 检查是否像域名
-        const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
-        return domainPattern.test(string) || string.includes('.');
-    }
-}
+// 使用utils.js中的URL验证函数
 
 // 处理搜索输入
 function handleSearchInput(e) {
@@ -106,7 +93,7 @@ function handleSearchInput(e) {
     }
     
     // 实时检测URL
-    if (isValidURL(query)) {
+    if (newTabUtils.isValidURL(query)) {
         e.target.style.color = 'var(--success-color)';
     } else {
         e.target.style.color = 'var(--text-primary)';
@@ -177,8 +164,6 @@ function showSearchSuggestions(query) {
         const searchBox = document.querySelector('.search-box');
         searchBox.style.position = 'relative';
         searchBox.appendChild(suggestionsContainer);
-        
-
     }
 }
 

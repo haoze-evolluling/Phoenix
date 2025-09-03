@@ -9,8 +9,6 @@ function initializeNavigation() {
         button.addEventListener('click', (e) => {
             const targetSection = button.dataset.section;
             
-
-            
             // 更新按钮状态
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
@@ -28,8 +26,6 @@ function initializeNavigation() {
                 }
             });
             
-
-            
             // 记录导航事件
             console.log(`切换到页面：${targetSection}`);
         });
@@ -46,20 +42,6 @@ function initializeNavigation() {
     // 添加触摸支持
     addTouchSupport(navButtons);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 添加触摸支持
 function addTouchSupport(buttons) {
@@ -109,7 +91,6 @@ function addBreadcrumbNavigation() {
         color: var(--text-secondary);
         z-index: 1000;
         opacity: 0;
-
         pointer-events: none;
     `;
     

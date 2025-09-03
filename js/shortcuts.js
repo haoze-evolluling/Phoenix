@@ -168,10 +168,10 @@ function getThemeColor(siteName, opacity = 0.4) {
 
 // 柔化颜色（降低饱和度，提高亮度）
 function softenColor(hexColor) {
-    const rgb = hexToRgb(hexColor);
+    const rgb = newTabUtils.hexToRgb(hexColor);
     if (!rgb) return hexColor;
     
-    // 将RGB转换为HSL
+    // 将RGB转换为HSL（需要定义本地函数，因为utils.js中没有此函数）
     const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
     
     // 降低饱和度（减少50%）
@@ -262,19 +262,11 @@ function rgbToHex(r, g, b) {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-// 十六进制转RGB
-function hexToRgb(hex) {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
+// 使用utils.js中的hexToRgb函数
 
 // 十六进制颜色转RGBA
 function hexToRgba(hex, alpha) {
-    const rgb = hexToRgb(hex);
+    const rgb = newTabUtils.hexToRgb(hex);
     if (!rgb) return `rgba(99, 102, 241, ${alpha})`; // 备选颜色
     return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
 }
@@ -420,13 +412,13 @@ async function addNewShortcut() {
     if (!name) return;
     
     const url = prompt('请输入网站地址：', 'https://');
-    if (!url || !isValidUrl(url)) {
+    if (!url || !newTabUtils.isValidURL(url)) {
         showMessage('请输入有效的网站地址', 'error');
         return;
     }
     
     const shortcuts = getUserShortcuts();
-    const id = generateUniqueId();
+    const id = 'shortcut_' + newTabUtils.generateUniqueId();
     
     // 尝试获取favicon
     const faviconUrl = await getFaviconUrl(url);
@@ -457,7 +449,7 @@ async function editShortcut(id) {
     if (!newName) return;
     
     const newUrl = prompt('请输入网站地址：', shortcut.url);
-    if (!newUrl || !isValidUrl(newUrl)) {
+    if (!newUrl || !newTabUtils.isValidURL(newUrl)) {
         showMessage('请输入有效的网站地址', 'error');
         return;
     }
@@ -582,20 +574,7 @@ function importShortcuts(e) {
     reader.readAsText(file);
 }
 
-// 验证URL是否有效
-function isValidUrl(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
-// 生成唯一ID
-function generateUniqueId() {
-    return 'shortcut_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
+// 使用utils.js中的URL验证函数和唯一ID生成函数
 
 // 导出快捷网站管理功能
 if (typeof window !== 'undefined') {

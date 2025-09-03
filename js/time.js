@@ -48,26 +48,34 @@ function updateTime() {
     updatePageTitle(timeString);
 }
 
-
-
 // 开始时间更新循环
+let timeUpdateInterval = null;
+
 function startTimeUpdate() {
+    // 清除现有的定时器
+    if (timeUpdateInterval) {
+        clearInterval(timeUpdateInterval);
+    }
+    
     updateTime();
     
     // 使用更精确的定时器
-    const updateInterval = setInterval(() => {
+    timeUpdateInterval = setInterval(() => {
         updateTime();
-        
-
     }, 1000);
     
     // 页面不可见时暂停更新以节省资源
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
-            clearInterval(updateInterval);
+            if (timeUpdateInterval) {
+                clearInterval(timeUpdateInterval);
+                timeUpdateInterval = null;
+            }
         } else {
             updateTime();
-            startTimeUpdate();
+            if (!timeUpdateInterval) {
+                startTimeUpdate();
+            }
         }
     });
 }
@@ -135,8 +143,6 @@ function updateTimeFormatSelector() {
     }
 }
 
-
-
 // 显示详细时间信息
 function showDetailedTimeInfo() {
     // 移除现有的详细信息
@@ -181,8 +187,6 @@ function showDetailedTimeInfo() {
     const timeDisplay = document.querySelector('.time-display');
     timeDisplay.style.position = 'relative';
     timeDisplay.appendChild(detailInfo);
-    
-
 }
 
 // 隐藏详细时间信息
@@ -197,8 +201,6 @@ function hideDetailedTimeInfo() {
 function copyTimeToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         showMessage(`已复制: ${text}`, 'success');
-        
-
     }).catch(() => {
         showMessage('复制失败', 'error');
     });
@@ -216,8 +218,6 @@ function getDayOfYear(date) {
     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
     return Math.ceil((date - firstDayOfYear) / 86400000) + 1;
 }
-
-
 
 // 更新页面标题
 function updatePageTitle(timeString) {

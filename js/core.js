@@ -46,20 +46,6 @@ function initializeInteractiveEffects() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 改变背景样式
 function changeBackgroundStyle(style) {
     const root = document.documentElement;
@@ -75,8 +61,6 @@ function changeBackgroundStyle(style) {
     
     showMessage('背景样式已更改', 'success');
 }
-
-
 
 // 键盘快捷键处理
 function handleKeyboardShortcuts(e) {

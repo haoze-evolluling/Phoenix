@@ -2,8 +2,6 @@
 
 // 初始化设置功能
 function initializeSettings() {
-
-    
     // 搜索引擎设置
     const searchEngineSelector = document.querySelector('.search-engine-selector');
     if (searchEngineSelector) {
@@ -52,12 +50,6 @@ function initializeSettings() {
     addResetSettings();
 }
 
-
-
-
-
-
-
 // 改变搜索引擎
 function changeSearchEngine(newEngine) {
     currentSearchEngine = newEngine;
@@ -91,8 +83,6 @@ function changeTimeFormat(newUse12Hour) {
     showMessage(`时间格式已设置为${use12HourFormat ? '12' : '24'}小时制`, 'success');
 }
 
-
-
 // 初始化工具卡片
 function initializeToolCards() {
     const toolCards = document.querySelectorAll('.tool-card');
@@ -100,8 +90,6 @@ function initializeToolCards() {
     toolCards.forEach(card => {
         card.addEventListener('click', (e) => {
             e.preventDefault();
-            
-
             
             const toolName = card.querySelector('h3').textContent;
             handleToolClick(toolName);
@@ -119,8 +107,6 @@ function initializeToolCards() {
         card.setAttribute('tabindex', '0');
     });
 }
-
-
 
 // 处理工具点击事件
 function handleToolClick(toolName) {
@@ -282,7 +268,7 @@ function openColorPicker() {
     
     colorInput.addEventListener('change', (e) => {
         const color = e.target.value;
-        const rgb = hexToRgb(color);
+        const rgb = newTabUtils.hexToRgb(color);
         const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
         
         const colorInfo = `
@@ -341,8 +327,6 @@ function generateQRCode(text) {
     
     document.body.appendChild(modal);
     
-
-    
     // 点击背景关闭
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
@@ -360,16 +344,7 @@ function generateQRCode(text) {
     document.addEventListener('keydown', closeOnEsc);
 }
 
-// 颜色转换工具函数
-function hexToRgb(hex) {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
-
+// HSL颜色转换函数
 function rgbToHsl(r, g, b) {
     r /= 255;
     g /= 255;
