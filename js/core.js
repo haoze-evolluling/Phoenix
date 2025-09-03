@@ -35,105 +35,26 @@ function initializeApp() {
 
 // 初始化交互效果
 function initializeInteractiveEffects() {
-    // 为所有可交互元素添加波纹效果
-    const interactiveElements = document.querySelectorAll(`
-        .nav-btn, .engine-btn, .link-card, .bookmark-item, 
-        .tool-card, button, [role="button"]
-    `);
-    
-    interactiveElements.forEach(element => {
-        element.classList.add('interactive-element');
-        element.addEventListener('click', addRippleEffect);
-        element.addEventListener('mousedown', addActiveEffect);
-        element.addEventListener('mouseup', removeActiveEffect);
-        element.addEventListener('mouseleave', removeActiveEffect);
-    });
-    
-    // 为卡片元素添加悬停效果和玻璃态效果
+    // 为卡片元素添加基础玻璃态效果
     const cardElements = document.querySelectorAll(`
         .time-display, .search-box, .quick-links, .bookmark-category,
         .tool-card, .setting-group, .section h2, .navbar
     `);
     
     cardElements.forEach(element => {
-        element.classList.add('hover-lift');
         element.classList.add('glass-morphism');
-        // 移除glass-wave类以避免自动动画冲突
-        // element.classList.add('glass-wave');
-    });
-    
-    // 初始化玻璃态增强效果
-    initializeGlassMorphismEffects();
-}
-
-// 初始化玻璃态增强效果
-function initializeGlassMorphismEffects() {
-    // 为主要容器添加玻璃态效果
-    const glassElements = document.querySelectorAll(`
-        .navbar, .time-display, .search-box, .quick-links,
-        .bookmark-category, .tool-card, .setting-group
-    `);
-    
-    glassElements.forEach(element => {
-        // 添加动态模糊强度
-        element.addEventListener('mouseenter', () => {
-            element.style.backdropFilter = 'blur(25px)';
-            element.style.webkitBackdropFilter = 'blur(25px)';
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            element.style.backdropFilter = 'blur(20px)';
-            element.style.webkitBackdropFilter = 'blur(20px)';
-        });
-    });
-    
-    // 添加液态玻璃动态效果
-    addLiquidGlassEffects();
-}
-
-// 添加液态玻璃动态效果
-function addLiquidGlassEffects() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('glass-visible');
-                // 移除自动触发的动画效果以避免冲突
-                // setTimeout(() => {
-                //     entry.target.style.animation = 'glassWave 4s ease-in-out infinite';
-                // }, Math.random() * 1000);
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    
-    document.querySelectorAll('.glass-wave').forEach(el => {
-        observer.observe(el);
     });
 }
 
-// 添加波纹效果
-function addRippleEffect(e) {
-    const element = e.currentTarget;
-    element.classList.add('ripple-effect');
-    
-    // 清除之前的波纹效果
-    setTimeout(() => {
-        element.classList.remove('ripple-effect');
-    }, 600);
-}
 
-// 添加按下效果
-function addActiveEffect(e) {
-    const element = e.currentTarget;
-    element.classList.add('active-scale');
-}
 
-// 移除按下效果
-function removeActiveEffect(e) {
-    const element = e.currentTarget;
-    element.classList.remove('active-scale');
-}
+
+
+
+
+
+
+
 
 
 
@@ -208,9 +129,6 @@ window.addEventListener('error', (e) => {
 window.addEventListener('load', () => {
     console.log('页面资源加载完成');
     
-    // 移除自动加载动画以避免冲突
-    // document.body.classList.add('loaded');
-    
     // 重新初始化交互效果以确保动态加载的元素也有效果
     setTimeout(() => {
         initializeInteractiveEffects();
@@ -224,9 +142,6 @@ if (typeof window !== 'undefined') {
         showSeconds,
         searchEngines,
         initializeApp,
-        changeBackgroundStyle,
-        addRippleEffect,
-        addActiveEffect,
-        removeActiveEffect
+        changeBackgroundStyle
     };
 }

@@ -13,8 +13,7 @@ function initializeSearch() {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // 添加点击动画
-            addSearchEngineClickEffect(button);
+
             
             currentSearchEngine = button.dataset.engine;
             localStorage.setItem('searchEngine', currentSearchEngine);
@@ -31,7 +30,7 @@ function initializeSearch() {
             if (e.key === 'Enter') {
                 const query = searchInput.value.trim();
                 if (query) {
-                    addSearchAnimation();
+
                     performSearch(query);
                 }
             }
@@ -136,9 +135,6 @@ function showSearchSuggestions(query) {
         max-height: 200px;
         overflow-y: auto;
         z-index: 1000;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
     `;
     
     // 获取搜索历史作为建议
@@ -154,7 +150,7 @@ function showSearchSuggestions(query) {
             suggestionElement.style.cssText = `
                 padding: 12px 16px;
                 cursor: pointer;
-                transition: background-color 0.2s ease;
+
                 border-bottom: 1px solid var(--border-color);
                 color: var(--text-primary);
             `;
@@ -182,11 +178,7 @@ function showSearchSuggestions(query) {
         searchBox.style.position = 'relative';
         searchBox.appendChild(suggestionsContainer);
         
-        // 显示动画
-        setTimeout(() => {
-            suggestionsContainer.style.opacity = '1';
-            suggestionsContainer.style.transform = 'translateY(0)';
-        }, 10);
+
     }
 }
 
@@ -194,46 +186,13 @@ function showSearchSuggestions(query) {
 function hideSearchSuggestions() {
     const suggestions = document.querySelector('.search-suggestions');
     if (suggestions) {
-        suggestions.style.opacity = '0';
-        suggestions.style.transform = 'translateY(-10px)';
-        setTimeout(() => {
-            suggestions.remove();
-        }, 300);
+        suggestions.remove();
     }
 }
 
-// 添加搜索引擎点击效果
-function addSearchEngineClickEffect(button) {
-    button.style.transform = 'scale(1.2)';
-    
-    setTimeout(() => {
-        button.style.transform = '';
-    }, 200);
-}
 
-// 添加搜索动画
-function addSearchAnimation() {
-    const searchBox = document.querySelector('.search-box');
-    const searchIcon = document.querySelector('.search-icon');
-    
-    if (searchBox) {
-        searchBox.classList.add('searching');
-        searchBox.style.background = 'var(--accent-color)';
-        
-        setTimeout(() => {
-            searchBox.classList.remove('searching');
-            searchBox.style.background = '';
-        }, 500);
-    }
-    
-    if (searchIcon) {
-        searchIcon.style.transform = 'rotate(360deg) scale(1.2)';
-        
-        setTimeout(() => {
-            searchIcon.style.transform = '';
-        }, 500);
-    }
-}
+
+
 
 // 添加搜索框焦点效果
 function addSearchFocusEffect() {
@@ -361,7 +320,7 @@ function enableVoiceSearch() {
             cursor: pointer;
             padding: 8px;
             border-radius: 50%;
-            transition: all 0.3s ease;
+
         `;
         
         voiceButton.addEventListener('click', () => {

@@ -101,8 +101,7 @@ function initializeToolCards() {
         card.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // 添加点击动画
-            addToolCardClickEffect(card);
+
             
             const toolName = card.querySelector('h3').textContent;
             handleToolClick(toolName);
@@ -121,14 +120,7 @@ function initializeToolCards() {
     });
 }
 
-// 添加工具卡片点击效果
-function addToolCardClickEffect(card) {
-    card.style.transform = 'scale(0.95)';
-    
-    setTimeout(() => {
-        card.style.transform = '';
-    }, 150);
-}
+
 
 // 处理工具点击事件
 function handleToolClick(toolName) {
@@ -246,7 +238,7 @@ function createTimerDisplay(minutes) {
         <div style="font-size: 14px; margin-bottom: 10px;">🍅 番茄钟</div>
         <div class="timer-time" style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">${minutes}:00</div>
         <div class="timer-progress" style="width: 100%; height: 4px; background: var(--bg-secondary); border-radius: 2px; overflow: hidden;">
-            <div class="timer-progress-bar" style="height: 100%; background: var(--accent-color); width: 100%; transition: width 1s linear;"></div>
+            <div class="timer-progress-bar" style="height: 100%; background: var(--accent-color); width: 100%;"></div>
         </div>
         <button class="timer-cancel" style="margin-top: 10px; padding: 5px 10px; background: var(--error-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">取消</button>
     `;
@@ -335,8 +327,6 @@ function generateQRCode(text) {
         align-items: center;
         justify-content: center;
         z-index: 10000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
     `;
     
     modal.innerHTML = `
@@ -351,10 +341,7 @@ function generateQRCode(text) {
     
     document.body.appendChild(modal);
     
-    // 显示动画
-    setTimeout(() => {
-        modal.style.opacity = '1';
-    }, 10);
+
     
     // 点击背景关闭
     modal.addEventListener('click', (e) => {

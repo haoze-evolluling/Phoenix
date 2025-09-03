@@ -9,8 +9,7 @@ function initializeNavigation() {
         button.addEventListener('click', (e) => {
             const targetSection = button.dataset.section;
             
-            // 添加点击反馈效果
-            addNavigationClickEffect(button);
+
             
             // 更新按钮状态
             navButtons.forEach(btn => btn.classList.remove('active'));
@@ -29,8 +28,7 @@ function initializeNavigation() {
                 }
             });
             
-            // 添加页面切换动画
-            animatePageTransition(targetSection);
+
             
             // 记录导航事件
             console.log(`切换到页面：${targetSection}`);
@@ -49,148 +47,19 @@ function initializeNavigation() {
     addTouchSupport(navButtons);
 }
 
-// 添加导航按钮点击效果
-function addNavigationClickEffect(button) {
-    // 添加短暂的缩放效果
-    button.style.transform = 'scale(0.95)';
-    
-    setTimeout(() => {
-        button.style.transform = '';
-    }, 150);
-    
-    // 添加发光效果
-    button.classList.add('nav-glow');
-    setTimeout(() => {
-        button.classList.remove('nav-glow');
-    }, 300);
-}
 
-// 页面切换动画
-function animatePageTransition(targetSection) {
-    const activeSection = document.querySelector('.section.active');
-    if (activeSection) {
-        // 添加退出动画
-        activeSection.style.opacity = '0';
-        activeSection.style.transform = 'translateY(20px)';
-        
-        // 添加进入动画
-        setTimeout(() => {
-            activeSection.style.opacity = '1';
-            activeSection.style.transform = 'translateY(0)';
-            
-            // 为新激活的页面添加特殊动画
-            addSectionEnterAnimation(activeSection, targetSection);
-        }, 100);
-    }
-}
 
-// 为不同页面添加进入动画
-function addSectionEnterAnimation(section, sectionName) {
-    // 清除之前的动画类
-    section.classList.remove('slide-in-left', 'slide-in-right', 'fade-in-up', 'zoom-in');
-    
-    // 强制重排
-    section.offsetHeight;
-    
-    // 根据页面类型添加不同动画
-    switch (sectionName) {
-        case 'home':
-            section.classList.add('fade-in-up');
-            animateHomeElements();
-            break;
-        case 'bookmarks':
-            section.classList.add('slide-in-left');
-            animateBookmarkElements();
-            break;
-        case 'tools':
-            section.classList.add('zoom-in');
-            animateToolElements();
-            break;
-        case 'settings':
-            section.classList.add('slide-in-right');
-            animateSettingElements();
-            break;
-    }
-}
 
-// 主页元素动画
-function animateHomeElements() {
-    const timeDisplay = document.querySelector('.time-display');
-    const searchBox = document.querySelector('.search-box');
-    const quickLinks = document.querySelector('.quick-links');
-    
-    if (timeDisplay) {
-        timeDisplay.style.transform = 'translateY(30px)';
-        timeDisplay.style.opacity = '0';
-        setTimeout(() => {
-            timeDisplay.style.transform = 'translateY(0)';
-            timeDisplay.style.opacity = '1';
-        }, 100);
-    }
-    
-    if (searchBox) {
-        searchBox.style.transform = 'scale(0.9)';
-        searchBox.style.opacity = '0';
-        setTimeout(() => {
-            searchBox.style.transform = 'scale(1)';
-            searchBox.style.opacity = '1';
-        }, 200);
-    }
-    
-    if (quickLinks) {
-        quickLinks.style.transform = 'translateY(30px)';
-        quickLinks.style.opacity = '0';
-        setTimeout(() => {
-            quickLinks.style.transform = 'translateY(0)';
-            quickLinks.style.opacity = '1';
-        }, 300);
-    }
-}
 
-// 书签页面元素动画
-function animateBookmarkElements() {
-    const bookmarkCategories = document.querySelectorAll('.bookmark-category');
-    
-    bookmarkCategories.forEach((category, index) => {
-        category.style.transform = 'translateX(-30px)';
-        category.style.opacity = '0';
-        
-        setTimeout(() => {
-            category.style.transform = 'translateX(0)';
-            category.style.opacity = '1';
-        }, index * 100 + 100);
-    });
-}
 
-// 工具页面元素动画
-function animateToolElements() {
-    const toolCards = document.querySelectorAll('.tool-card');
-    
-    toolCards.forEach((card, index) => {
-        card.style.transform = 'scale(0.8)';
-        card.style.opacity = '0';
-        
-        setTimeout(() => {
-            card.style.transform = 'scale(1)';
-            card.style.opacity = '1';
-        }, index * 100 + 100);
-    });
-}
 
-// 设置页面元素动画
-function animateSettingElements() {
-    const settingGroups = document.querySelectorAll('.setting-group');
-    
-    settingGroups.forEach((group, index) => {
-        group.style.transform = 'translateX(30px)';
-        group.style.opacity = '0';
-        
-        setTimeout(() => {
-            group.style.transform = 'translateX(0)';
-            group.style.opacity = '1';
-        }, index * 100 + 100);
-    });
-}
+
+
+
+
+
+
+
 
 // 添加触摸支持
 function addTouchSupport(buttons) {
@@ -240,7 +109,7 @@ function addBreadcrumbNavigation() {
         color: var(--text-secondary);
         z-index: 1000;
         opacity: 0;
-        transition: all 0.3s ease;
+
         pointer-events: none;
     `;
     
@@ -322,9 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof window !== 'undefined') {
     window.newTabNavigation = {
         initializeNavigation,
-        animatePageTransition,
-        addNavigationClickEffect,
-        addSectionEnterAnimation,
         addTouchSupport,
         addBreadcrumbNavigation,
         addPageHistory

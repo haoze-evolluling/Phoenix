@@ -37,10 +37,7 @@ function updateTime() {
     const dateString = now.toLocaleDateString('zh-CN', dateOptions);
     
     if (timeElement) {
-        // 添加数字变化动画
-        if (timeElement.textContent !== timeString) {
-            animateTimeChange(timeElement, timeString);
-        }
+        timeElement.textContent = timeString;
     }
     
     if (dateElement) {
@@ -51,28 +48,7 @@ function updateTime() {
     updatePageTitle(timeString);
 }
 
-// 动画时间变化
-function animateTimeChange(element, newTime) {
-    const oldTime = element.textContent;
-    
-    // 找出变化的数字位置
-    const changePositions = [];
-    for (let i = 0; i < Math.max(oldTime.length, newTime.length); i++) {
-        if (oldTime[i] !== newTime[i]) {
-            changePositions.push(i);
-        }
-    }
-    
-    // 如果只有秒数变化，添加轻微的缩放动画
-    if (changePositions.length <= 2 && showSeconds) {
-        element.style.transform = 'scale(1.02)';
-        setTimeout(() => {
-            element.style.transform = 'scale(1)';
-        }, 100);
-    }
-    
-    element.textContent = newTime;
-}
+
 
 // 开始时间更新循环
 function startTimeUpdate() {
@@ -82,12 +58,7 @@ function startTimeUpdate() {
     const updateInterval = setInterval(() => {
         updateTime();
         
-        // 检查是否需要更新日期
-        const now = new Date();
-        if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
-            // 午夜时刻，添加特殊效果
-            addMidnightEffect();
-        }
+
     }, 1000);
     
     // 页面不可见时暂停更新以节省资源
@@ -119,7 +90,6 @@ function addTimeInteraction() {
         // 点击切换时间格式
         timeDisplay.addEventListener('click', () => {
             toggleTimeFormat();
-            addTimeClickEffect(timeDisplay);
         });
         
         // 悬停显示详细信息
@@ -165,16 +135,7 @@ function updateTimeFormatSelector() {
     }
 }
 
-// 添加时间点击效果
-function addTimeClickEffect(element) {
-    element.style.transform = 'scale(0.98)';
-    element.style.filter = 'brightness(1.1)';
-    
-    setTimeout(() => {
-        element.style.transform = '';
-        element.style.filter = '';
-    }, 200);
-}
+
 
 // 显示详细时间信息
 function showDetailedTimeInfo() {
@@ -199,9 +160,7 @@ function showDetailedTimeInfo() {
         font-size: 14px;
         color: var(--text-secondary);
         z-index: 1000;
-        opacity: 0;
-        transform: translateX(-50%) translateY(-10px);
-        transition: all 0.3s ease;
+
         min-width: 200px;
         text-align: center;
     `;
@@ -223,22 +182,14 @@ function showDetailedTimeInfo() {
     timeDisplay.style.position = 'relative';
     timeDisplay.appendChild(detailInfo);
     
-    // 显示动画
-    setTimeout(() => {
-        detailInfo.style.opacity = '1';
-        detailInfo.style.transform = 'translateX(-50%) translateY(0)';
-    }, 10);
+
 }
 
 // 隐藏详细时间信息
 function hideDetailedTimeInfo() {
     const detailInfo = document.querySelector('.time-detail-info');
     if (detailInfo) {
-        detailInfo.style.opacity = '0';
-        detailInfo.style.transform = 'translateX(-50%) translateY(-10px)';
-        setTimeout(() => {
-            detailInfo.remove();
-        }, 300);
+        detailInfo.remove();
     }
 }
 
@@ -247,17 +198,7 @@ function copyTimeToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         showMessage(`已复制: ${text}`, 'success');
         
-        // 添加复制动画
-        const timeDisplay = document.querySelector('.time-display');
-        if (timeDisplay) {
-            timeDisplay.style.background = 'var(--success-color)';
-            timeDisplay.style.color = 'white';
-            
-            setTimeout(() => {
-                timeDisplay.style.background = '';
-                timeDisplay.style.color = '';
-            }, 300);
-        }
+
     }).catch(() => {
         showMessage('复制失败', 'error');
     });
@@ -276,20 +217,7 @@ function getDayOfYear(date) {
     return Math.ceil((date - firstDayOfYear) / 86400000) + 1;
 }
 
-// 午夜特殊效果
-function addMidnightEffect() {
-    const timeDisplay = document.querySelector('.time-display');
-    if (timeDisplay) {
-        // 添加闪烁效果
-        timeDisplay.style.animation = 'pulse 2s ease-in-out 3';
-        
-        setTimeout(() => {
-            timeDisplay.style.animation = '';
-        }, 6000);
-        
-        showMessage('新的一天开始了！🌅', 'success');
-    }
-}
+
 
 // 更新页面标题
 function updatePageTitle(timeString) {
@@ -359,7 +287,6 @@ if (typeof window !== 'undefined') {
         toggleTimeFormat,
         addTimeInteraction,
         copyTimeToClipboard,
-        addMidnightEffect,
         addTimeTheme,
         startCountdown
     };

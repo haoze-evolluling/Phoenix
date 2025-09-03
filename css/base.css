@@ -97,19 +97,9 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
-    /* 主题切换时的平滑过渡 */
-    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 为所有元素添加主题切换过渡 */
-*, *::before, *::after {
-    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                backdrop-filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
+
 
 
 
@@ -142,106 +132,15 @@ body {
     opacity: 0.8;
 }
 
-/* 交互元素的快速过渡效果 */
-.interactive-element,
-.nav-btn,
-.link-card,
-.tool-card,
-.bookmark-item,
-.engine-btn {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-/* 通用点击反馈效果 */
-.interactive-element {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transform-origin: center;
-}
 
-.interactive-element::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    pointer-events: none;
-}
 
-.interactive-element.ripple-effect::after {
-    width: 300px;
-    height: 300px;
-}
 
-/* 通用悬停效果 */
-.hover-lift {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-}
 
-.hover-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-glass);
-}
 
-/* 通用激活效果 */
-.active-scale {
-    transition: transform 0.15s ease;
-}
 
-.active-scale:active {
-    transform: scale(0.98);
-}
 
-/* 页面淡入动画 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
 
 /* 选择状态 */
 ::selection {
@@ -267,15 +166,9 @@ body {
     background: var(--hover-color);
 }
 
-/* 加载状态 */
-.loading {
-    animation: pulse 2s infinite;
-}
 
-/* 移除自动加载动画以避免冲突 */
-/* .loaded {
-    animation: fadeIn 0.8s ease;
-} */
+
+
 
 /* 玻璃态增强效果 */
 .glass-morphism {
@@ -300,41 +193,4 @@ body {
     opacity: 0.8;
 }
 
-/* 液态玻璃流动效果 */
-@keyframes glassWave {
-    0% { 
-        background-position: 0% 50%; 
-    }
-    50% { 
-        background-position: 100% 50%; 
-    }
-    100% { 
-        background-position: 0% 50%; 
-    }
-}
 
-.glass-wave::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.2) 25%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(255, 255, 255, 0.2) 75%, 
-        rgba(255, 255, 255, 0.1) 100%);
-    background-size: 200% 200%;
-    /* 移除自动玻璃波动画以避免冲突 */
-    /* animation: glassWave 4s ease-in-out infinite; */
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.glass-wave:hover::before {
-    opacity: 1;
-}

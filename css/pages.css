@@ -16,7 +16,6 @@
     border: var(--border-light);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section h2::before {
@@ -32,10 +31,7 @@
     opacity: 0.5;
 }
 
-.section h2:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
+
 
 /* 书签页面 */
 .bookmark-categories {
@@ -54,19 +50,9 @@
     border: var(--border-light);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 移除自动滑入动画以避免冲突 */
-    /* animation: slideIn 0.6s ease forwards; */
 }
 
-/* 移除动画延迟设置 */
-/* .bookmark-category:nth-child(2) {
-    animation-delay: 0.1s;
-}
 
-.bookmark-category:nth-child(3) {
-    animation-delay: 0.2s;
-} */
 
 .bookmark-category::before {
     content: '';
@@ -81,10 +67,7 @@
     opacity: 0.4;
 }
 
-.bookmark-category:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
+
 
 .bookmark-category h3 {
     margin-bottom: 20px;
@@ -114,7 +97,6 @@
     border: var(--border-light);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bookmark-item::before {
@@ -130,48 +112,21 @@
     opacity: 0.8;
 }
 
-.bookmark-item::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s ease, height 0.5s ease;
-    pointer-events: none;
-}
 
-.bookmark-item.ripple-effect::after {
-    width: 150px;
-    height: 150px;
-}
 
 .bookmark-item:hover {
     background: var(--accent-color);
     color: var(--text-inverse);
     border-color: var(--accent-color);
-    transform: translateX(5px) scale(1.02);
     box-shadow: var(--shadow-md);
-}
-
-.bookmark-item:active {
-    transform: translateX(3px) scale(0.98);
 }
 
 .bookmark-item i {
     font-size: 16px;
     width: 20px;
     text-align: center;
-    transition: transform 0.3s ease;
     position: relative;
     z-index: 1;
-}
-
-.bookmark-item:hover i {
-    transform: scale(1.2);
 }
 
 .bookmark-item span {
@@ -199,23 +154,9 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 移除自动淡入动画以避免冲突 */
-    /* animation: fadeIn 0.6s ease forwards; */
 }
 
-/* 移除工具卡片动画延迟设置 */
-/* .tool-card:nth-child(2) {
-    animation-delay: 0.1s;
-}
 
-.tool-card:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.tool-card:nth-child(4) {
-    animation-delay: 0.3s;
-} */
 
 .tool-card::before {
     content: '';
@@ -230,49 +171,25 @@
     opacity: 0.4;
 }
 
-.tool-card::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    pointer-events: none;
-}
 
-.tool-card.ripple-effect::after {
-    width: 300px;
-    height: 300px;
-}
 
 .tool-card:hover {
-    transform: translateY(-5px) scale(1.02);
     box-shadow: var(--shadow-xl);
     background: var(--accent-color);
     color: var(--text-inverse);
     border-color: var(--accent-color);
 }
 
-.tool-card:active {
-    transform: translateY(-3px) scale(0.98);
-}
-
 .tool-card i {
     font-size: 2.5rem;
     color: var(--accent-color);
     margin-bottom: 15px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 1;
 }
 
 .tool-card:hover i {
     color: var(--text-inverse);
-    transform: scale(1.1) rotateY(10deg);
 }
 
 .tool-card h3 {
@@ -281,11 +198,6 @@
     font-weight: 600;
     position: relative;
     z-index: 1;
-    transition: transform 0.3s ease;
-}
-
-.tool-card:hover h3 {
-    transform: translateY(-2px);
 }
 
 .tool-card p {
@@ -294,7 +206,6 @@
     line-height: 1.5;
     position: relative;
     z-index: 1;
-    transition: color 0.3s ease;
 }
 
 .tool-card:hover p {
@@ -318,16 +229,10 @@
     border: var(--border-light);
     position: relative;
     overflow: visible;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 移除设置组自动滑入动画以避免冲突 */
-    /* animation: slideIn 0.6s ease forwards; */
     z-index: 1;
 }
 
-/* 移除设置组动画延迟设置 */
-/* .setting-group:nth-child(2) {
-    animation-delay: 0.1s;
-} */
+
 
 .setting-group::before {
     content: '';
@@ -342,10 +247,7 @@
     opacity: 0.4;
 }
 
-.setting-group:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
+
 
 .setting-group h3 {
     margin-bottom: 20px;
@@ -375,11 +277,6 @@
 .setting-item label {
     font-weight: 500;
     color: var(--text-primary);
-    transition: color 0.3s ease;
-}
-
-.setting-item:hover label {
-    color: var(--accent-color);
 }
 
 
@@ -394,7 +291,6 @@
     color: var(--text-primary);
     font-size: 14px;
     min-width: 120px;
-    transition: all 0.3s ease;
     position: relative;
     z-index: 3;
 }
@@ -419,17 +315,8 @@ input[type="checkbox"] {
     width: 20px;
     height: 20px;
     accent-color: var(--accent-color);
-    transition: transform 0.2s ease;
     position: relative;
     z-index: 3;
-}
-
-input[type="checkbox"]:hover {
-    transform: scale(1.1);
-}
-
-input[type="checkbox"]:active {
-    transform: scale(1.05);
 }
 
 /* 响应式设计 */

@@ -20,7 +20,6 @@ function showMessage(message, type = 'info') {
         backdrop-filter: var(--glass-backdrop);
         border: var(--glass-border);
         transform: translateX(400px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         word-wrap: break-word;
     `;
     
@@ -50,10 +49,7 @@ function showMessage(message, type = 'info') {
     
     document.body.appendChild(messageDiv);
     
-    // 显示动画
-    setTimeout(() => {
-        messageDiv.style.transform = 'translateX(0)';
-    }, 100);
+    messageDiv.style.transform = 'translateX(0)';
     
     // 自动隐藏
     const hideTimeout = setTimeout(() => {
@@ -78,13 +74,9 @@ function showMessage(message, type = 'info') {
 
 // 隐藏消息
 function hideMessage(messageDiv) {
-    messageDiv.style.transform = 'translateX(400px)';
-    messageDiv.style.opacity = '0';
-    setTimeout(() => {
-        if (messageDiv.parentNode) {
-            messageDiv.parentNode.removeChild(messageDiv);
-        }
-    }, 400);
+    if (messageDiv.parentNode) {
+        messageDiv.parentNode.removeChild(messageDiv);
+    }
 }
 
 // 防抖函数
@@ -378,74 +370,7 @@ class EventBus {
 // 创建全局事件总线实例
 const eventBus = new EventBus();
 
-// 动画工具
-const animationUtils = {
-    // 淡入动画
-    fadeIn(element, duration = 300) {
-        element.style.opacity = '0';
-        element.style.transition = `opacity ${duration}ms ease`;
-        
-        setTimeout(() => {
-            element.style.opacity = '1';
-        }, 10);
-        
-        return new Promise(resolve => {
-            setTimeout(resolve, duration);
-        });
-    },
-    
-    // 淡出动画
-    fadeOut(element, duration = 300) {
-        element.style.transition = `opacity ${duration}ms ease`;
-        element.style.opacity = '0';
-        
-        return new Promise(resolve => {
-            setTimeout(() => {
-                element.style.display = 'none';
-                resolve();
-            }, duration);
-        });
-    },
-    
-    // 滑入动画
-    slideIn(element, direction = 'down', duration = 300) {
-        const transforms = {
-            down: 'translateY(-20px)',
-            up: 'translateY(20px)',
-            left: 'translateX(20px)',
-            right: 'translateX(-20px)'
-        };
-        
-        element.style.transform = transforms[direction];
-        element.style.opacity = '0';
-        element.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-        
-        setTimeout(() => {
-            element.style.transform = 'translate(0)';
-            element.style.opacity = '1';
-        }, 10);
-        
-        return new Promise(resolve => {
-            setTimeout(resolve, duration);
-        });
-    },
-    
-    // 缩放动画
-    scaleIn(element, duration = 300) {
-        element.style.transform = 'scale(0.8)';
-        element.style.opacity = '0';
-        element.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-        
-        setTimeout(() => {
-            element.style.transform = 'scale(1)';
-            element.style.opacity = '1';
-        }, 10);
-        
-        return new Promise(resolve => {
-            setTimeout(resolve, duration);
-        });
-    }
-};
+
 
 // 性能监控
 const performance = {
@@ -511,7 +436,6 @@ if (typeof window !== 'undefined') {
         generateGradientColors,
         storage,
         eventBus,
-        animationUtils,
         performance
     };
 }
