@@ -25,11 +25,21 @@ function initializeSettings() {
     // 背景样式设置
     const bgSelector = document.querySelector('.bg-selector');
     if (bgSelector) {
+        // 初始化时检查当前背景样式
+        const root = document.documentElement;
+        const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary');
+        const isSolid = !currentBg.includes('gradient');
+        toggleColorPicker(isSolid);
+        
         bgSelector.addEventListener('change', (e) => {
             const newStyle = e.target.value;
             changeBackgroundStyle(newStyle);
+            toggleColorPicker(newStyle === 'solid');
         });
     }
+    
+    // 初始化调色盘功能
+    initializeColorPicker();
     
     // 工具卡片点击事件
     initializeToolCards();
@@ -479,6 +489,107 @@ function resetAllSettings() {
     }
 }
 
+// 调色盘功能
+let currentSolidColor = '#f8fafc'; // 默认纯色背景颜色
+
+// 初始化调色盘功能
+function initializeColorPicker() {
+    const colorPicker = document.getElementById('color-picker');
+    const colorPreview = document.getElementById('color-preview');
+    const presetColors = document.querySelectorAll('.preset-color');
+    
+    // 从本地存储恢复颜色设置
+    const savedSettings = localStorage.getItem('newtabSettings');
+    if (savedSettings) {
+        try {
+            const settings = JSON.parse(savedSettings);
+            if (settings.currentSolidColor) {
+                currentSolidColor = settings.currentSolidColor;
+            }
+        } catch (e) {
+            console.log('恢复颜色设置失败:', e);
+        }
+    }
+    
+    // 设置初始颜色
+    updateColorPreview(currentSolidColor);
+    if (colorPicker) {
+        colorPicker.value = currentSolidColor;
+    }
+    updateActivePresetColor(currentSolidColor);
+    
+    // 颜色选择器事件
+    if (colorPicker) {
+        colorPicker.addEventListener('change', (e) => {
+            const newColor = e.target.value;
+            currentSolidColor = newColor;
+            updateColorPreview(newColor);
+            updateActivePresetColor(newColor);
+            applySolidBackground(newColor);
+        });
+    }
+    
+    // 预设颜色点击事件
+    presetColors.forEach(presetColor => {
+        presetColor.addEventListener('click', (e) => {
+            const newColor = e.target.dataset.color;
+            currentSolidColor = newColor;
+            updateColorPreview(newColor);
+            updateActivePresetColor(newColor);
+            if (colorPicker) {
+                colorPicker.value = newColor;
+            }
+            applySolidBackground(newColor);
+        });
+    });
+}
+
+// 切换调色盘显示/隐藏
+function toggleColorPicker(show) {
+    const colorPickerContainer = document.getElementById('color-picker-container');
+    if (colorPickerContainer) {
+        colorPickerContainer.style.display = show ? 'flex' : 'none';
+    }
+}
+
+// 更新颜色预览
+function updateColorPreview(color) {
+    const colorPreview = document.getElementById('color-preview');
+    if (colorPreview) {
+        colorPreview.style.backgroundColor = color;
+    }
+}
+
+// 更新激活的预设颜色
+function updateActivePresetColor(color) {
+    const presetColors = document.querySelectorAll('.preset-color');
+    presetColors.forEach(presetColor => {
+        if (presetColor.dataset.color === color) {
+            presetColor.classList.add('active');
+        } else {
+            presetColor.classList.remove('active');
+        }
+    });
+}
+
+// 应用纯色背景
+function applySolidBackground(color) {
+    const root = document.documentElement;
+    root.style.setProperty('--bg-primary', color);
+    showMessage('背景颜色已更改', 'success');
+    saveSettings();
+}
+
+// 保存设置到本地存储
+function saveSettings() {
+    const settings = {
+        showSeconds: showSeconds,
+        use12HourFormat: use12HourFormat,
+        currentSolidColor: currentSolidColor
+    };
+    localStorage.setItem('newtabSettings', JSON.stringify(settings));
+}
+
 // 导出设置相关功能
 if (typeof window !== 'undefined') {
     window.newTabSettings = {
@@ -492,6 +603,9 @@ if (typeof window !== 'undefined') {
         openQRCodeGenerator,
         exportSettings,
         importSettings,
-        resetAllSettings
+        resetAllSettings,
+        initializeColorPicker,
+        toggleColorPicker,
+        applySolidBackground
     };
 }

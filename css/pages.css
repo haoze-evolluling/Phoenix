@@ -463,6 +463,153 @@ input[type="checkbox"]:active {
     }
 }
 
+/* 调色盘样式 */
+.color-picker-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.color-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid var(--glass-border);
+    background-color: #f8fafc;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.color-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-highlight-light);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.color-preview:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.color-preview:hover::before {
+    opacity: 0.5;
+}
+
+.color-picker-input {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    z-index: 3;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.color-picker-input:hover {
+    transform: scale(1.05);
+}
+
+.color-picker-input:active {
+    transform: scale(0.95);
+}
+
+.preset-colors {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    max-width: 320px;
+}
+
+.preset-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid var(--glass-border-light);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+}
+
+.preset-color::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-highlight-light);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.preset-color:hover {
+    transform: scale(1.2);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
+    z-index: 2;
+}
+
+.preset-color:hover::before {
+    opacity: 0.5;
+}
+
+.preset-color.active {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+    transform: scale(1.1);
+}
+
+.preset-color.active::before {
+    opacity: 0;
+}
+
+.preset-color:active {
+    transform: scale(0.9);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 响应式设计 - 调色盘 */
+@media (max-width: 768px) {
+    .color-picker-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .preset-colors {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 240px;
+    }
+    
+    .preset-color {
+        width: 28px;
+        height: 28px;
+    }
+}
+
 /* 响应式设计 - 优化毛玻璃效果 */
 @media (max-width: 768px) {
     .tools-grid {

@@ -54,7 +54,19 @@ function changeBackgroundStyle(style) {
             root.style.setProperty('--bg-primary', 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%)');
             break;
         case 'solid':
-            root.style.setProperty('--bg-primary', '#f8fafc');
+            // 使用当前保存的纯色，如果没有则使用默认值
+            const savedColor = localStorage.getItem('newtabSettings');
+            if (savedColor) {
+                try {
+                    const settings = JSON.parse(savedColor);
+                    const color = settings.currentSolidColor || '#f8fafc';
+                    root.style.setProperty('--bg-primary', color);
+                } catch (e) {
+                    root.style.setProperty('--bg-primary', '#f8fafc');
+                }
+            } else {
+                root.style.setProperty('--bg-primary', '#f8fafc');
+            }
             break;
     }
     
@@ -118,11 +130,41 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
+// 恢复保存的设置
+function restoreSettings() {
+    const savedSettings = localStorage.getItem('newtabSettings');
+    if (savedSettings) {
+        try {
+            const settings = JSON.parse(savedSettings);
+            
+            // 恢复背景样式
+            const bgSelector = document.querySelector('.bg-selector');
+            if (bgSelector && settings.currentSolidColor) {
+                // 检查当前是否使用纯色背景
+                const root = document.documentElement;
+                const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary');
+                if (!currentBg.includes('gradient')) {
+                    // 如果当前是纯色背景，应用保存的颜色
+                    root.style.setProperty('--bg-primary', settings.currentSolidColor);
+                }
+            }
+        } catch (e) {
+            console.log('恢复设置失败:', e);
+        }
+    }
+}
+
+// 页面加载完成后恢复设置
+document.addEventListener('DOMContentLoaded', function() {
+    restoreSettings();
+});
+
 // 导出核心功能到全局作用域
 if (typeof window !== 'undefined') {
     window.newTabCore = {
         showSeconds,
         initializeApp,
-        changeBackgroundStyle
+        changeBackgroundStyle,
+        restoreSettings
     };
 }
