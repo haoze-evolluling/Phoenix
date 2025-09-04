@@ -57,6 +57,10 @@
     overflow: hidden;
     transform-origin: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .nav-btn::before {
@@ -98,6 +102,28 @@
 .nav-btn.active::before {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
     opacity: 0.8;
+}
+
+/* 导航按钮点击反馈效果 */
+.nav-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn.clicked {
+    animation: nav-btn-click 0.3s ease-out;
+}
+
+@keyframes nav-btn-click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .nav-btn i {

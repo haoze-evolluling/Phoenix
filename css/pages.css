@@ -120,6 +120,10 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .bookmark-item::before {
@@ -150,6 +154,28 @@
 
 .bookmark-item:hover::before {
     opacity: 0;
+}
+
+/* 书签项目点击反馈效果 */
+.bookmark-item:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bookmark-item.clicked {
+    animation: bookmark-item-click 0.3s ease-out;
+}
+
+@keyframes bookmark-item-click {
+    0% {
+        transform: translateY(-1px) scale(1);
+    }
+    50% {
+        transform: translateY(-1px) scale(0.98);
+    }
+    100% {
+        transform: translateY(-1px) scale(1);
+    }
 }
 
 .bookmark-item i {
@@ -186,6 +212,10 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .tool-card::before {
@@ -216,6 +246,28 @@
 
 .tool-card:hover::before {
     opacity: 0;
+}
+
+/* 工具卡片点击反馈效果 */
+.tool-card:active {
+    transform: translateY(-1px) scale(0.95);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-card.clicked {
+    animation: tool-card-click 0.3s ease-out;
+}
+
+@keyframes tool-card-click {
+    0% {
+        transform: translateY(-3px) scale(1.02);
+    }
+    50% {
+        transform: translateY(-1px) scale(0.95);
+    }
+    100% {
+        transform: translateY(-3px) scale(1.02);
+    }
 }
 
 .tool-card i {
@@ -343,6 +395,10 @@
     position: relative;
     z-index: 3;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .bg-selector:hover,
@@ -373,6 +429,38 @@ input[type="checkbox"] {
     accent-color: var(--accent-color);
     position: relative;
     z-index: 3;
+    cursor: pointer;
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="checkbox"]:active {
+    transform: scale(0.9);
+}
+
+/* 设置控件点击反馈效果 */
+.bg-selector:active,
+.search-engine-selector:active,
+.time-format-selector:active {
+    transform: scale(0.98);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-selector.clicked,
+.search-engine-selector.clicked,
+.time-format-selector.clicked {
+    animation: setting-control-click 0.3s ease-out;
+}
+
+@keyframes setting-control-click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* 响应式设计 - 优化毛玻璃效果 */

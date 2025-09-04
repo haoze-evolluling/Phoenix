@@ -30,6 +30,13 @@ function initializeApp() {
     // 添加键盘快捷键支持
     document.addEventListener('keydown', handleKeyboardShortcuts);
     
+    // 确保点击反馈系统在最后初始化
+    setTimeout(() => {
+        if (window.clickFeedback && window.clickFeedback.initializeClickFeedback) {
+            window.clickFeedback.initializeClickFeedback();
+        }
+    }, 100);
+    
     console.log('新标签页已加载完成！');
 }
 

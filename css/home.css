@@ -174,6 +174,10 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .engine-btn::before {
@@ -216,6 +220,28 @@
 
 .engine-btn.active::before {
     opacity: 0;
+}
+
+/* 搜索引擎按钮点击反馈效果 */
+.engine-btn:active {
+    transform: scale(0.9);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engine-btn.clicked {
+    animation: engine-btn-click 0.3s ease-out;
+}
+
+@keyframes engine-btn-click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* 快捷链接 - 增强毛玻璃效果 */
@@ -293,6 +319,10 @@
     overflow: hidden;
     transform-origin: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .link-card::before {
@@ -323,6 +353,28 @@
 
 .link-card:hover::before {
     opacity: 0;
+}
+
+/* 快捷链接卡片点击反馈效果 */
+.link-card:active {
+    transform: translateY(-1px) scale(0.95);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link-card.clicked {
+    animation: link-card-click 0.3s ease-out;
+}
+
+@keyframes link-card-click {
+    0% {
+        transform: translateY(-3px) scale(1.02);
+    }
+    50% {
+        transform: translateY(-1px) scale(0.95);
+    }
+    100% {
+        transform: translateY(-3px) scale(1.02);
+    }
 }
 
 .link-icon {
