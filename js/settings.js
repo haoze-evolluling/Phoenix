@@ -104,6 +104,9 @@ function initializeSettings() {
     // 添加设置导入导出功能
     addSettingsImportExport();
     
+    // 添加书签导入导出功能
+    addBookmarkImportExport();
+    
     // 添加重置设置功能
     addResetSettings();
     
@@ -843,6 +846,99 @@ function saveSettings() {
     SettingsCache.saveSettings(settings);
 }
 
+// 添加书签导入导出功能
+function addBookmarkImportExport() {
+    const settingsContainer = document.querySelector('.settings-container');
+    if (settingsContainer) {
+        const bookmarkGroup = document.createElement('div');
+        bookmarkGroup.className = 'setting-group';
+        bookmarkGroup.innerHTML = `
+            <h3>书签管理</h3>
+            <div class="setting-item">
+                <label>导出书签</label>
+                <button class="export-bookmarks-btn" style="padding: 8px 16px; background: var(--accent-color); color: white; border: none; border-radius: 8px; cursor: pointer;">导出书签</button>
+            </div>
+            <div class="setting-item">
+                <label>导入书签</label>
+                <input type="file" class="import-bookmarks-input" accept=".json" style="display: none;">
+                <button class="import-bookmarks-btn" style="padding: 8px 16px; background: var(--success-color); color: white; border: none; border-radius: 8px; cursor: pointer;">导入书签</button>
+            </div>
+            <div class="setting-item">
+                <label>重置书签</label>
+                <button class="reset-bookmarks-btn" style="padding: 8px 16px; background: var(--error-color); color: white; border: none; border-radius: 8px; cursor: pointer;">重置书签</button>
+            </div>
+        `;
+        
+        settingsContainer.appendChild(bookmarkGroup);
+        
+        // 绑定事件
+        bookmarkGroup.querySelector('.export-bookmarks-btn').addEventListener('click', exportBookmarks);
+        bookmarkGroup.querySelector('.import-bookmarks-btn').addEventListener('click', () => {
+            bookmarkGroup.querySelector('.import-bookmarks-input').click();
+        });
+        bookmarkGroup.querySelector('.import-bookmarks-input').addEventListener('change', importBookmarks);
+        bookmarkGroup.querySelector('.reset-bookmarks-btn').addEventListener('click', resetBookmarks);
+    }
+}
+
+// 导出书签
+function exportBookmarks() {
+    if (window.BookmarkManager) {
+        const bookmarkData = window.BookmarkManager.exportBookmarks();
+        const blob = new Blob([JSON.stringify(bookmarkData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `newtab-bookmarks-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showMessage('书签已导出', 'success');
+    } else {
+        showMessage('书签功能未加载', 'error');
+    }
+}
+
+// 导入书签
+function importBookmarks(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const bookmarkData = JSON.parse(event.target.result);
+                
+                if (window.BookmarkManager) {
+                    if (window.BookmarkManager.importBookmarks(bookmarkData)) {
+                        showMessage('书签导入成功，页面将刷新', 'success');
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        showMessage('导入失败：文件格式错误', 'error');
+                    }
+                } else {
+                    showMessage('书签功能未加载', 'error');
+                }
+            } catch (error) {
+                showMessage('导入失败：文件格式错误', 'error');
+            }
+        };
+        reader.readAsText(file);
+    }
+}
+
+// 重置书签
+function resetBookmarks() {
+    if (confirm('确定要重置所有书签吗？这将清除所有自定义书签和分类。')) {
+        if (window.BookmarkManager) {
+            window.BookmarkManager.resetToDefault();
+            showMessage('书签已重置，页面将刷新', 'info');
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showMessage('书签功能未加载', 'error');
+        }
+    }
+}
+
 // 导出设置相关功能
 if (typeof window !== 'undefined') {
     window.SettingsCache = SettingsCache;
@@ -863,6 +959,10 @@ if (typeof window !== 'undefined') {
         applySolidBackground,
         loadSettingsFromCache,
         restoreUIState,
-        applyBackgroundFromCache
+        applyBackgroundFromCache,
+        addBookmarkImportExport,
+        exportBookmarks,
+        importBookmarks,
+        resetBookmarks
     };
 }

@@ -19,6 +19,7 @@ function initializeApp() {
     initializeNavigation();
     initializeSearch();
     initializeShortcuts();
+    initializeBookmarks();
     initializeInteractiveEffects();
     startTimeUpdate();
     
