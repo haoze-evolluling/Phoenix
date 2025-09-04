@@ -1,7 +1,71 @@
 // 设置功能模块
 
+// 设置缓存管理
+const SettingsCache = {
+    // 默认设置
+    defaultSettings: {
+        showSeconds: true,
+        use12HourFormat: false,
+        currentSolidColor: '#f8fafc',
+        backgroundStyle: 'gradient',
+        settingsMenuState: {
+            expandedGroups: [],
+            activeTab: 'appearance'
+        },
+        searchEngine: 'google',
+        lastUpdated: null
+    },
+    
+    // 获取所有设置
+    getAllSettings() {
+        const saved = localStorage.getItem('newtabSettings');
+        if (saved) {
+            try {
+                const settings = JSON.parse(saved);
+                return { ...this.defaultSettings, ...settings };
+            } catch (e) {
+                console.warn('设置解析失败，使用默认设置:', e);
+                return this.defaultSettings;
+            }
+        }
+        return this.defaultSettings;
+    },
+    
+    // 保存设置
+    saveSettings(settings) {
+        const settingsToSave = {
+            ...settings,
+            lastUpdated: new Date().toISOString()
+        };
+        localStorage.setItem('newtabSettings', JSON.stringify(settingsToSave));
+    },
+    
+    // 更新单个设置
+    updateSetting(key, value) {
+        const currentSettings = this.getAllSettings();
+        currentSettings[key] = value;
+        this.saveSettings(currentSettings);
+        return currentSettings;
+    },
+    
+    // 更新设置菜单状态
+    updateMenuState(state) {
+        const currentSettings = this.getAllSettings();
+        currentSettings.settingsMenuState = { ...currentSettings.settingsMenuState, ...state };
+        this.saveSettings(currentSettings);
+    },
+    
+    // 重置所有设置
+    resetSettings() {
+        localStorage.removeItem('newtabSettings');
+        return this.defaultSettings;
+    }
+};
+
 // 初始化设置功能
 function initializeSettings() {
+    // 加载保存的设置
+    loadSettingsFromCache();
     
     // 显示秒数设置
     const showSecondsCheckbox = document.querySelector('.show-seconds');
@@ -15,7 +79,6 @@ function initializeSettings() {
     // 时间格式设置
     const timeFormatSelector = document.querySelector('.time-format-selector');
     if (timeFormatSelector) {
-        timeFormatSelector.value = use12HourFormat ? '12' : '24';
         timeFormatSelector.addEventListener('change', (e) => {
             const newFormat = e.target.value === '12';
             changeTimeFormat(newFormat);
@@ -25,12 +88,6 @@ function initializeSettings() {
     // 背景样式设置
     const bgSelector = document.querySelector('.bg-selector');
     if (bgSelector) {
-        // 初始化时检查当前背景样式
-        const root = document.documentElement;
-        const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary');
-        const isSolid = !currentBg.includes('gradient');
-        toggleColorPicker(isSolid);
-        
         bgSelector.addEventListener('change', (e) => {
             const newStyle = e.target.value;
             changeBackgroundStyle(newStyle);
@@ -49,14 +106,195 @@ function initializeSettings() {
     
     // 添加重置设置功能
     addResetSettings();
+    
+    // 添加设置菜单状态管理
+    initializeSettingsMenuState();
+    
+    // 添加设置变更监听
+    addSettingsChangeListener();
+}
+
+// 从缓存加载设置
+function loadSettingsFromCache() {
+    const settings = SettingsCache.getAllSettings();
+    
+    // 更新全局变量
+    showSeconds = settings.showSeconds;
+    use12HourFormat = settings.use12HourFormat;
+    currentSolidColor = settings.currentSolidColor;
+    
+    // 恢复UI状态
+    restoreUIState(settings);
+    
+    // 应用背景样式
+    applyBackgroundFromCache(settings);
+    
+    console.log('设置已从缓存加载:', settings);
+}
+
+// 恢复UI状态
+function restoreUIState(settings) {
+    // 恢复显示秒数复选框
+    const showSecondsCheckbox = document.querySelector('.show-seconds');
+    if (showSecondsCheckbox) {
+        showSecondsCheckbox.checked = settings.showSeconds;
+    }
+    
+    // 恢复时间格式选择器
+    const timeFormatSelector = document.querySelector('.time-format-selector');
+    if (timeFormatSelector) {
+        timeFormatSelector.value = settings.use12HourFormat ? '12' : '24';
+    }
+    
+    // 恢复背景样式选择器
+    const bgSelector = document.querySelector('.bg-selector');
+    if (bgSelector) {
+        bgSelector.value = settings.backgroundStyle;
+    }
+    
+    // 恢复颜色预览
+    updateColorPreview(settings.currentSolidColor);
+    
+    // 恢复预设颜色激活状态
+    updateActivePresetColor(settings.currentSolidColor);
+    
+    // 恢复设置菜单状态
+    restoreSettingsMenuState(settings.settingsMenuState);
+}
+
+// 应用背景样式
+function applyBackgroundFromCache(settings) {
+    const root = document.documentElement;
+    
+    if (settings.backgroundStyle === 'solid') {
+        root.style.setProperty('--bg-primary', settings.currentSolidColor);
+        toggleColorPicker(true);
+    } else {
+        root.style.setProperty('--bg-primary', 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%)');
+        toggleColorPicker(false);
+    }
+}
+
+// 恢复设置菜单状态
+function restoreSettingsMenuState(menuState) {
+    // 恢复展开的组
+    if (menuState.expandedGroups && menuState.expandedGroups.length > 0) {
+        menuState.expandedGroups.forEach(groupId => {
+            const group = document.querySelector(`[data-group="${groupId}"]`);
+            if (group) {
+                group.classList.add('expanded');
+            }
+        });
+    }
+    
+    // 恢复活动标签
+    if (menuState.activeTab) {
+        const tab = document.querySelector(`[data-tab="${menuState.activeTab}"]`);
+        if (tab) {
+            tab.classList.add('active');
+        }
+    }
+}
+
+// 初始化设置菜单状态管理
+function initializeSettingsMenuState() {
+    // 为设置组添加展开/折叠功能
+    const settingGroups = document.querySelectorAll('.setting-group');
+    settingGroups.forEach(group => {
+        const header = group.querySelector('h3');
+        if (header) {
+            header.style.cursor = 'pointer';
+            header.addEventListener('click', () => {
+                group.classList.toggle('expanded');
+                updateMenuStateCache();
+            });
+        }
+    });
+}
+
+// 更新菜单状态缓存
+function updateMenuStateCache() {
+    const expandedGroups = [];
+    const settingGroups = document.querySelectorAll('.setting-group.expanded');
+    settingGroups.forEach(group => {
+        const groupId = group.dataset.group || group.querySelector('h3').textContent;
+        expandedGroups.push(groupId);
+    });
+    
+    SettingsCache.updateMenuState({
+        expandedGroups,
+        lastMenuUpdate: new Date().toISOString()
+    });
+}
+
+// 添加设置变更监听
+function addSettingsChangeListener() {
+    // 监听所有设置控件的变更
+    const settingControls = document.querySelectorAll(`
+        .show-seconds, .time-format-selector, .bg-selector, 
+        .color-picker-input, .preset-color
+    `);
+    
+    settingControls.forEach(control => {
+        control.addEventListener('change', () => {
+            updateSettingsCache();
+        });
+    });
+    
+    // 监听预设颜色点击
+    const presetColors = document.querySelectorAll('.preset-color');
+    presetColors.forEach(color => {
+        color.addEventListener('click', () => {
+            updateSettingsCache();
+        });
+    });
+}
+
+// 更新设置缓存
+function updateSettingsCache() {
+    const currentSettings = {
+        showSeconds: document.querySelector('.show-seconds')?.checked ?? showSeconds,
+        use12HourFormat: document.querySelector('.time-format-selector')?.value === '12',
+        currentSolidColor: currentSolidColor,
+        backgroundStyle: document.querySelector('.bg-selector')?.value || 'gradient'
+    };
+    
+    SettingsCache.saveSettings(currentSettings);
+    console.log('设置已更新到缓存:', currentSettings);
+    
+    // 同步全局变量
+    syncGlobalVariables(currentSettings);
+}
+
+// 同步全局变量
+function syncGlobalVariables(settings) {
+    showSeconds = settings.showSeconds;
+    use12HourFormat = settings.use12HourFormat;
+    currentSolidColor = settings.currentSolidColor;
+    
+    // 通知其他模块设置已更新
+    if (window.newTabCore && window.newTabCore.onSettingsUpdate) {
+        window.newTabCore.onSettingsUpdate(settings);
+    }
+}
+
+// 设置变更通知
+function notifySettingsChange(settingName, newValue) {
+    const event = new CustomEvent('settingsChanged', {
+        detail: { settingName, newValue }
+    });
+    document.dispatchEvent(event);
 }
 
 
 // 改变显示秒数设置
 function changeShowSeconds(newShowSeconds) {
     showSeconds = newShowSeconds;
-    localStorage.setItem('showSeconds', showSeconds);
+    SettingsCache.updateSetting('showSeconds', newShowSeconds);
     updateTime();
+    
+    // 发送设置变更通知
+    notifySettingsChange('showSeconds', newShowSeconds);
     
     showMessage(`${showSeconds ? '显示' : '隐藏'}秒数`, 'info');
 }
@@ -64,8 +302,11 @@ function changeShowSeconds(newShowSeconds) {
 // 改变时间格式设置
 function changeTimeFormat(newUse12Hour) {
     use12HourFormat = newUse12Hour;
-    localStorage.setItem('use12HourFormat', use12HourFormat);
+    SettingsCache.updateSetting('use12HourFormat', newUse12Hour);
     updateTime();
+    
+    // 发送设置变更通知
+    notifySettingsChange('use12HourFormat', newUse12Hour);
     
     showMessage(`时间格式已设置为${use12HourFormat ? '12' : '24'}小时制`, 'success');
 }
@@ -420,10 +661,9 @@ function addSettingsImportExport() {
 
 // 导出设置
 function exportSettings() {
-    const settings = {
-        showSeconds: showSeconds,
-        exportDate: new Date().toISOString()
-    };
+    const settings = SettingsCache.getAllSettings();
+    settings.exportDate = new Date().toISOString();
+    settings.version = '2.0'; // 版本标识
     
     const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -445,8 +685,24 @@ function importSettings(e) {
             try {
                 const settings = JSON.parse(event.target.result);
                 
-                // 应用设置
-                if (typeof settings.showSeconds === 'boolean') changeShowSeconds(settings.showSeconds);
+                // 验证设置格式
+                if (settings.version && settings.version >= '2.0') {
+                    // 新格式设置
+                    SettingsCache.saveSettings(settings);
+                } else {
+                    // 旧格式设置，转换为新格式
+                    const newSettings = {
+                        showSeconds: settings.showSeconds ?? true,
+                        use12HourFormat: settings.use12HourFormat ?? false,
+                        currentSolidColor: settings.currentSolidColor ?? '#f8fafc',
+                        backgroundStyle: settings.backgroundStyle ?? 'gradient',
+                        settingsMenuState: {
+                            expandedGroups: [],
+                            activeTab: 'appearance'
+                        }
+                    };
+                    SettingsCache.saveSettings(newSettings);
+                }
                 
                 showMessage('设置已导入', 'success');
                 
@@ -483,7 +739,7 @@ function addResetSettings() {
 // 重置所有设置
 function resetAllSettings() {
     if (confirm('确定要重置所有设置吗？这将清除所有自定义配置。')) {
-        localStorage.clear();
+        SettingsCache.resetSettings();
         showMessage('设置已重置，页面将刷新', 'info');
         setTimeout(() => location.reload(), 1000);
     }
@@ -498,18 +754,9 @@ function initializeColorPicker() {
     const colorPreview = document.getElementById('color-preview');
     const presetColors = document.querySelectorAll('.preset-color');
     
-    // 从本地存储恢复颜色设置
-    const savedSettings = localStorage.getItem('newtabSettings');
-    if (savedSettings) {
-        try {
-            const settings = JSON.parse(savedSettings);
-            if (settings.currentSolidColor) {
-                currentSolidColor = settings.currentSolidColor;
-            }
-        } catch (e) {
-            console.log('恢复颜色设置失败:', e);
-        }
-    }
+    // 从缓存恢复颜色设置
+    const settings = SettingsCache.getAllSettings();
+    currentSolidColor = settings.currentSolidColor;
     
     // 设置初始颜色
     updateColorPreview(currentSolidColor);
@@ -576,22 +823,29 @@ function updateActivePresetColor(color) {
 function applySolidBackground(color) {
     const root = document.documentElement;
     root.style.setProperty('--bg-primary', color);
+    currentSolidColor = color;
+    SettingsCache.updateSetting('currentSolidColor', color);
+    
+    // 发送设置变更通知
+    notifySettingsChange('currentSolidColor', color);
+    
     showMessage('背景颜色已更改', 'success');
-    saveSettings();
 }
 
-// 保存设置到本地存储
+// 保存设置到本地存储（保持向后兼容）
 function saveSettings() {
     const settings = {
         showSeconds: showSeconds,
         use12HourFormat: use12HourFormat,
-        currentSolidColor: currentSolidColor
+        currentSolidColor: currentSolidColor,
+        backgroundStyle: document.querySelector('.bg-selector')?.value || 'gradient'
     };
-    localStorage.setItem('newtabSettings', JSON.stringify(settings));
+    SettingsCache.saveSettings(settings);
 }
 
 // 导出设置相关功能
 if (typeof window !== 'undefined') {
+    window.SettingsCache = SettingsCache;
     window.newTabSettings = {
         initializeSettings,
         changeShowSeconds,
@@ -606,6 +860,9 @@ if (typeof window !== 'undefined') {
         resetAllSettings,
         initializeColorPicker,
         toggleColorPicker,
-        applySolidBackground
+        applySolidBackground,
+        loadSettingsFromCache,
+        restoreUIState,
+        applyBackgroundFromCache
     };
 }

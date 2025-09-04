@@ -1,8 +1,8 @@
 // 核心功能模块 - 应用初始化和基础功能
 
-// 全局变量
-let showSeconds = localStorage.getItem('showSeconds') !== 'false';
-let use12HourFormat = localStorage.getItem('use12HourFormat') === 'true';
+// 全局变量 - 将在设置模块中初始化
+let showSeconds = true;
+let use12HourFormat = false;
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,11 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 初始化应用
 function initializeApp() {
+    // 首先初始化设置，确保其他模块能获取到正确的设置值
+    initializeSettings();
+    
+    // 然后初始化其他功能
     initializeTime();
     initializeNavigation();
     initializeSearch();
     initializeShortcuts();
-    initializeSettings();
     initializeInteractiveEffects();
     startTimeUpdate();
     
@@ -54,20 +57,15 @@ function changeBackgroundStyle(style) {
             root.style.setProperty('--bg-primary', 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%)');
             break;
         case 'solid':
-            // 使用当前保存的纯色，如果没有则使用默认值
-            const savedColor = localStorage.getItem('newtabSettings');
-            if (savedColor) {
-                try {
-                    const settings = JSON.parse(savedColor);
-                    const color = settings.currentSolidColor || '#f8fafc';
-                    root.style.setProperty('--bg-primary', color);
-                } catch (e) {
-                    root.style.setProperty('--bg-primary', '#f8fafc');
-                }
-            } else {
-                root.style.setProperty('--bg-primary', '#f8fafc');
-            }
+            // 使用当前保存的纯色
+            const settings = window.SettingsCache ? window.SettingsCache.getAllSettings() : { currentSolidColor: '#f8fafc' };
+            root.style.setProperty('--bg-primary', settings.currentSolidColor);
             break;
+    }
+    
+    // 更新设置缓存
+    if (window.SettingsCache) {
+        window.SettingsCache.updateSetting('backgroundStyle', style);
     }
     
     showMessage('背景样式已更改', 'success');
@@ -132,31 +130,41 @@ window.addEventListener('load', () => {
 
 // 恢复保存的设置
 function restoreSettings() {
-    const savedSettings = localStorage.getItem('newtabSettings');
-    if (savedSettings) {
-        try {
-            const settings = JSON.parse(savedSettings);
-            
-            // 恢复背景样式
-            const bgSelector = document.querySelector('.bg-selector');
-            if (bgSelector && settings.currentSolidColor) {
-                // 检查当前是否使用纯色背景
-                const root = document.documentElement;
-                const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary');
-                if (!currentBg.includes('gradient')) {
-                    // 如果当前是纯色背景，应用保存的颜色
-                    root.style.setProperty('--bg-primary', settings.currentSolidColor);
-                }
-            }
-        } catch (e) {
-            console.log('恢复设置失败:', e);
-        }
+    // 这个函数现在由设置模块的 loadSettingsFromCache 函数处理
+    // 保持函数存在以维持向后兼容性
+    if (window.SettingsCache) {
+        const settings = window.SettingsCache.getAllSettings();
+        console.log('设置已从缓存恢复:', settings);
     }
 }
 
 // 页面加载完成后恢复设置
 document.addEventListener('DOMContentLoaded', function() {
     restoreSettings();
+});
+
+// 监听设置变更事件
+document.addEventListener('settingsChanged', function(event) {
+    const { settingName, newValue } = event.detail;
+    console.log(`设置已变更: ${settingName} = ${newValue}`);
+    
+    // 根据设置名称执行相应的更新
+    switch (settingName) {
+        case 'showSeconds':
+            updateTime();
+            break;
+        case 'use12HourFormat':
+            updateTime();
+            break;
+        case 'currentSolidColor':
+            // 如果当前是纯色背景，立即应用新颜色
+            const bgSelector = document.querySelector('.bg-selector');
+            if (bgSelector && bgSelector.value === 'solid') {
+                const root = document.documentElement;
+                root.style.setProperty('--bg-primary', newValue);
+            }
+            break;
+    }
 });
 
 // 导出核心功能到全局作用域
