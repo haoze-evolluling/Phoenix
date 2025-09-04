@@ -1,16 +1,8 @@
 // 核心功能模块 - 应用初始化和基础功能
 
 // 全局变量
-let currentSearchEngine = localStorage.getItem('searchEngine') || 'google';
 let showSeconds = localStorage.getItem('showSeconds') !== 'false';
 let use12HourFormat = localStorage.getItem('use12HourFormat') === 'true';
-
-// 搜索引擎配置
-const searchEngines = {
-    google: 'https://www.google.com/search?q=',
-    baidu: 'https://www.baidu.com/s?wd=',
-    bing: 'https://www.bing.com/search?q='
-};
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -129,9 +121,7 @@ window.addEventListener('load', () => {
 // 导出核心功能到全局作用域
 if (typeof window !== 'undefined') {
     window.newTabCore = {
-        currentSearchEngine,
         showSeconds,
-        searchEngines,
         initializeApp,
         changeBackgroundStyle
     };

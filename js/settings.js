@@ -2,15 +2,6 @@
 
 // 初始化设置功能
 function initializeSettings() {
-    // 搜索引擎设置
-    const searchEngineSelector = document.querySelector('.search-engine-selector');
-    if (searchEngineSelector) {
-        searchEngineSelector.value = currentSearchEngine;
-        searchEngineSelector.addEventListener('change', (e) => {
-            const newEngine = e.target.value;
-            changeSearchEngine(newEngine);
-        });
-    }
     
     // 显示秒数设置
     const showSecondsCheckbox = document.querySelector('.show-seconds');
@@ -50,20 +41,6 @@ function initializeSettings() {
     addResetSettings();
 }
 
-// 改变搜索引擎
-function changeSearchEngine(newEngine) {
-    currentSearchEngine = newEngine;
-    localStorage.setItem('searchEngine', currentSearchEngine);
-    updateSearchEngineButtons();
-    
-    const engineNames = {
-        'google': 'Google',
-        'baidu': '百度',
-        'bing': '必应'
-    };
-    
-    showMessage(`默认搜索引擎已设置为${engineNames[newEngine]}`, 'success');
-}
 
 // 改变显示秒数设置
 function changeShowSeconds(newShowSeconds) {
@@ -434,10 +411,7 @@ function addSettingsImportExport() {
 // 导出设置
 function exportSettings() {
     const settings = {
-        searchEngine: currentSearchEngine,
         showSeconds: showSeconds,
-        searchHistory: getSearchHistory(),
-        searchStats: getSearchStats(),
         exportDate: new Date().toISOString()
     };
     
@@ -462,10 +436,7 @@ function importSettings(e) {
                 const settings = JSON.parse(event.target.result);
                 
                 // 应用设置
-                if (settings.searchEngine) changeSearchEngine(settings.searchEngine);
                 if (typeof settings.showSeconds === 'boolean') changeShowSeconds(settings.showSeconds);
-                if (settings.searchHistory) localStorage.setItem('searchHistory', JSON.stringify(settings.searchHistory));
-                if (settings.searchStats) localStorage.setItem('searchStats', JSON.stringify(settings.searchStats));
                 
                 showMessage('设置已导入', 'success');
                 
@@ -512,7 +483,6 @@ function resetAllSettings() {
 if (typeof window !== 'undefined') {
     window.newTabSettings = {
         initializeSettings,
-        changeSearchEngine,
         changeShowSeconds,
         changeTimeFormat,
         handleToolClick,
