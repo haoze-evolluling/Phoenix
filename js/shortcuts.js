@@ -74,7 +74,7 @@ function saveUserShortcuts(shortcuts) {
 // 初始化快捷网站管理功能
 function initializeShortcuts() {
     renderShortcuts();
-    addShortcutsManagementButtons();
+    // addShortcutsManagementButtons(); // 已移除设置中的快捷网站管理
 }
 
 // 渲染快捷网站
@@ -486,92 +486,24 @@ function deleteShortcut(id) {
     }
 }
 
-// 添加快捷网站管理按钮到设置页面
+// 添加快捷网站管理按钮到设置页面 - 已移除
 function addShortcutsManagementButtons() {
-    const settingsContainer = document.querySelector('.settings-container');
-    if (!settingsContainer) return;
-    
-    const shortcutGroup = document.createElement('div');
-    shortcutGroup.className = 'setting-group';
-    shortcutGroup.innerHTML = `
-        <h3>快捷网站管理</h3>
-        <div class="setting-item">
-            <label>重置为默认</label>
-            <button class="reset-shortcuts-btn" style="padding: 8px 16px; background: var(--warning-color, #f59e0b); color: white; border: none; border-radius: 8px; cursor: pointer;">重置</button>
-        </div>
-        <div class="setting-item">
-            <label>导出配置</label>
-            <button class="export-shortcuts-btn" style="padding: 8px 16px; background: var(--info-color, #3b82f6); color: white; border: none; border-radius: 8px; cursor: pointer;">导出</button>
-        </div>
-        <div class="setting-item">
-            <label>导入配置</label>
-            <input type="file" class="import-shortcuts-input" accept=".json" style="display: none;">
-            <button class="import-shortcuts-btn" style="padding: 8px 16px; background: var(--success-color); color: white; border: none; border-radius: 8px; cursor: pointer;">导入</button>
-        </div>
-    `;
-    
-    settingsContainer.appendChild(shortcutGroup);
-    
-    // 绑定事件
-    shortcutGroup.querySelector('.reset-shortcuts-btn').addEventListener('click', resetShortcuts);
-    shortcutGroup.querySelector('.export-shortcuts-btn').addEventListener('click', exportShortcuts);
-    shortcutGroup.querySelector('.import-shortcuts-btn').addEventListener('click', () => {
-        shortcutGroup.querySelector('.import-shortcuts-input').click();
-    });
-    shortcutGroup.querySelector('.import-shortcuts-input').addEventListener('change', importShortcuts);
+    // 此功能已被移除
 }
 
-// 重置快捷网站为默认
+// 重置快捷网站为默认 - 已移除
 function resetShortcuts() {
-    if (confirm('确定要重置快捷网站为默认配置吗？这将删除所有自定义网站。')) {
-        saveUserShortcuts(defaultShortcuts);
-        renderShortcuts();
-        showMessage('快捷网站已重置为默认配置', 'success');
-    }
+    // 此功能已被移除
 }
 
-// 导出快捷网站配置
+// 导出快捷网站配置 - 已移除
 function exportShortcuts() {
-    const shortcuts = getUserShortcuts();
-    const exportData = {
-        shortcuts: shortcuts,
-        exportDate: new Date().toISOString(),
-        version: '1.0'
-    };
-    
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `shortcuts-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    showMessage('快捷网站配置已导出', 'success');
+    // 此功能已被移除
 }
 
-// 导入快捷网站配置
+// 导入快捷网站配置 - 已移除
 function importShortcuts(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        try {
-            const data = JSON.parse(event.target.result);
-            
-            if (data.shortcuts && Array.isArray(data.shortcuts)) {
-                saveUserShortcuts(data.shortcuts);
-                renderShortcuts();
-                showMessage('快捷网站配置导入成功', 'success');
-            } else {
-                showMessage('导入失败：文件格式错误', 'error');
-            }
-        } catch (error) {
-            showMessage('导入失败：文件格式错误', 'error');
-        }
-    };
-    reader.readAsText(file);
+    // 此功能已被移除
 }
 
 // 使用utils.js中的URL验证函数和唯一ID生成函数
