@@ -94,22 +94,6 @@ function addTimeInteraction() {
     const timeElement = document.getElementById('current-time');
     const dateElement = document.getElementById('current-date');
     
-    if (timeDisplay) {
-        // 点击切换时间格式
-        timeDisplay.addEventListener('click', () => {
-            toggleTimeFormat();
-        });
-        
-        // 悬停显示详细信息
-        timeDisplay.addEventListener('mouseenter', () => {
-            showDetailedTimeInfo();
-        });
-        
-        timeDisplay.addEventListener('mouseleave', () => {
-            hideDetailedTimeInfo();
-        });
-    }
-    
     if (timeElement) {
         // 双击复制时间
         timeElement.addEventListener('dblclick', () => {
@@ -143,59 +127,7 @@ function updateTimeFormatSelector() {
     }
 }
 
-// 显示详细时间信息
-function showDetailedTimeInfo() {
-    // 移除现有的详细信息
-    hideDetailedTimeInfo();
-    
-    const now = new Date();
-    const detailInfo = document.createElement('div');
-    detailInfo.className = 'time-detail-info';
-    detailInfo.style.cssText = `
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--bg-card);
-        backdrop-filter: var(--glass-backdrop);
-        border-radius: 12px;
-        padding: 15px;
-        margin-top: 10px;
-        box-shadow: var(--shadow-glass);
-        border: var(--glass-border);
-        font-size: 14px;
-        color: var(--text-secondary);
-        z-index: 1000;
 
-        min-width: 200px;
-        text-align: center;
-    `;
-    
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const weekOfYear = getWeekOfYear(now);
-    const dayOfYear = getDayOfYear(now);
-    
-    detailInfo.innerHTML = `
-        <div>时区: ${timeZone}</div>
-        <div>第${weekOfYear}周 / 第${dayOfYear}天</div>
-        <div>Unix时间戳: ${Math.floor(now.getTime() / 1000)}</div>
-        <div style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">
-            双击复制时间
-        </div>
-    `;
-    
-    const timeDisplay = document.querySelector('.time-display');
-    timeDisplay.style.position = 'relative';
-    timeDisplay.appendChild(detailInfo);
-}
-
-// 隐藏详细时间信息
-function hideDetailedTimeInfo() {
-    const detailInfo = document.querySelector('.time-detail-info');
-    if (detailInfo) {
-        detailInfo.remove();
-    }
-}
 
 // 复制时间到剪贴板
 function copyTimeToClipboard(text) {
