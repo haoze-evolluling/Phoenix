@@ -43,33 +43,9 @@ function initializeNavigation() {
     addTouchSupport(navButtons);
 }
 
-// 添加触摸支持
+// 触摸支持已禁用
 function addTouchSupport(buttons) {
-    buttons.forEach(button => {
-        let touchStartTime = 0;
-        
-        button.addEventListener('touchstart', (e) => {
-            touchStartTime = Date.now();
-            button.classList.add('touch-active');
-        }, { passive: true });
-        
-        button.addEventListener('touchend', (e) => {
-            const touchDuration = Date.now() - touchStartTime;
-            
-            setTimeout(() => {
-                button.classList.remove('touch-active');
-            }, 150);
-            
-            // 防止误触
-            if (touchDuration < 1000) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        button.addEventListener('touchcancel', () => {
-            button.classList.remove('touch-active');
-        });
-    });
+    console.log('触摸支持已禁用');
 }
 
 // 添加面包屑导航（可选功能）

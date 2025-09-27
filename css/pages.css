@@ -16,7 +16,6 @@
     border: var(--glass-border-strong);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section h2::before {
@@ -30,17 +29,9 @@
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.6;
-    transition: opacity 0.3s ease;
 }
 
-.section h2:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
-
-.section h2:hover::before {
-    opacity: 0.8;
-}
+/* 悬停效果已禁用 */
 
 
 
@@ -61,7 +52,6 @@
     border: var(--glass-border);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bookmark-category::before {
@@ -75,17 +65,9 @@
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.5;
-    transition: opacity 0.3s ease;
 }
 
-.bookmark-category:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
-
-.bookmark-category:hover::before {
-    opacity: 0.7;
-}
+/* 悬停效果已禁用 */
 
 
 
@@ -119,7 +101,6 @@
     -webkit-backdrop-filter: var(--glass-backdrop-light);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -137,46 +118,13 @@
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.6;
-    transition: opacity 0.3s ease;
 }
 
 
 
-.bookmark-item:hover {
-    background: var(--accent-color);
-    color: var(--text-inverse);
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
+/* 悬停效果已禁用 */
 
-.bookmark-item:hover::before {
-    opacity: 0;
-}
-
-/* 书签项目点击反馈效果 */
-.bookmark-item:active {
-    transform: translateY(-1px) scale(0.98);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bookmark-item.clicked {
-    animation: bookmark-item-click 0.3s ease-out;
-}
-
-@keyframes bookmark-item-click {
-    0% {
-        transform: translateY(-1px) scale(1);
-    }
-    50% {
-        transform: translateY(-1px) scale(0.98);
-    }
-    100% {
-        transform: translateY(-1px) scale(1);
-    }
-}
+/* 点击反馈效果已禁用 */
 
 .bookmark-item i {
     font-size: 16px;
@@ -238,7 +186,6 @@
     color: var(--text-primary);
     font-size: 14px;
     width: 250px;
-    transition: all 0.3s ease;
 }
 
 .bookmark-search-input:focus {
@@ -260,16 +207,10 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
     text-decoration: none;
 }
 
-.add-bookmark-btn:hover,
-.manage-categories-btn:hover {
-    background: var(--accent-color-dark);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-}
+/* 悬停效果已禁用 */
 
 .category-header {
     display: flex;
@@ -299,12 +240,9 @@
     display: flex;
     gap: 8px;
     opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
-.bookmark-category:hover .category-actions {
-    opacity: 1;
-}
+/* 悬停效果已禁用 */
 
 .category-edit-btn,
 .category-delete-btn {
@@ -318,18 +256,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
 }
 
-.category-edit-btn:hover {
-    background: var(--accent-color);
-    color: white;
-}
-
-.category-delete-btn:hover {
-    background: var(--error-color);
-    color: white;
-}
+/* 悬停效果已禁用 */
 
 .bookmark-category.drag-over {
     border-color: var(--accent-color);
@@ -376,12 +305,9 @@
     display: flex;
     gap: 4px;
     opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
-.bookmark-item:hover .bookmark-actions {
-    opacity: 1;
-}
+/* 悬停效果已禁用 */
 
 .bookmark-edit-btn,
 .bookmark-delete-btn {
@@ -395,18 +321,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
     font-size: 12px;
 }
 
-.bookmark-edit-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.bookmark-delete-btn:hover {
-    background: var(--error-color);
-    color: white;
-}
+/* 悬停效果已禁用 */
 
 .bookmark-link {
     position: absolute;
@@ -490,7 +408,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    transition: all 0.3s ease;
 }
 
 .modal-close:hover {
@@ -534,7 +451,6 @@
     -webkit-backdrop-filter: var(--glass-backdrop-light);
     color: var(--text-primary);
     font-size: 14px;
-    transition: all 0.3s ease;
 }
 
 .form-group input:focus,
@@ -557,7 +473,6 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -599,7 +514,6 @@
     background: var(--bg-glass-light);
     border-radius: 8px;
     margin-bottom: 8px;
-    transition: all 0.3s ease;
 }
 
 .category-item:hover {
@@ -644,7 +558,6 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -677,7 +590,6 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -695,46 +607,13 @@
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.5;
-    transition: opacity 0.3s ease;
 }
 
 
 
-.tool-card:hover {
-    box-shadow: var(--shadow-xl);
-    background: var(--accent-color);
-    color: var(--text-inverse);
-    border-color: var(--accent-color);
-    transform: translateY(-3px) scale(1.02);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
+/* 悬停效果已禁用 */
 
-.tool-card:hover::before {
-    opacity: 0;
-}
-
-/* 工具卡片点击反馈效果 */
-.tool-card:active {
-    transform: translateY(-1px) scale(0.95);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tool-card.clicked {
-    animation: tool-card-click 0.3s ease-out;
-}
-
-@keyframes tool-card-click {
-    0% {
-        transform: translateY(-3px) scale(1.02);
-    }
-    50% {
-        transform: translateY(-1px) scale(0.95);
-    }
-    100% {
-        transform: translateY(-3px) scale(1.02);
-    }
-}
+/* 点击反馈效果已禁用 */
 
 .tool-card i {
     font-size: 2.5rem;
@@ -744,9 +623,7 @@
     z-index: 1;
 }
 
-.tool-card:hover i {
-    color: var(--text-inverse);
-}
+/* 悬停效果已禁用 */
 
 .tool-card h3 {
     margin-bottom: 10px;
@@ -764,9 +641,7 @@
     z-index: 1;
 }
 
-.tool-card:hover p {
-    color: var(--text-inverse);
-}
+/* 悬停效果已禁用 */
 
 /* 设置页面 */
 .settings-container {
@@ -786,7 +661,6 @@
     position: relative;
     overflow: visible;
     z-index: 1;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .setting-group::before {
@@ -800,17 +674,9 @@
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.5;
-    transition: opacity 0.3s ease;
 }
 
-.setting-group:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-}
-
-.setting-group:hover::before {
-    opacity: 0.7;
-}
+/* 悬停效果已禁用 */
 
 
 
@@ -821,17 +687,13 @@
     font-weight: 600;
     position: relative;
     z-index: 1;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
 
-.setting-group h3:hover {
-    color: var(--accent-color);
-    transform: translateX(2px);
-}
+/* 悬停效果已禁用 */
 
 .setting-group h3::after {
     content: '▼';
@@ -840,7 +702,6 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.8rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0.7;
 }
 
@@ -893,23 +754,13 @@
     min-width: 120px;
     position: relative;
     z-index: 3;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
 
-.bg-selector:hover,
-.search-engine-selector:hover,
-.time-format-selector:hover {
-    background: var(--bg-glass);
-    border: var(--glass-border);
-    backdrop-filter: var(--glass-backdrop);
-    -webkit-backdrop-filter: var(--glass-backdrop);
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-1px);
-}
+/* 悬停效果已禁用 */
 
 .bg-selector:focus,
 .search-engine-selector:focus,
@@ -929,38 +780,11 @@ input[type="checkbox"] {
     position: relative;
     z-index: 3;
     cursor: pointer;
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-input[type="checkbox"]:active {
-    transform: scale(0.9);
-}
+/* 点击反馈效果已禁用 */
 
-/* 设置控件点击反馈效果 */
-.bg-selector:active,
-.search-engine-selector:active,
-.time-format-selector:active {
-    transform: scale(0.98);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bg-selector.clicked,
-.search-engine-selector.clicked,
-.time-format-selector.clicked {
-    animation: setting-control-click 0.3s ease-out;
-}
-
-@keyframes setting-control-click {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.98);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
+/* 点击反馈效果已禁用 */
 
 /* 调色盘样式 */
 .color-picker-container {
@@ -983,7 +807,6 @@ input[type="checkbox"]:active {
     border: 2px solid var(--glass-border);
     background-color: #f8fafc;
     box-shadow: var(--shadow-sm);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
@@ -999,17 +822,9 @@ input[type="checkbox"]:active {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.3;
-    transition: opacity 0.3s ease;
 }
 
-.color-preview:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-md);
-}
-
-.color-preview:hover::before {
-    opacity: 0.5;
-}
+/* 悬停效果已禁用 */
 
 .color-picker-input {
     width: 40px;
@@ -1020,16 +835,9 @@ input[type="checkbox"]:active {
     background: transparent;
     position: relative;
     z-index: 3;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.color-picker-input:hover {
-    transform: scale(1.05);
-}
-
-.color-picker-input:active {
-    transform: scale(0.95);
-}
+/* 悬停和点击效果已禁用 */
 
 .preset-colors {
     display: grid;
@@ -1044,7 +852,6 @@ input[type="checkbox"]:active {
     border-radius: 6px;
     border: 2px solid var(--glass-border-light);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-xs);
@@ -1061,19 +868,9 @@ input[type="checkbox"]:active {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.3;
-    transition: opacity 0.3s ease;
 }
 
-.preset-color:hover {
-    transform: scale(1.2);
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-md);
-    z-index: 2;
-}
-
-.preset-color:hover::before {
-    opacity: 0.5;
-}
+/* 悬停效果已禁用 */
 
 .preset-color.active {
     border-color: var(--accent-color);
@@ -1085,10 +882,7 @@ input[type="checkbox"]:active {
     opacity: 0;
 }
 
-.preset-color:active {
-    transform: scale(0.9);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* 点击反馈效果已禁用 */
 
 /* 响应式设计 - 调色盘 */
 @media (max-width: 768px) {

@@ -52,20 +52,7 @@ function initializeSearch() {
         // 自动聚焦搜索框
         searchInput.focus();
         
-        // 添加搜索框焦点效果
-        searchInput.addEventListener('focus', () => {
-            const searchBox = document.querySelector('.search-box');
-            if (searchBox) {
-                searchBox.classList.add('search-focused');
-            }
-        });
-        
-        searchInput.addEventListener('blur', () => {
-            const searchBox = document.querySelector('.search-box');
-            if (searchBox) {
-                searchBox.classList.remove('search-focused');
-            }
-        });
+        // 搜索框焦点效果已禁用
     }
 }
 

@@ -26,27 +26,14 @@ function initializeApp() {
     // 添加键盘快捷键支持
     document.addEventListener('keydown', handleKeyboardShortcuts);
     
-    // 确保点击反馈系统在最后初始化
-    setTimeout(() => {
-        if (window.clickFeedback && window.clickFeedback.initializeClickFeedback) {
-            window.clickFeedback.initializeClickFeedback();
-        }
-    }, 100);
     
     console.log('新标签页已加载完成！');
 }
 
-// 初始化交互效果
+// 初始化交互效果 - 已禁用动态效果
 function initializeInteractiveEffects() {
-    // 为卡片元素添加基础玻璃态效果
-    const cardElements = document.querySelectorAll(`
-        .time-display, .search-box, .quick-links, .bookmark-category,
-        .tool-card, .setting-group, .section h2, .navbar
-    `);
-    
-    cardElements.forEach(element => {
-        element.classList.add('glass-morphism');
-    });
+    // 移除所有动态交互效果
+    console.log('动态交互效果已禁用');
 }
 
 // 改变背景样式
@@ -100,13 +87,7 @@ function handleKeyboardShortcuts(e) {
     }
 }
 
-// 页面可见性变化处理
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-        // 页面变为可见时更新时间
-        updateTime();
-    }
-});
+// 页面可见性变化处理已禁用
 
 // 窗口大小变化处理
 window.addEventListener('resize', () => {

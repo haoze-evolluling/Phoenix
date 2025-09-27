@@ -118,14 +118,13 @@ body {
     min-height: 100vh;
 }
 
-/* 玻璃态基础样式 - 增强版 */
+/* 玻璃态基础样式 - 静态版 */
 .glass-effect {
     background: var(--bg-glass);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     border: var(--glass-border);
     position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-effect::before {
@@ -139,7 +138,6 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.8;
-    transition: opacity 0.3s ease;
 }
 
 /* 轻量级毛玻璃效果 */
@@ -149,7 +147,6 @@ body {
     -webkit-backdrop-filter: var(--glass-backdrop-light);
     border: var(--glass-border-light);
     position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-effect-light::before {
@@ -163,7 +160,6 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.6;
-    transition: opacity 0.3s ease;
 }
 
 /* 强化毛玻璃效果 */
@@ -173,7 +169,6 @@ body {
     -webkit-backdrop-filter: var(--glass-backdrop-strong);
     border: var(--glass-border-strong);
     position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-effect-strong::before {
@@ -187,7 +182,6 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.9;
-    transition: opacity 0.3s ease;
 }
 
 
@@ -228,7 +222,7 @@ body {
 
 
 
-/* 玻璃态增强效果 - 更新版 */
+/* 玻璃态增强效果 - 静态版 */
 .glass-morphism {
     background: var(--bg-glass);
     backdrop-filter: var(--glass-backdrop);
@@ -236,7 +230,6 @@ body {
     border: var(--glass-border);
     box-shadow: var(--shadow-glass);
     position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-morphism::before {
@@ -250,126 +243,22 @@ body {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0.8;
-    transition: opacity 0.3s ease;
 }
 
-/* 毛玻璃悬停效果 */
-.glass-morphism:hover {
-    background: var(--bg-glass-strong);
-    backdrop-filter: var(--glass-backdrop-strong);
-    -webkit-backdrop-filter: var(--glass-backdrop-strong);
-    border: var(--glass-border-strong);
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-2px);
-}
+/* 毛玻璃悬停效果 - 已禁用 */
 
-.glass-morphism:hover::before {
-    opacity: 1;
-}
+/* 点击反馈效果 - 已禁用 */
 
-/* 点击反馈效果 - 通用样式 */
-.click-feedback {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* 点击反馈效果 - 已禁用 */
 
-.click-feedback::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
-    pointer-events: none;
-    z-index: 10;
-}
+/* 按钮点击反馈效果 - 已禁用 */
 
-.click-feedback.clicked::after {
-    width: 300px;
-    height: 300px;
-}
+/* 卡片点击反馈效果 - 已禁用 */
 
-/* 按钮点击反馈效果 */
-.btn-click-feedback {
-    transform: scale(0.95);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* 波纹效果 - 已禁用 */
 
-.btn-click-feedback:active {
-    transform: scale(0.92);
-}
+/* 脉冲效果 - 已禁用 */
 
-/* 卡片点击反馈效果 */
-.card-click-feedback {
-    transform: translateY(-1px) scale(0.98);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-click-feedback:active {
-    transform: translateY(0) scale(0.96);
-}
-
-/* 波纹效果 */
-.ripple-effect {
-    position: relative;
-    overflow: hidden;
-}
-
-.ripple-effect::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.ripple-effect.ripple::before {
-    width: 200px;
-    height: 200px;
-    opacity: 0;
-}
-
-/* 脉冲效果 */
-.pulse-feedback {
-    animation: pulse-click 0.3s ease-out;
-}
-
-@keyframes pulse-click {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(30, 64, 175, 0.1);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(30, 64, 175, 0);
-    }
-}
-
-/* 震动效果 */
-.shake-feedback {
-    animation: shake-click 0.3s ease-out;
-}
-
-@keyframes shake-click {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-2px); }
-    75% { transform: translateX(2px); }
-}
+/* 震动效果 - 已禁用 */
 
 

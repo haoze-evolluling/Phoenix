@@ -48,36 +48,11 @@ function updateTime() {
     updatePageTitle(timeString);
 }
 
-// 开始时间更新循环
-let timeUpdateInterval = null;
-
+// 时间更新功能已禁用 - 静态显示
 function startTimeUpdate() {
-    // 清除现有的定时器
-    if (timeUpdateInterval) {
-        clearInterval(timeUpdateInterval);
-    }
-    
+    // 只更新一次时间，不再动态更新
     updateTime();
-    
-    // 使用更精确的定时器
-    timeUpdateInterval = setInterval(() => {
-        updateTime();
-    }, 1000);
-    
-    // 页面不可见时暂停更新以节省资源
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            if (timeUpdateInterval) {
-                clearInterval(timeUpdateInterval);
-                timeUpdateInterval = null;
-            }
-        } else {
-            updateTime();
-            if (!timeUpdateInterval) {
-                startTimeUpdate();
-            }
-        }
-    });
+    console.log('时间更新功能已禁用，使用静态显示');
 }
 
 // 更新显示秒数复选框状态
@@ -88,25 +63,9 @@ function updateShowSecondsCheckbox() {
     }
 }
 
-// 添加时间交互效果
+// 时间交互效果已禁用
 function addTimeInteraction() {
-    const timeDisplay = document.querySelector('.time-display');
-    const timeElement = document.getElementById('current-time');
-    const dateElement = document.getElementById('current-date');
-    
-    if (timeElement) {
-        // 双击复制时间
-        timeElement.addEventListener('dblclick', () => {
-            copyTimeToClipboard(timeElement.textContent);
-        });
-    }
-    
-    if (dateElement) {
-        // 双击复制日期
-        dateElement.addEventListener('dblclick', () => {
-            copyTimeToClipboard(dateElement.textContent);
-        });
-    }
+    console.log('时间交互效果已禁用');
 }
 
 // 切换时间格式
