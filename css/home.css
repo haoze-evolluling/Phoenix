@@ -37,9 +37,6 @@
     opacity: 0.7;
 }
 
-/* 悬停效果已禁用 */
-
-
 
 .time {
     font-size: 3.5rem;
@@ -181,8 +178,6 @@
     opacity: 0.5;
 }
 
-
-
 /* 悬停效果已禁用 */
 
 .engine-btn.active {
@@ -197,8 +192,6 @@
 .engine-btn.active::before {
     opacity: 0;
 }
-
-/* 点击反馈效果已禁用 */
 
 /* 快捷链接 - 增强毛玻璃效果 */
 .quick-links {
@@ -284,12 +277,6 @@
     opacity: 0.6;
 }
 
-
-
-/* 悬停效果已禁用 */
-
-/* 点击反馈效果已禁用 */
-
 .link-icon {
     width: 50px;
     height: 50px;
@@ -304,8 +291,6 @@
     position: relative;
     z-index: 1;
 }
-
-/* 悬停效果已禁用 */
 
 .link-card span {
     font-size: 14px;
@@ -326,8 +311,6 @@
     z-index: 10;
 }
 
-/* 悬停效果已禁用 */
-
 .edit-shortcut,
 .delete-shortcut {
     width: 24px;
@@ -343,7 +326,6 @@
     cursor: pointer;
 }
 
-/* 悬停效果已禁用 */
 
 /* 添加网站按钮样式 */
 .add-shortcut-btn {
@@ -351,8 +333,6 @@
     border: 2px dashed var(--border-light);
     background: transparent !important;
 }
-
-/* 悬停效果已禁用 */
 
 /* 响应式设计 - 优化毛玻璃效果 */
 @media (max-width: 768px) {
