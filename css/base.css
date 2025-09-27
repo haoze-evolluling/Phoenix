@@ -7,73 +7,73 @@
 }
 
 :root {
-    /* 品牌色彩系统 - 以深蓝色为主调 */
-    --brand-primary: #1e40af;        /* 主品牌色 */
-    --brand-secondary: #3b82f6;      /* 辅助品牌色 */
-    --brand-tertiary: #60a5fa;       /* 第三级品牌色 */
+    /* 黑白配色方案 - 极简主义设计 */
+    --brand-primary: #000000;        /* 主品牌色 - 纯黑 */
+    --brand-secondary: #333333;      /* 辅助品牌色 - 深灰 */
+    --brand-tertiary: #666666;       /* 第三级品牌色 - 中灰 */
     
-    /* 中性色阶 - 确保充足对比度 */
-    --neutral-50: #f8fafc;
-    --neutral-100: #f1f5f9;
-    --neutral-200: #e2e8f0;
-    --neutral-300: #cbd5e1;
-    --neutral-400: #94a3b8;
-    --neutral-500: #64748b;
-    --neutral-600: #475569;
-    --neutral-700: #334155;
-    --neutral-800: #1e293b;
-    --neutral-900: #0f172a;
+    /* 中性色阶 - 黑白灰阶 */
+    --neutral-50: #ffffff;
+    --neutral-100: #f8f8f8;
+    --neutral-200: #f0f0f0;
+    --neutral-300: #e0e0e0;
+    --neutral-400: #cccccc;
+    --neutral-500: #999999;
+    --neutral-600: #666666;
+    --neutral-700: #444444;
+    --neutral-800: #2a2a2a;
+    --neutral-900: #1a1a1a;
     
-    /* 语义色彩 - 增强可访问性 */
-    --success-50: #ecfdf5;
-    --success-500: #10b981;
-    --success-600: #059669;
-    --success-700: #047857;
+    /* 语义色彩 - 黑白版本 */
+    --success-50: #f8f8f8;
+    --success-500: #333333;
+    --success-600: #2a2a2a;
+    --success-700: #1a1a1a;
     
-    --warning-50: #fffbeb;
-    --warning-500: #f59e0b;
-    --warning-600: #d97706;
-    --warning-700: #b45309;
+    --warning-50: #ffffff;
+    --warning-500: #000000;
+    --warning-600: #333333;
+    --warning-700: #1a1a1a;
     
-    --error-50: #fef2f2;
-    --error-500: #ef4444;
-    --error-600: #dc2626;
-    --error-700: #b91c1c;
+    --error-50: #ffffff;
+    --error-500: #000000;
+    --error-600: #333333;
+    --error-700: #1a1a1a;
     
-    /* 浅色主题配色 - 增强毛玻璃效果 */
-    --bg-primary: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 25%, #f3e8ff 50%, #fce7f3 75%, #fef7f7 100%);
-    --bg-secondary: rgba(255, 255, 255, 0.85);
-    --bg-card: rgba(255, 255, 255, 0.75);
-    --bg-glass: rgba(255, 255, 255, 0.65);
-    --bg-glass-light: rgba(255, 255, 255, 0.45);
-    --bg-glass-strong: rgba(255, 255, 255, 0.85);
+    /* 黑白主题配色 - 极简设计 */
+    --bg-primary: linear-gradient(135deg, #ffffff 0%, #f8f8f8 25%, #f0f0f0 50%, #e8e8e8 75%, #e0e0e0 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.9);
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --bg-glass: rgba(255, 255, 255, 0.7);
+    --bg-glass-light: rgba(255, 255, 255, 0.5);
+    --bg-glass-strong: rgba(255, 255, 255, 0.9);
     --bg-surface: #ffffff;
-    --bg-overlay: rgba(15, 23, 42, 0.08);
+    --bg-overlay: rgba(0, 0, 0, 0.08);
     
-    /* 文本颜色 - 确保对比度 ≥ 4.5:1 */
-    --text-primary: #0f172a;         /* 对比度: 19.47:1 */
-    --text-secondary: #334155;       /* 对比度: 12.32:1 */
-    --text-tertiary: #64748b;        /* 对比度: 7.15:1 */
-    --text-inverse: #ffffff;         /* 反色文本 */
-    --text-muted: #94a3b8;          /* 弱化文本 对比度: 4.54:1 */
+    /* 文本颜色 - 黑白对比 */
+    --text-primary: #000000;         /* 主文本 - 纯黑 */
+    --text-secondary: #333333;       /* 次要文本 - 深灰 */
+    --text-tertiary: #666666;        /* 第三级文本 - 中灰 */
+    --text-inverse: #ffffff;         /* 反色文本 - 纯白 */
+    --text-muted: #999999;          /* 弱化文本 - 浅灰 */
     
-    /* 边框和分割线 */
-    --border-light: rgba(226, 232, 240, 0.8);
-    --border-medium: rgba(203, 213, 225, 0.9);
-    --border-strong: rgba(148, 163, 184, 0.9);
-    --border-accent: rgba(30, 64, 175, 0.3);
+    /* 边框和分割线 - 黑白灰 */
+    --border-light: rgba(0, 0, 0, 0.1);
+    --border-medium: rgba(0, 0, 0, 0.2);
+    --border-strong: rgba(0, 0, 0, 0.3);
+    --border-accent: rgba(0, 0, 0, 0.4);
     
-    /* 阴影系统 - 增强层次感 */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    /* 阴影系统 - 黑白灰阴影 */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.15), 0 1px 2px -1px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -4px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-glass: 0 8px 32px rgba(30, 64, 175, 0.15);
-    --shadow-colored: 0 10px 15px -3px rgba(30, 64, 175, 0.1), 0 4px 6px -4px rgba(30, 64, 175, 0.1);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-colored: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     
-    /* 交互状态色彩 */
+    /* 交互状态色彩 - 黑白版本 */
     --accent-color: var(--brand-primary);
     --hover-color: var(--brand-secondary);
     --active-color: var(--brand-tertiary);
@@ -82,13 +82,13 @@
     --warning-color: var(--warning-500);
     --error-color: var(--error-500);
     
-    /* 玻璃态效果变量 - 增强版 */
-    --glass-backdrop: blur(20px) saturate(180%);
-    --glass-backdrop-light: blur(16px) saturate(150%);
-    --glass-backdrop-strong: blur(28px) saturate(200%);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.25);
-    --glass-border-light: 1px solid rgba(255, 255, 255, 0.15);
-    --glass-border-strong: 1px solid rgba(255, 255, 255, 0.35);
+    /* 玻璃态效果变量 - 黑白版本 */
+    --glass-backdrop: blur(20px) saturate(0%);
+    --glass-backdrop-light: blur(16px) saturate(0%);
+    --glass-backdrop-strong: blur(28px) saturate(0%);
+    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+    --glass-border-light: 1px solid rgba(0, 0, 0, 0.05);
+    --glass-border-strong: 1px solid rgba(0, 0, 0, 0.15);
     --glass-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 100%);
     --glass-highlight-light: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
     --glass-highlight-strong: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.08) 100%);
