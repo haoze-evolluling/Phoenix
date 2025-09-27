@@ -180,15 +180,11 @@ function applyBackgroundFromCache(settings) {
 
 // 恢复设置菜单状态
 function restoreSettingsMenuState(menuState) {
-    // 恢复展开的组
-    if (menuState.expandedGroups && menuState.expandedGroups.length > 0) {
-        menuState.expandedGroups.forEach(groupId => {
-            const group = document.querySelector(`[data-group="${groupId}"]`);
-            if (group) {
-                group.classList.add('expanded');
-            }
-        });
-    }
+    // 所有设置组默认展开，不再从缓存恢复折叠状态
+    const settingGroups = document.querySelectorAll('.setting-group');
+    settingGroups.forEach(group => {
+        group.classList.add('expanded');
+    });
     
     // 恢复活动标签
     if (menuState.activeTab) {
@@ -201,33 +197,25 @@ function restoreSettingsMenuState(menuState) {
 
 // 初始化设置菜单状态管理
 function initializeSettingsMenuState() {
-    // 为设置组添加展开/折叠功能
+    // 移除设置组的展开/折叠功能，所有设置项默认展开
     const settingGroups = document.querySelectorAll('.setting-group');
     settingGroups.forEach(group => {
+        group.classList.add('expanded'); // 确保所有设置组默认展开
         const header = group.querySelector('h3');
         if (header) {
-            header.style.cursor = 'pointer';
-            header.addEventListener('click', () => {
-                group.classList.toggle('expanded');
-                updateMenuStateCache();
-            });
+            // 移除点击事件和指针样式，禁用折叠功能
+            header.style.cursor = 'default';
+            // 移除任何已存在的事件监听器
+            header.replaceWith(header.cloneNode(true));
         }
     });
 }
 
 // 更新菜单状态缓存
 function updateMenuStateCache() {
-    const expandedGroups = [];
-    const settingGroups = document.querySelectorAll('.setting-group.expanded');
-    settingGroups.forEach(group => {
-        const groupId = group.dataset.group || group.querySelector('h3').textContent;
-        expandedGroups.push(groupId);
-    });
-    
-    SettingsCache.updateMenuState({
-        expandedGroups,
-        lastMenuUpdate: new Date().toISOString()
-    });
+    // 由于移除了折叠功能，不再缓存展开状态
+    // 保持函数存在但不再执行实际操作
+    return;
 }
 
 // 添加设置变更监听

@@ -693,27 +693,13 @@
     -ms-user-select: none;
 }
 
-/* 悬停效果已禁用 */
-
+/* 移除折叠功能 - 隐藏箭头图标 */
 .setting-group h3::after {
-    content: '▼';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    opacity: 0.7;
-}
-
-.setting-group.expanded h3::after {
-    transform: translateY(-50%) rotate(180deg);
-}
-
-.setting-group:not(.expanded) .setting-item {
     display: none;
 }
 
-.setting-group.expanded .setting-item {
+/* 移除折叠功能 - 所有设置项默认显示 */
+.setting-group .setting-item {
     display: flex;
 }
 
