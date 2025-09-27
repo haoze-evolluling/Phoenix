@@ -24,8 +24,6 @@
     opacity: 0.8;
 }
 
-/* 悬停效果已禁用 */
-
 .nav-buttons {
     display: flex;
     gap: 10px;
@@ -88,10 +86,6 @@
 
 .nav-btn i {
     font-size: 16px;
-}
-
-.nav-btn span {
-    /* styling for navigation button text */
 }
 
 /* 聚焦状态 - 修复点击后变白的问题 */
